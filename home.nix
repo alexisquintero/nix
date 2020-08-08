@@ -16,22 +16,32 @@ let
     readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
 
     bashrc = builtins.readFile ./dotfiles/.bashrc;
-    profile = builtins.readFile ./dotfiles/.profile;
 
 in
 {
 
   home = {
-    sessionVariables = {
+    sessionVariables =
+    let
+      is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
+      wsl-env-vars = {
+        LIBGL_ALWAYS_INDIRECT = "1";
+        DISPLAY = "\$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0";
+      };
+      extra-env-vars = if is-wsl then wsl-env-vars else {};
+    in
+    {
       EDITOR = "vim";
       VISUAL = "vim";
       LESSHISTFILE="-";
-      LIBGL_ALWAYS_INDIRECT="1";
-    };
+    }
+    //
+    extra-env-vars;
 
     packages = with pkgs; [
       st
       i3status
+      dejavu_fonts
     ];
   };
 
@@ -67,7 +77,9 @@ in
       enable = true;
       historyFile = "\$HOME/.config/bash/bash_history"; # TODO: ues XDG_CONFIG_HOME or similar
       initExtra = bashrc;
-      profileExtra = profile;
+      profileExtra = ''
+        . $HOME/.nix-profile/etc/profile.d/nix.sh
+      '';
     };
 
     neovim = {
