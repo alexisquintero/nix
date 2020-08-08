@@ -42,8 +42,15 @@ in
       st
       i3status
       dejavu_fonts
+      keepass
+      clojure-lsp
+      rnix-lsp
     ];
   };
+
+  imports = [
+    ./vim.nix
+  ];
 
   programs = {
 
@@ -55,6 +62,13 @@ in
       enable = true;
       userName = "Alexis Quinntero";
       userEmail = "alexis_quintero@hotmail.com.ar";
+      ignores = [
+        "*.bloop"
+        "*.metals"
+        "*.metals.sbt"
+        "*metals.sbt"
+        "*.mill-version"
+      ];
 
       aliases = {
         co = "checkout";
@@ -80,13 +94,6 @@ in
       profileExtra = ''
         . $HOME/.nix-profile/etc/profile.d/nix.sh
       '';
-    };
-
-    neovim = {
-      enable = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      withNodeJs = true;
     };
 
     fzf = {
