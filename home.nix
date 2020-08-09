@@ -7,14 +7,10 @@ let
     };
 
     tmux-conf = builtins.readFile ./dotfiles/.tmux.conf;
-
     dunstrc = builtins.readFile ./dotfiles/.config/dunst/dunstrc; # TODO: use
-
-    i3config = builtins.readFile ./dotfiles/.config/i3/config;
+    i3config = builtins.readFile ./dotfiles/.config/i3/config; # TODO: use
     i3statusconfig = builtins.readFile ./dotfiles/.config/i3/i3status; # TODO: use
-
     readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
-
     bashrc = builtins.readFile ./dotfiles/.bashrc;
 
 in
@@ -34,6 +30,7 @@ in
       EDITOR = "vim";
       VISUAL = "vim";
       LESSHISTFILE="-";
+      XDG_DATA_DIRS="\$HOME/.nix-profile/share:\$XDG_DATA_DIRS";
     }
     //
     extra-env-vars;
@@ -41,10 +38,12 @@ in
     packages = with pkgs; [
       st
       i3status
+      dmenu
       dejavu_fonts
       keepass
       clojure-lsp
       rnix-lsp
+      # ripgrep # TODO: Vim fzf
     ];
   };
 
@@ -119,6 +118,19 @@ in
       enable = true;
     };
 
+    chromium = {
+      enable = true;
+      extensions = [
+        "pkehgijcmpdhfbdbbnkijodmdjhbjlgp" # Privacy badger
+        "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark reader
+        "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS everywhere
+        "immpkjjlgappgfkkfieppnmlhakdmaab" # Imagus
+        "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Res
+        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
+        "dgogifpkoilgiofhhhodbodcfgomelhe" # wasavi
+      ];
+    };
+
   };
 
   services = {
@@ -141,7 +153,10 @@ in
 
       i3 = {
         enable = true;
-        extraConfig = i3config;
+        # config.bars = with pkgs; [
+        #   i3status
+        # ];
+        # extraConfig = i3config;
       };
 
     };
