@@ -1,12 +1,26 @@
-{ pkgs, buildVimPlugin, ...}:
+{ pkgs, ...}:
 
 let
-  # vim-substrata = {
-  #   name = "vim-substrata";
-  #   src = {
-  #     url = "https://github.com/arzg/vim-substrata";
-  #   };
-  # };
+
+  buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
+
+  vim-substrata = buildVimPlugin {
+    name = "vim-substrata";
+    src = builtins.fetchGit {
+      url = "https://github.com/arzg/vim-substrata";
+      ref = "master";
+    };
+    dependencies = [];
+  };
+
+  vim-printer = buildVimPlugin {
+    name = "vim-printer";
+    src = builtins.fetchGit {
+      url = "https://github.com/meain/vim-printer";
+      ref = "master";
+    };
+    dependencies = [];
+  };
 
   plugins = with pkgs.vimPlugins; [
     vim-gitgutter
@@ -21,13 +35,12 @@ let
     vim-fireplace
     vim-rhubarb
     vim-nix
+    vim-printer
     fzf-vim
     i3config-vim
     targets-vim
 
-    # vim-printer
-
-    # vim-substrata
+    vim-substrata
     nord-vim
 
     coc-metals
@@ -37,7 +50,7 @@ let
   settings = builtins.readFile ./.vim/settings.vim;
   mappings = builtins.readFile ./.vim/mappings.vim;
   # colorscheme = builtins.readFile ./.vim/colorscheme.vim;
-  extra = "colorscheme nord";
+  extra = "colorscheme substrata";
 
   coc-settings =            builtins.readFile ./.vim/pluginsettings/coc.vim;
   fzf-settings =            builtins.readFile ./.vim/pluginsettings/fzf.vim;
