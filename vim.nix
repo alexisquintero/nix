@@ -58,7 +58,7 @@ let
     gitgutter-settings +
     i3config-settings +
     netrw-settings +
-    # sandwich-settings + # TODO: Fix
+    sandwich-settings +
     sexp-settings +
     targets-settings +
     vim-cool-settings +
