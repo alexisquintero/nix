@@ -8,7 +8,7 @@ let
 
     tmux-conf = builtins.readFile ./dotfiles/.tmux.conf;
     dunstrc = builtins.readFile ./dotfiles/.config/dunst/dunstrc; # TODO: use
-    i3config = builtins.readFile ./dotfiles/.config/i3/config; # TODO: use
+    i3config = builtins.readFile ./dotfiles/.config/i3/config;
     i3statusconfig = builtins.readFile ./dotfiles/.config/i3/i3status; # TODO: use
     readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
     bashrc = builtins.readFile ./dotfiles/.bashrc;
@@ -17,6 +17,12 @@ in
 {
 
   home = {
+
+    keyboard = {
+      layout = "us";
+      variant = "altgr-intl";
+    };
+
     sessionVariables =
     let
       is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
@@ -37,15 +43,17 @@ in
 
     packages = with pkgs; [
       st
-      i3status
       dmenu
       dejavu_fonts
       keepass
       clojure-lsp
       rnix-lsp
+      haskellPackages.xmobar
       # ripgrep # TODO: Vim fzf
     ];
   };
+
+  xdg.enable = true;
 
   imports = [
     ./vim.nix
@@ -105,10 +113,6 @@ in
       extraConfig = tmux-conf;
     };
 
-    # i3status = {
-    #   enable = true;
-    # };
-
     readline = {
       enable = true;
       extraConfig = readlinerc;
@@ -128,6 +132,7 @@ in
         "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Res
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
         "dgogifpkoilgiofhhhodbodcfgomelhe" # wasavi
+        "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
       ];
     };
 
@@ -147,19 +152,33 @@ in
 
   };
 
-  xsession = {
+  xsession =
+    let
 
-    windowManager = {
-
-      i3 = {
+      wmi3 = {
         enable = true;
-        # config.bars = with pkgs; [
-        #   i3status
-        # ];
-        # extraConfig = i3config;
+        config = null;
+        extraConfig = i3config;
       };
 
-    };
+      wmxmonad = {
+        enable = true;
+        config = ./dotfiles/.xmonad/xmonad.hs;
+        extraPackages = haskellPackages: [
+          haskellPackages.xmonad-contrib
+          haskellPackages.xmonad-extras
+          haskellPackages.xmonad
+        ];
+      };
+
+    in
+    {
+
+      windowManager = {
+        # command = "exec xmonad"; # "${pkgs.xmonad}/bin/xmonad";
+        # i3 = wmi3;
+        xmonad = wmxmonad;
+      };
 
   };
 
