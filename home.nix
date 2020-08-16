@@ -16,6 +16,8 @@ in
 
   # targets.genericLinux.enable = true;
 
+  fonts.fontconfig.enable = true;
+
   home = {
 
     keyboard = {
@@ -45,7 +47,6 @@ in
       st
       dmenu
       dejavu_fonts
-      freefont_ttf
       keepass
       haskellPackages.xmobar
       rnix-lsp
@@ -55,6 +56,10 @@ in
       clojure-lsp
       leiningen
       ripgrep
+      scrot
+      slack
+      docker
+      mpv
     ];
   };
 
@@ -160,6 +165,10 @@ in
     };
 
     dunst = {
+      enable = true;
+    };
+
+    xscreensaver = {
       enable = true;
     };
 
