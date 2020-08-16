@@ -7,14 +7,14 @@ let
     };
 
     tmux-conf = builtins.readFile ./dotfiles/.tmux.conf;
-    dunstrc = builtins.readFile ./dotfiles/.config/dunst/dunstrc; # TODO: use
     i3config = builtins.readFile ./dotfiles/.config/i3/config;
-    i3statusconfig = builtins.readFile ./dotfiles/.config/i3/i3status; # TODO: use
     readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
     bashrc = builtins.readFile ./dotfiles/.bashrc;
 
 in
 {
+
+  # targets.genericLinux.enable = true;
 
   home = {
 
@@ -45,15 +45,24 @@ in
       st
       dmenu
       dejavu_fonts
+      freefont_ttf
       keepass
-      clojure-lsp
-      rnix-lsp
       haskellPackages.xmobar
-      # ripgrep # TODO: Vim fzf
+      rnix-lsp
+      scala
+      sbt
+      clojure
+      clojure-lsp
+      leiningen
+      ripgrep
     ];
   };
 
-  xdg.enable = true;
+  xdg = {
+    enable = true;
+    configFile."dunst/dunstrc".source = ./dotfiles/.config/dunst/dunstrc;
+    configFile."i3/i3status".source = ./dotfiles/.config/i3/i3status;
+  };
 
   imports = [
     ./vim.nix
@@ -134,6 +143,10 @@ in
         "dgogifpkoilgiofhhhodbodcfgomelhe" # wasavi
         "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
       ];
+    };
+
+    firefox = {
+      enable = true;
     };
 
   };
