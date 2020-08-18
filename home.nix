@@ -67,6 +67,7 @@ in
     enable = true;
     configFile."dunst/dunstrc".source = ./dotfiles/.config/dunst/dunstrc;
     configFile."i3/i3status".source = ./dotfiles/.config/i3/i3status;
+    configFile."xmobar/xmobarrc".source = ./dotfiles/.config/xmobar/xmobarrc;
   };
 
   imports = [
