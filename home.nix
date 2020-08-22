@@ -57,7 +57,6 @@ in
       leiningen
       ripgrep
       scrot
-      slack
       docker
       mpv
     ];
@@ -92,19 +91,24 @@ in
         "*.mill-version"
       ];
 
-      aliases = {
+      aliases =
+        let
+          formatLog = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short";
+          statusCompre = branch: "rev-list --left-right --count origin/${branch}...HEAD";
+        in
+        {
         co = "checkout";
         br = "branch";
         s = "status";
         c = "commit";
-        l = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short -30";
-        l2 = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short";
+        l = "${formatLog} -30";
+        l2 = "${formatLog}";
         f = "fetch";
         gud = "commit --amend --no-edit";
         r = "rebase";
         d = "diff";
-        dm = "rev-list --left-right --count origin/master...HEAD";
-        dd = "rev-list --left-right --count origin/develop...HEAD";
+        dm = statusCompre "master";
+        dd = statusCompre "develop";
         fixup = "!sha=\$( git -c color.ui=always log --oneline -n 1000 | fzf +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup \"\${sha%% *}\"";
       };
     };
