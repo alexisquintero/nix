@@ -67,6 +67,7 @@ in
       docker
       mpv
       comma
+      openjdk
     ];
   };
 
