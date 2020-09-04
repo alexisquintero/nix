@@ -64,10 +64,10 @@ in
       leiningen
       ripgrep
       scrot
-      docker
       mpv
       comma
       openjdk
+      xsel
     ];
   };
 
@@ -138,6 +138,7 @@ in
 
     tmux = {
       enable = true;
+      secureSocket = false;
       extraConfig = tmux-conf;
     };
 
