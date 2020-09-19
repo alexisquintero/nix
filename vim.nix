@@ -41,7 +41,7 @@ let
     targets-vim
 
     vim-substrata
-    nord-vim
+    # nord-vim
 
     coc-metals
     coc-json
@@ -49,7 +49,6 @@ let
 
   settings = builtins.readFile ./.vim/settings.vim;
   mappings = builtins.readFile ./.vim/mappings.vim;
-  # colorscheme = builtins.readFile ./.vim/colorscheme.vim;
   extra = "colorscheme substrata";
 
   coc-settings =            builtins.readFile ./.vim/pluginsettings/coc.vim;
@@ -64,6 +63,7 @@ let
   vim-scala-settings =      builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
   vim-printer-settings =    builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
   clojure-syntax-settings = builtins.readFile ./.vim/pluginsettings/clojure-syntax.vim;
+  nord-vim-settings =       builtins.readFile ./.vim/pluginsettings/nord.vim;
 
   pluginSettings =
     coc-settings +
