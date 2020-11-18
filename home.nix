@@ -2,6 +2,8 @@
 
 let
 
+    unstable = import <unstable> {};
+
     st = pkgs.st.override {
       conf = builtins.readFile ./dotfiles/st/config.h;
     };
@@ -50,7 +52,7 @@ in
     //
     extra-env-vars;
 
-    packages = with pkgs; [
+    packages = (with pkgs; [
       st
       dmenu
       dejavu_fonts
@@ -68,7 +70,10 @@ in
       comma
       openjdk
       xsel
-    ];
+      ghc
+    ]) ++ (with unstable; [
+        haskellPackages.haskell-language-server
+    ]);
   };
 
   xdg = {
