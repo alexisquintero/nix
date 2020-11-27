@@ -2,8 +2,6 @@
 
 let
 
-    unstable = import <unstable> {};
-
     st = pkgs.st.override {
       conf = builtins.readFile ./dotfiles/st/config.h;
     };
@@ -71,8 +69,9 @@ in
       openjdk
       xsel
       ghc
-    ]) ++ (with unstable; [
-        haskellPackages.haskell-language-server
+      libnotify
+      docker-compose
+      haskellPackages.haskell-language-server
     ]);
   };
 
@@ -172,6 +171,11 @@ in
 
     firefox = {
       enable = true;
+    };
+
+    dircolors = {
+      enable = true;
+      enableBashIntegration = true;
     };
 
   };
