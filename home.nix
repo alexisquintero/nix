@@ -72,6 +72,7 @@ in
       libnotify
       docker-compose
       haskellPackages.haskell-language-server
+      pulsemixer
     ]);
   };
 
