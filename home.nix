@@ -197,6 +197,16 @@ in
       enable = true;
     };
 
+    redshift = {
+      enable = true;
+      brightness = {
+        day = "0.6";
+        night = "0.3";
+      };
+      latitude = "32";
+      longitude = "60";
+    };
+
   };
 
   xsession =
