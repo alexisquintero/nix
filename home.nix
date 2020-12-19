@@ -27,6 +27,10 @@ in
 
   home = {
 
+    username = "alexis";
+    homeDirectory = "/home/alexis";
+    stateVersion = "21.03";
+
     keyboard = {
       layout = "us";
       variant = "altgr-intl";
@@ -108,7 +112,7 @@ in
       aliases =
         let
           formatLog = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short";
-          statusCompre = branch: "rev-list --left-right --count origin/${branch}...HEAD";
+          statusCompare = branch: "rev-list --left-right --count origin/${branch}...HEAD";
         in
         {
         co = "checkout";
@@ -121,8 +125,8 @@ in
         gud = "commit --amend --no-edit";
         r = "rebase";
         d = "diff";
-        dm = statusCompre "master";
-        dd = statusCompre "develop";
+        dm = statusCompare "master";
+        dd = statusCompare "develop";
         fixup = "!sha=\$( git -c color.ui=always log --oneline -n 1000 | fzf +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup \"\${sha%% *}\"";
       };
     };
@@ -200,11 +204,11 @@ in
     redshift = {
       enable = true;
       brightness = {
-        day = "0.6";
-        night = "0.3";
+        day = "0.7";
+        night = "0.5";
       };
-      latitude = "32";
-      longitude = "60";
+      latitude = "-32";
+      longitude = "-60";
     };
 
   };
