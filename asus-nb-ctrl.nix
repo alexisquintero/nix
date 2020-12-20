@@ -1,4 +1,9 @@
-{ lib, rustPlatform, pkgs }:
+{ pkgs ? import <nixpkgs> {} }:
+
+let
+  rustPlatform = pkgs.rustPlatform;
+  lib = pkgs.stdenv.lib;
+in
 
 rustPlatform.buildRustPackage rec {
   name = "ASUS-NB-Ctrl";
