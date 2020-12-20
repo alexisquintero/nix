@@ -1,13 +1,11 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 let
   nvidia = false;
   kernelPackages = pkgs.linuxPackages_latest;
   kernel = kernelPackages.kernel;
+  asus-nb-ctrl = import ../asus-nb-ctrl/default.nix { inherit pkgs; };
+
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -15,6 +13,7 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec -a "$0" "$@"
   '';
+
   buildAsusDkms = name: src: pkgs.stdenv.mkDerivation {
     inherit name src;
     nativeBuildInputs = [
@@ -27,11 +26,13 @@ let
       make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd) INSTALL_MOD_PATH=$out modules_install
     '';
   };
+
   hid_asus_rog = buildAsusDkms "hid-asus-rog" (builtins.fetchGit {
     url = "https://gitlab.com/asus-linux/hid-asus-rog.git";
     ref = "main";
     rev = "c7af42151619cbd88d5eec718bd109f7a4d2636f";
   });
+
   asus_rog_nb_wmi = buildAsusDkms "asus-rog-nb-wmi" (builtins.fetchGit {
     url = "https://gitlab.com/asus-linux/asus-rog-nb-wmi.git";
     ref = "main";
@@ -44,7 +45,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-      ./asus-nb-ctrl.services.nix
+      ../asus-nb-ctrl/asus-nb-ctrl.services.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -84,7 +85,10 @@ in
   time.timeZone = "America/Argentina/Buenos_Aires";
 
   environment.systemPackages = with pkgs; [
-    wget vim git nvidia-offload
+    wget vim git
+  ] ++ [
+    nvidia-offload
+    asus-nb-ctrl
   ];
 
   sound.enable = true;
