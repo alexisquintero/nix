@@ -13,8 +13,6 @@ let
       sha256 = "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1";
     }) {};
 
-    asus-nb-ctrl = import ./asus-nb-ctrl.nix { inherit pkgs; };
-
     tmux-conf = builtins.readFile ./dotfiles/.tmux.conf;
     i3config = builtins.readFile ./dotfiles/.config/i3/config;
     readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
@@ -81,7 +79,6 @@ in
     [
       st
       comma
-      asus-nb-ctrl
     ];
   };
 

@@ -37,13 +37,14 @@ let
     ref = "main";
     rev = "d57f78521a4a1cc974b4a1e01560e3b556cab174";
   });
+
 in
 
 {
   imports =
     [ # Include the results of the hardware scan.
-      # ./hardware-configuration.nix
       /etc/nixos/hardware-configuration.nix
+      ./asus-nb-ctrl.services.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
