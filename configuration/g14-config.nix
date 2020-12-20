@@ -139,10 +139,12 @@ in
     isNormalUser = true;
     createHome = true;
     home = "/home/alexis";
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" ];
   };
 
   nix.allowedUsers = [ "alexis" ];
+
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
