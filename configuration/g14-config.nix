@@ -4,7 +4,6 @@ let
   nvidia = false;
   kernelPackages = pkgs.linuxPackages_latest;
   kernel = kernelPackages.kernel;
-  asus-nb-ctrl = import ../asus-nb-ctrl/default.nix { inherit pkgs; };
 
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -45,7 +44,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-      ../asus-nb-ctrl/asus-nb-ctrl.services.nix
+      ../asus-nb-ctrl/default.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -88,7 +87,6 @@ in
     wget vim git
   ] ++ [
     nvidia-offload
-    asus-nb-ctrl
   ];
 
   sound.enable = true;
