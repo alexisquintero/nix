@@ -21,7 +21,7 @@ let
 in
 {
 
-  targets.genericLinux.enable = true;
+  # targets.genericLinux.enable = true;
 
   fonts.fontconfig.enable = true;
 
@@ -101,7 +101,7 @@ in
 
     git = {
       enable = true;
-      userName = "Alexis Quinntero";
+      userName = "Alexis Quintero";
       userEmail = "alexis_quintero@hotmail.com.ar";
       ignores = [
         "*.bloop"

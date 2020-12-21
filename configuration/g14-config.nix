@@ -56,9 +56,6 @@ in
     };
 
     kernelPackages = kernelPackages;
-    # kernelPatches = [
-    #   { name = "soundfix"; patch = ./0004-alsa-hda-ga401-ga502-experimental.patch; }
-    # ];
     blacklistedKernelModules = [ "nouveau" "hid-asus" ];
     extraModulePackages = [ hid_asus_rog asus_rog_nb_wmi ];
     kernelModules = [ "hid-asus-rog" "asus-rog-nb-wmi" ];
@@ -84,7 +81,7 @@ in
   time.timeZone = "America/Argentina/Buenos_Aires";
 
   environment.systemPackages = with pkgs; [
-    wget vim git
+    wget vim
   ] ++ [
     nvidia-offload
   ];
