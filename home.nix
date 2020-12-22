@@ -2,6 +2,8 @@
 
 let
 
+  lib = pkgs.stdenv.lib;
+
   st = pkgs.st.override {
     conf = builtins.readFile ./dotfiles/st/config.h;
   };
@@ -138,9 +140,9 @@ in
       enable = true;
       historyFile = "\$HOME/.config/bash/bash_history"; # TODO: ues XDG_CONFIG_HOME or similar
       initExtra = bashrc;
-      profileExtra = if is-wsl then ''
+      profileExtra = lib.mkIf is-wsl ''
         . $HOME/.nix-profile/etc/profile.d/nix.sh
-      '' else "";
+      '';
     };
 
     fzf = {

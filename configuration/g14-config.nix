@@ -62,7 +62,7 @@ in
   };
 
   powerManagement = {
-    cpuFreqGovernor = "schedutil";
+    cpuFreqGovernor = "powersave";
   };
 
   # services.thermald.enable = true;
@@ -70,13 +70,9 @@ in
   networking = {
     hostName = "nixos-g14";
     networkmanager.enable = true;
+    useDHCP = false;
+    interfaces.wlp2s0.useDHCP = true;
   };
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.wlp2s0.useDHCP = true;
 
   time.timeZone = "America/Argentina/Buenos_Aires";
 
@@ -86,48 +82,61 @@ in
     nvidia-offload
   ];
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
+  };
 
-  hardware.nvidia = pkgs.lib.mkIf nvidia {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    # powerManagement.finegrained = true;
-    prime = {
-      # amdgpuBusId = "PCI:4:0:0";
-      nvidiaBusId = "PCI:1:0:0";
-      offload.enable = true;
-      #sync.enable = true;  # Do all rendering on the dGPU
+  hardware = {
+
+    pulseaudio.enable = true;
+
+    nvidia = pkgs.lib.mkIf nvidia {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      # powerManagement.finegrained = true;
+      prime = {
+        # amdgpuBusId = "PCI:4:0:0";
+        nvidiaBusId = "PCI:1:0:0";
+        offload.enable = true;
+        # sync.enable = true;  # Do all rendering on the dGPU
+      };
     };
-  };
 
-  services.udev.extraRules = pkgs.lib.mkIf (!nvidia) ''
-    # Remove nVidia devices, when present.
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{remove}="1"
-  '';
-
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver = { modules = [pkgs.xorg.xf86videofbdev ];
-    videoDrivers = [ (if nvidia then "nvidia" else "amdgpu") ];
-    enable = true;
-    layout = "us";
-    xkbVariant = "altgr-intl";
-    libinput.enable = true;
-    windowManager.xmonad = {
+    opengl = {
       enable = true;
-      enableContribAndExtras = true;
-      extraPackages = haskellPackages: [
-        haskellPackages.xmonad-contrib
-        haskellPackages.xmonad-extras
-        haskellPackages.xmonad
-      ];
+      driSupport32Bit = true;
     };
-    displayManager.defaultSession = "none+xmonad";
+
+  };
+
+  services = {
+    udev.extraRules = pkgs.lib.mkIf (!nvidia) ''
+      # Remove nVidia devices, when present.
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{remove}="1"
+    '';
+
+    xserver = {
+      videoDrivers = [ (if nvidia then "nvidia" else "amdgpu") ];
+      enable = true;
+      layout = "us";
+      xkbVariant = "altgr-intl";
+      libinput = {
+        enable = true;
+        disableWhileTyping = true;
+      };
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        extraPackages = haskellPackages: [
+          haskellPackages.xmonad-contrib
+          haskellPackages.xmonad-extras
+          haskellPackages.xmonad
+        ];
+      };
+      displayManager.defaultSession = "none+xmonad";
+    };
+
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -153,8 +162,6 @@ in
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

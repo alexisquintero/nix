@@ -43,6 +43,17 @@ in {
 
   environment.systemPackages = [ asus-nb-ctrl ];
 
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      {
+        keys = [ 203 ];
+        events = [ "key" ];
+        command = "${asus-nb-ctrl}/bin/asusctl profile -n";
+      }
+    ];
+  };
+
   systemd.services = {
     asusd = {
       serviceConfig = {
