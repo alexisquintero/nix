@@ -18,10 +18,12 @@ let
   readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
   bashrc = builtins.readFile ./dotfiles/.bashrc;
 
+  is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
+
 in
 {
 
-  # targets.genericLinux.enable = true;
+  targets.genericLinux.enable = is-wsl;
 
   fonts.fontconfig.enable = true;
 
@@ -38,7 +40,6 @@ in
 
     sessionVariables =
     let
-      is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
       wsl-env-vars = {
         LIBGL_ALWAYS_INDIRECT = "1";
         DISPLAY = "\$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0";
@@ -137,9 +138,9 @@ in
       enable = true;
       historyFile = "\$HOME/.config/bash/bash_history"; # TODO: ues XDG_CONFIG_HOME or similar
       initExtra = bashrc;
-      profileExtra = ''
+      profileExtra = if is-wsl then ''
         . $HOME/.nix-profile/etc/profile.d/nix.sh
-      '';
+      '' else "";
     };
 
     fzf = {
