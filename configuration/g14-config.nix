@@ -13,6 +13,16 @@ let
     exec -a "$0" "$@"
   '';
 
+  toggle-touchpad = pkgs.writeShellScriptBin "toggle-touchpad" ''
+    #!/run/current-system/sw/bin/bash
+    #!${pkgs.bash}/bin/bash
+
+    device=$(xinput list | grep -oP ".*Touchpad.*id=\K\d+")
+    state=$(xinput list-props "$device" | grep "Device Enabled.*1$")
+
+    [ -z "$state" ] && xinput --enable "$device" || xinput --disable "$device"
+  '';
+
   buildAsusDkms = name: src: pkgs.stdenv.mkDerivation {
     inherit name src;
     nativeBuildInputs = [
@@ -79,7 +89,7 @@ in
   environment.systemPackages = with pkgs; [
     wget vim
   ] ++ [
-    nvidia-offload
+    nvidia-offload toggle-touchpad
   ];
 
   sound = {
@@ -135,47 +145,6 @@ in
       };
       displayManager.defaultSession = "none+xmonad";
     };
-
-    actkbd = {
-      enable = true;
-      bindings =
-        let
-          runAsUser = cmd : "/run/current-system/sw/bin/runuser -l alexis -c '${cmd}'";
-        in [
-        {
-          keys = [ 113 ];
-          events = [ "key" ];
-          command = runAsUser "amixer -q set Master toggle";
-        }
-        {
-          keys = [ 114 ];
-          events = [ "key" "rep" ];
-          command = runAsUser "amixer -q set Master 5%- unmute";
-        }
-        {
-          keys = [ 115 ];
-          events = [ "key" "rep" ];
-          command = runAsUser "amixer -q set Master 5%+ unmute";
-        }
-        {
-          keys = [ 224 ];
-          events = [ "key" "rep" ];
-          command = runAsUser "light -U 10";
-        }
-        {
-          keys = [ 225 ];
-          events = [ "key" "rep" ];
-          command = runAsUser "light -A 10";
-        }
-      ];
-    };
-
-    # 191 toggle touchpad
-    # 148 rog
-    # 165 media back
-    # 164 media pause/play
-    # 163 media next
-    # 248 mute mic
 
   };
 
