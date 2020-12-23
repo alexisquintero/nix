@@ -84,7 +84,6 @@ in
 
   sound = {
     enable = true;
-    mediaKeys.enable = true;
   };
 
   hardware = {
@@ -137,6 +136,47 @@ in
       displayManager.defaultSession = "none+xmonad";
     };
 
+    actkbd = {
+      enable = true;
+      bindings =
+        let
+          runAsUser = cmd : "/run/current-system/sw/bin/runuser -l alexis -c '${cmd}'";
+        in [
+        {
+          keys = [ 113 ];
+          events = [ "key" ];
+          command = runAsUser "amixer -q set Master toggle";
+        }
+        {
+          keys = [ 114 ];
+          events = [ "key" "rep" ];
+          command = runAsUser "amixer -q set Master 5%- unmute";
+        }
+        {
+          keys = [ 115 ];
+          events = [ "key" "rep" ];
+          command = runAsUser "amixer -q set Master 5%+ unmute";
+        }
+        {
+          keys = [ 224 ];
+          events = [ "key" "rep" ];
+          command = runAsUser "light -U 10";
+        }
+        {
+          keys = [ 225 ];
+          events = [ "key" "rep" ];
+          command = runAsUser "light -A 10";
+        }
+      ];
+    };
+
+    # 191 toggle touchpad
+    # 148 rog
+    # 165 media back
+    # 164 media pause/play
+    # 163 media next
+    # 248 mute mic
+
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -148,7 +188,7 @@ in
     isNormalUser = true;
     createHome = true;
     home = "/home/alexis";
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "video" "audio" ];
   };
 
   nix.allowedUsers = [ "alexis" ];
@@ -162,6 +202,10 @@ in
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  programs = {
+    light.enable = true;
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
