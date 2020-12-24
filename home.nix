@@ -21,6 +21,7 @@ let
   bashrc = builtins.readFile ./dotfiles/.bashrc;
   home-dir = "${config.home.homeDirectory}";
   profile-path = "${home-dir}/.profile";
+  git-compl-path = "/nix/var/nix/profiles/per-user/${config.home.username}/profile/share/bash-completion/completions/git";
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 
@@ -63,6 +64,10 @@ in
       [ -f ${profile-path} ] && source ${profile-path}
     '';
 
+    file.".haskeline".text = ''
+      editMode: Vi
+    '';
+
     packages = (with pkgs; [
       dmenu
       dejavu_fonts
@@ -80,6 +85,7 @@ in
       openjdk
       xsel
       ghc
+      stack
       libnotify
       docker-compose
       haskellPackages.haskell-language-server
@@ -145,7 +151,9 @@ in
     bash = {
       enable = true;
       historyFile = "${home-dir}/.config/bash/bash_history";
-      initExtra = bashrc;
+      initExtra =
+        "[ -f ${git-compl-path} ] && source ${git-compl-path} " +
+        bashrc;
       profileExtra = lib.mkIf is-wsl ''
         . ${home-dir}/.nix-profile/etc/profile.d/nix.sh
       '';
