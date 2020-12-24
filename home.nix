@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
 
@@ -19,6 +19,8 @@ let
   i3config = builtins.readFile ./dotfiles/.config/i3/config;
   readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
   bashrc = builtins.readFile ./dotfiles/.bashrc;
+  home-dir = "${config.home.homeDirectory}";
+  profile-path = "${home-dir}/.profile";
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 
@@ -51,11 +53,15 @@ in
     {
       EDITOR = "vim";
       VISUAL = "vim";
-      LESSHISTFILE="-";
-      # XDG_DATA_DIRS="\$HOME/.nix-profile/share:\$XDG_DATA_DIRS";
+      LESSHISTFILE = "-";
+      # XDG_DATA_DIRS="${home-dir}/.nix-profile/share:\$XDG_DATA_DIRS";
     }
     //
     extra-env-vars;
+
+    file.".xprofile".text = ''
+      [ -f ${profile-path} ] && source ${profile-path}
+    '';
 
     packages = (with pkgs; [
       dmenu
@@ -138,10 +144,10 @@ in
 
     bash = {
       enable = true;
-      historyFile = "\$HOME/.config/bash/bash_history"; # TODO: ues XDG_CONFIG_HOME or similar
+      historyFile = "${home-dir}/.config/bash/bash_history";
       initExtra = bashrc;
       profileExtra = lib.mkIf is-wsl ''
-        . $HOME/.nix-profile/etc/profile.d/nix.sh
+        . ${home-dir}/.nix-profile/etc/profile.d/nix.sh
       '';
     };
 
