@@ -70,14 +70,14 @@ in {
         ExecStart = "${asus-nb-ctrl}/bin/asusd";
         Restart = "always";
       };
-      enable = true;
+      wantedBy = [ "multi-user.target" ];
     };
 
     asus-notify = {
       serviceConfig = {
         ExecStart = "${asus-nb-ctrl}/bin/asus-notify";
       };
-      enable = true;
+      partOf = [ "asusd.service" ];
     };
   };
 
