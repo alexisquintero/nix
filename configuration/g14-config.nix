@@ -14,7 +14,6 @@ let
   '';
 
   toggle-touchpad = pkgs.writeShellScriptBin "toggle-touchpad" ''
-    #!/run/current-system/sw/bin/bash
     #!${pkgs.bash}/bin/bash
 
     device=$(xinput list | grep -oP ".*Touchpad.*id=\K\d+")
