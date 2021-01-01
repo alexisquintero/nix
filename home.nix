@@ -8,17 +8,11 @@ let
     conf = builtins.readFile ./dotfiles/st/config.h;
   };
 
-  comma = import ( pkgs.fetchFromGitHub {
-    owner = "Shopify";
-    repo = "comma";
-    rev = "4a62ec17e20ce0e738a8e5126b4298a73903b468";
-    sha256 = "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1";
-  }) {};
-
   tmux-conf = builtins.readFile ./dotfiles/.tmux.conf;
   i3config = builtins.readFile ./dotfiles/.config/i3/config;
   readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
   bashrc = builtins.readFile ./dotfiles/.bashrc;
+
   home-dir = "${config.home.homeDirectory}";
   profile-path = "${home-dir}/.profile";
   git-compl-path = "/nix/var/nix/profiles/per-user/${config.home.username}/profile/share/bash-completion/completions/git";
@@ -55,7 +49,6 @@ in
       EDITOR = "vim";
       VISUAL = "vim";
       LESSHISTFILE = "-";
-      # XDG_DATA_DIRS="${home-dir}/.nix-profile/share:\$XDG_DATA_DIRS";
     }
     //
     extra-env-vars;
@@ -93,7 +86,6 @@ in
     ]) ++
     [
       st
-      comma
     ];
   };
 
@@ -102,6 +94,10 @@ in
     configFile."dunst/dunstrc".source = ./dotfiles/.config/dunst/dunstrc;
     configFile."i3/i3status".source = ./dotfiles/.config/i3/i3status;
     configFile."xmobar/xmobarrc".source = ./dotfiles/.config/xmobar/xmobarrc;
+    configFile."git/config".source = ./dotfiles/.config/git/config;
+    configFile."git/git-prompt.sh".source = builtins.fetchurl {
+      url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh";
+    };
   };
 
   imports = [
@@ -116,8 +112,6 @@ in
 
     git = {
       enable = true;
-      userName = "Alexis Quintero";
-      userEmail = "alexis_quintero@hotmail.com.ar";
       ignores = [
         "*.bloop"
         "*.metals"
@@ -125,34 +119,13 @@ in
         "*metals.sbt"
         "*.mill-version"
       ];
-
-      aliases =
-        let
-          formatLog = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short";
-          statusCompare = branch: "rev-list --left-right --count origin/${branch}...HEAD";
-        in
-        {
-        co = "checkout";
-        br = "branch";
-        s = "status";
-        c = "commit";
-        l = "${formatLog} -30";
-        l2 = "${formatLog}";
-        f = "fetch";
-        gud = "commit --amend --no-edit";
-        r = "rebase";
-        d = "diff";
-        dm = statusCompare "master";
-        dd = statusCompare "develop";
-        fixup = "!sha=\$( git -c color.ui=always log --oneline -n 1000 | fzf +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup \"\${sha%% *}\"";
-      };
     };
 
     bash = {
       enable = true;
       historyFile = "${home-dir}/.config/bash/bash_history";
       initExtra =
-        "[ -f ${git-compl-path} ] && source ${git-compl-path} " +
+        "[ -f ${git-compl-path} ] && source ${git-compl-path}\n" +
         bashrc;
       profileExtra = lib.mkIf is-wsl ''
         . ${home-dir}/.nix-profile/etc/profile.d/nix.sh
@@ -236,7 +209,7 @@ in
     let
 
       wmi3 = {
-        enable = true;
+        # enable = true;
         config = null;
         extraConfig = i3config;
       };
@@ -255,7 +228,6 @@ in
     {
 
       windowManager = {
-        # command = "exec xmonad"; # "${pkgs.xmonad}/bin/xmonad";
         # i3 = wmi3;
         xmonad = wmxmonad;
       };
