@@ -53,51 +53,28 @@ in
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      ./common.nix
       ../asus-nb-ctrl/default.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-      grub.useOSProber = true;
-    };
-
     kernelPackages = kernelPackages;
     blacklistedKernelModules = [ "nouveau" "hid-asus" ];
     extraModulePackages = [ hid_asus_rog asus_rog_nb_wmi ];
     kernelModules = [ "hid-asus-rog" "asus-rog-nb-wmi" ];
   };
 
-  powerManagement = {
-    cpuFreqGovernor = "powersave";
-  };
-
   # services.thermald.enable = true;
 
-  networking = {
-    hostName = "nixos-g14";
-    networkmanager.enable = true;
-    useDHCP = false;
-    interfaces.wlp2s0.useDHCP = true;
-  };
+  networking.hostName = "nixos-g14";
 
-  time.timeZone = "America/Argentina/Buenos_Aires";
-
-  environment.systemPackages = with pkgs; [
-    wget vim
-  ] ++ [
-    nvidia-offload toggle-touchpad
+  environment.systemPackages = [
+    nvidia-offload
+    toggle-touchpad
   ];
 
-  sound = {
-    enable = true;
-  };
-
   hardware = {
-
-    pulseaudio.enable = true;
 
     nvidia = pkgs.lib.mkIf nvidia {
       modesetting.enable = true;
@@ -127,49 +104,13 @@ in
     xserver = {
       videoDrivers = [ (if nvidia then "nvidia" else "amdgpu") ];
       enable = true;
-      layout = "us";
-      xkbVariant = "altgr-intl";
       libinput = {
         enable = true;
         disableWhileTyping = true;
       };
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-        extraPackages = haskellPackages: [
-          haskellPackages.xmonad-contrib
-          haskellPackages.xmonad-extras
-          haskellPackages.xmonad
-        ];
-      };
-      displayManager.defaultSession = "none+xmonad";
     };
 
   };
-
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  users.users.alexis = {
-    isNormalUser = true;
-    createHome = true;
-    home = "/home/alexis";
-    extraGroups = [ "wheel" "docker" "video" "audio" ];
-  };
-
-  nix.allowedUsers = [ "alexis" ];
-
-  virtualisation.docker.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   programs = {
     light.enable = true;
