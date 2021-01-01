@@ -19,6 +19,13 @@ let
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 
+  create-shell = pkgs.writeShellScriptBin "create-shell" ''
+    #!${pkgs.bash}/bin/bash
+    # Takes an argument, the language, and creates a shell.nix file
+
+    cp ${home-dir}/.config/nixpkgs/shells/"$1"-shell.nix ./shell.nix
+  '';
+
 in
 {
 
@@ -67,25 +74,17 @@ in
       keepass
       haskellPackages.xmobar
       rnix-lsp
-      scala
-      sbt
-      clojure
-      clojure-lsp
-      leiningen
       ripgrep
       scrot
       mpv
-      openjdk
       xsel
-      ghc
-      stack
       libnotify
       docker-compose
-      haskellPackages.haskell-language-server
       pulsemixer
     ]) ++
     [
       st
+      create-shell
     ];
   };
 
