@@ -51,16 +51,6 @@ in {
         events = [ "key" ];
         command = "${asus-nb-ctrl}/bin/asusctl profile -n";
       }
-      {
-        keys = [ 229 ];
-        events = [ "key" ];
-        command = "${asus-nb-ctrl}/bin/asusctl -k off";
-      }
-      {
-        keys = [ 230 ];
-        events = [ "key" ];
-        command = "${asus-nb-ctrl}/bin/asusctl -k low";
-      }
     ];
   };
 
