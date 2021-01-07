@@ -14,7 +14,6 @@ let
   bashrc = builtins.readFile ./dotfiles/.bashrc;
 
   home-dir = "${config.home.homeDirectory}";
-  profile-path = "${home-dir}/.profile";
   git-compl-path = "/nix/var/nix/profiles/per-user/${config.home.username}/profile/share/bash-completion/completions/git";
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
@@ -59,10 +58,6 @@ in
     }
     //
     extra-env-vars;
-
-    file.".xprofile".text = ''
-      [ -f ${profile-path} ] && source ${profile-path}
-    '';
 
     file.".haskeline".text = ''
       editMode: Vi
@@ -226,6 +221,7 @@ in
     in
     {
 
+      enable = true;
       windowManager = {
         # i3 = wmi3;
         xmonad = wmxmonad;

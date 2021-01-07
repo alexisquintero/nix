@@ -1,6 +1,5 @@
 { pkgs ? import <nixpkgs> {}, ... }:
 
-
 {
 
   boot.loader = {
@@ -34,24 +33,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services = {
-
-    xserver = {
-      layout = "us";
-      xkbVariant = "altgr-intl";
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-        extraPackages = haskellPackages: [
-          haskellPackages.xmonad-contrib
-          haskellPackages.xmonad-extras
-          haskellPackages.xmonad
-        ];
-      };
-      displayManager.defaultSession = "none+xmonad";
-    };
-
-  };
+  services.xserver.desktopManager.xterm.enable = true;
 
   users.users.alexis = {
     isNormalUser = true;
