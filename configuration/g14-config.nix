@@ -65,8 +65,6 @@ in
     kernelModules = [ "hid-asus-rog" "asus-rog-nb-wmi" ];
   };
 
-  # services.thermald.enable = true;
-
   networking.hostName = "nixos-g14";
 
   environment.systemPackages = [
@@ -96,6 +94,9 @@ in
   };
 
   services = {
+
+    tlp.enable = true;
+
     udev.extraRules = pkgs.lib.mkIf (!nvidia) ''
       # Remove nVidia devices, when present.
       ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{remove}="1"
