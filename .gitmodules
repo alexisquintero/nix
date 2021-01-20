@@ -1,6 +1,6 @@
 [submodule "dotfiles"]
 	path = dotfiles
-	url = https://github.com/alexisquintero/dotfiles
+	url = git@github.com:alexisquintero/dotfiles.git
 [submodule ".vim"]
 	path = .vim
-	url = https://github.com/alexisquintero/.vim
+	url = git@github.com:alexisquintero/.vim.git
