@@ -129,6 +129,7 @@ in
     fzf = {
       enable = true;
       enableBashIntegration = true;
+      defaultCommand = "rg";
     };
 
     tmux = {
