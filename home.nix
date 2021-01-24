@@ -76,6 +76,7 @@ in
       libnotify
       docker-compose
       pulsemixer
+      playerctl
     ]) ++
     [
       st
