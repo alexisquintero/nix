@@ -1,19 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-
-  lib = pkgs.stdenv.lib;
 
   st = pkgs.st.override {
     conf = builtins.readFile ./dotfiles/st/config.h;
   };
 
-  tmux-conf = builtins.readFile ./dotfiles/.tmux.conf;
-  i3config = builtins.readFile ./dotfiles/.config/i3/config;
-  readlinerc = builtins.readFile ./dotfiles/.config/readline/inputrc;
-  bashrc = builtins.readFile ./dotfiles/.bashrc;
-
-  home-dir = "${config.home.homeDirectory}";
   git-compl-path = "/nix/var/nix/profiles/per-user/${config.home.username}/profile/share/bash-completion/completions/git";
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
@@ -22,7 +14,7 @@ let
     #!${pkgs.bash}/bin/bash
     # Takes an argument, the language, and creates a shell.nix file
 
-    cp ${home-dir}/.config/nixpkgs/shells/"$1"-shell.nix ./shell.nix
+    cp ${config.xdg.configHome}/nixpkgs/shells/"$1"-shell.nix ./shell.nix
   '';
 
 in
@@ -101,9 +93,7 @@ in
 
   programs = {
 
-    home-manager = {
-      enable = true;
-    };
+    home-manager.enable = true;
 
     git = {
       enable = true;
@@ -118,12 +108,12 @@ in
 
     bash = {
       enable = true;
-      historyFile = "${home-dir}/.config/bash/bash_history";
+      historyFile = "${config.xdg.configHome}/bash/bash_history";
       initExtra =
         "[ -f ${git-compl-path} ] && source ${git-compl-path}\n" +
-        bashrc;
+        builtins.readFile ./dotfiles/.bashrc;
       profileExtra = lib.mkIf is-wsl ''
-        . ${home-dir}/.nix-profile/etc/profile.d/nix.sh
+        . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh
       '';
     };
 
@@ -136,35 +126,19 @@ in
     tmux = {
       enable = true;
       secureSocket = false;
-      extraConfig = tmux-conf;
+      extraConfig = builtins.readFile ./dotfiles/.tmux.conf;
     };
 
     readline = {
       enable = true;
-      extraConfig = readlinerc;
+      extraConfig = builtins.readFile ./dotfiles/.config/readline/inputrc;
     };
 
-    gpg = {
-      enable = true;
-    };
+    gpg.enable = true;
 
-    chromium = {
-      enable = true;
-      extensions = [
-        "pkehgijcmpdhfbdbbnkijodmdjhbjlgp" # Privacy badger
-        "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark reader
-        "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS everywhere
-        "immpkjjlgappgfkkfieppnmlhakdmaab" # Imagus
-        "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Res
-        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
-        "dgogifpkoilgiofhhhodbodcfgomelhe" # wasavi
-        "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
-      ];
-    };
+    chromium.enable = true;
 
-    firefox = {
-      enable = true;
-    };
+    firefox.enable = true;
 
     dircolors = {
       enable = true;
@@ -181,13 +155,9 @@ in
       enableSshSupport = true;
     };
 
-    dunst = {
-      enable = true;
-    };
+    dunst.enable = true;
 
-    xscreensaver = {
-      enable = true;
-    };
+    xscreensaver.enable = true;
 
     redshift = {
       enable = true;
@@ -207,17 +177,17 @@ in
       wmi3 = {
         # enable = true;
         config = null;
-        extraConfig = i3config;
+        extraConfig = builtins.readFile ./dotfiles/.config/i3/config;
       };
 
       wmxmonad = {
         enable = true;
         config = ./dotfiles/.xmonad/xmonad.hs;
-        extraPackages = haskellPackages: [
-          haskellPackages.xmonad-contrib
-          haskellPackages.xmonad-extras
-          haskellPackages.xmonad
-        ];
+        extraPackages = haskellPackages: (with haskellPackages; [
+          xmonad-contrib
+          xmonad-extras
+          xmonad
+        ]);
       };
 
     in
