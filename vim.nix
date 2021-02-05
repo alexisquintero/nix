@@ -62,8 +62,7 @@ let
   vim-cool-settings =       builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
   vim-scala-settings =      builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
   vim-printer-settings =    builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
-  clojure-syntax-settings = builtins.readFile ./.vim/pluginsettings/clojure-syntax.vim;
-  nord-vim-settings =       builtins.readFile ./.vim/pluginsettings/nord.vim;
+  # nord-vim-settings =       builtins.readFile ./.vim/pluginsettings/nord.vim;
 
   pluginSettings =
     coc-settings +
@@ -76,8 +75,7 @@ let
     targets-settings +
     vim-cool-settings +
     vim-scala-settings +
-    vim-printer-settings +
-    clojure-syntax-settings;
+    vim-printer-settings;
 
 in
 {
