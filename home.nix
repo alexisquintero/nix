@@ -157,7 +157,12 @@ in
 
     dunst.enable = true;
 
-    xscreensaver.enable = true;
+    xscreensaver  = {
+      enable = true;
+      settings = {
+        dpmsEnabled = true; dpmsQuickOff = true; dpmsStandby = "0:00:01"; dpmsSuspend = "0:00:01"; dpmsOff = "0:00:01";
+      };
+    };
 
     redshift = {
       enable = true;
@@ -168,6 +173,15 @@ in
       latitude = "-32";
       longitude = "-60";
     };
+
+    screen-locker = {
+      enable = true;
+      enableDetectSleep = true;
+      inactiveInterval = 5;
+      lockCmd = "${pkgs.xscreensaver}/bin/xscreensaver-command -lock";
+    };
+
+    xsuspender.enable = true;
 
   };
 
