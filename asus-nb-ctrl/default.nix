@@ -10,7 +10,8 @@ let
     src = builtins.fetchGit {
       url = "https://gitlab.com/asus-linux/asus-nb-ctrl";
       ref = "main";
-      rev = "f47bbd55973fdbb5f987d869efbd9f5793dcf261";
+      rev = "d61c180ee52a4162046adedb0e84a176d867dbb5"; # WORKING
+      # rev = "f47bbd55973fdbb5f987d869efbd9f5793dcf261"; # LATEST
     };
 
     makeFlags = [
@@ -20,7 +21,7 @@ let
     cargoSha256 = "sha256:1wrbhj3l1gqiw00nwkb138fwr7whd0inlhg6n6fg7qv23pjcbj0j";
 
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
-    buildInputs = with nixpkgs; [ dbus udev nixpkgs.latest.rustChannels.nightly.rust ];
+    buildInputs = with nixpkgs; [ dbus udev latest.rustChannels.stable.rust ];
 
     patchPhase = ''
       substituteInPlace Makefile --replace \
