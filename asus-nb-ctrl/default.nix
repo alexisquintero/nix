@@ -3,31 +3,29 @@
 let
   moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
   nixpkgs = import <nixpkgs> { overlays = [ moz_overlay ]; };
-  rustPlatform = nixpkgs.rustPlatform;
+  rustLatest = nixpkgs.latest.rustChannels.stable.rust;
+  rustPlatform = nixpkgs.makeRustPlatform {
+    cargo = rustLatest;
+    rustc = rustLatest;
+  };
   asus-nb-ctrl = rustPlatform.buildRustPackage rec {
     name = "ASUS-NB-Ctrl";
 
     src = builtins.fetchGit {
       url = "https://gitlab.com/asus-linux/asus-nb-ctrl";
       ref = "main";
-      rev = "d61c180ee52a4162046adedb0e84a176d867dbb5"; # WORKING
-      # rev = "f47bbd55973fdbb5f987d869efbd9f5793dcf261"; # LATEST
+      rev = "3d691b688cc2876aa2f9d28beefd66ab8623e0c5";
     };
 
     makeFlags = [
-      "prefix=${placeholder "out"}"
+      "DESTDIR=${placeholder "out"}"
+      "prefix="
     ];
 
-    cargoSha256 = "sha256:1wrbhj3l1gqiw00nwkb138fwr7whd0inlhg6n6fg7qv23pjcbj0j";
+    cargoSha256 = "sha256:1a9d82rdkr2z88y9v6hsw3qcrhk1ybyn55ivvi6z0sz7whd4d5ph";
 
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
-    buildInputs = with nixpkgs; [ dbus udev latest.rustChannels.stable.rust ];
-
-    patchPhase = ''
-      substituteInPlace Makefile --replace \
-      "/etc/asusd/" \
-      $out/etc/asusd/
-    '';
+    buildInputs = with nixpkgs; [ dbus udev ];
 
     configurePhase = null;
     buildPhase = null;
@@ -70,6 +68,7 @@ in {
         ExecStart = "${asus-nb-ctrl}/bin/asus-notify";
       };
       partOf = [ "asusd.service" ];
+      wantedBy = [ "multi-user.target" ];
     };
   };
 
