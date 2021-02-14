@@ -37,7 +37,6 @@ let
     vim-nix
     vim-printer
     fzf-vim
-    i3config-vim
     targets-vim
 
     vim-substrata
@@ -51,24 +50,22 @@ let
   mappings = builtins.readFile ./.vim/mappings.vim;
   extra = "colorscheme substrata";
 
-  coc-settings =            builtins.readFile ./.vim/pluginsettings/coc.vim;
-  fzf-settings =            builtins.readFile ./.vim/pluginsettings/fzf.vim;
-  gitgutter-settings =      builtins.readFile ./.vim/pluginsettings/gitgutter.vim;
-  i3config-settings =       builtins.readFile ./.vim/pluginsettings/i3config.vim;
-  netrw-settings =          builtins.readFile ./.vim/pluginsettings/netrw.vim;
-  sandwich-settings =       builtins.readFile ./.vim/pluginsettings/sandwich.vim;
-  sexp-settings =           builtins.readFile ./.vim/pluginsettings/sexp.vim;
-  targets-settings =        builtins.readFile ./.vim/pluginsettings/targets.vim;
-  vim-cool-settings =       builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
-  vim-scala-settings =      builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
-  vim-printer-settings =    builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
-  # nord-vim-settings =       builtins.readFile ./.vim/pluginsettings/nord.vim;
+  coc-settings =         builtins.readFile ./.vim/pluginsettings/coc.vim;
+  fzf-settings =         builtins.readFile ./.vim/pluginsettings/fzf.vim;
+  gitgutter-settings =   builtins.readFile ./.vim/pluginsettings/gitgutter.vim;
+  netrw-settings =       builtins.readFile ./.vim/pluginsettings/netrw.vim;
+  sandwich-settings =    builtins.readFile ./.vim/pluginsettings/sandwich.vim;
+  sexp-settings =        builtins.readFile ./.vim/pluginsettings/sexp.vim;
+  targets-settings =     builtins.readFile ./.vim/pluginsettings/targets.vim;
+  vim-cool-settings =    builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
+  vim-scala-settings =   builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
+  vim-printer-settings = builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
+  # nord-vim-settings =    builtins.readFile ./.vim/pluginsettings/nord.vim;
 
   pluginSettings =
     coc-settings +
     fzf-settings +
     gitgutter-settings +
-    i3config-settings +
     netrw-settings +
     sandwich-settings +
     sexp-settings +
