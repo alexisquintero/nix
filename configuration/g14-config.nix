@@ -38,13 +38,13 @@ let
   hid_asus_rog = buildAsusDkms "hid-asus-rog" (builtins.fetchGit {
     url = "https://gitlab.com/asus-linux/hid-asus-rog.git";
     ref = "main";
-    rev = "65a41f7eeba94c17db4e20ffb9815f07e475688a";
+    rev = "a5257001ddbcae300044b7e972aa971acc26c12d";
   });
 
   asus_rog_nb_wmi = buildAsusDkms "asus-rog-nb-wmi" (builtins.fetchGit {
     url = "https://gitlab.com/asus-linux/asus-rog-nb-wmi.git";
     ref = "main";
-    rev = "976a28349443eb700f80a322f619ebb8f741894b";
+    rev = "a5a606153304792e729a6b5bd9fe115778fe7e25";
   });
 
 in
