@@ -97,10 +97,18 @@ in
 
     tlp.enable = true;
 
-    udev.extraRules = pkgs.lib.mkIf (!nvidia) ''
-      # Remove nVidia devices, when present.
-      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{remove}="1"
-    '';
+    udev = {
+      extraRules = pkgs.lib.mkIf (!nvidia) ''
+        # Remove nVidia devices, when present.
+        ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{remove}="1"
+      '';
+
+      extraHwdb = ''
+        evdev:input:b0003v0B05p1866*
+          KEYBOARD_KEY_ff3100b2=home # Fn+Left
+          KEYBOARD_KEY_ff3100b3=end  # Fn+Right
+      '';
+    };
 
     xserver = {
       videoDrivers = [ (if nvidia then "nvidia" else "amdgpu") ];
