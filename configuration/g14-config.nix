@@ -91,6 +91,8 @@ in
       driSupport32Bit = true;
     };
 
+    bluetooth.enable = true;
+
   };
 
   services = {

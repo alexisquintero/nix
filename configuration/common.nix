@@ -29,7 +29,12 @@
     enable = true;
   };
 
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
+    package = pkgs.pulseaudioFull;
+    extraConfig = "load-module module-switch-on-connect";
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
