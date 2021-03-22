@@ -19,7 +19,10 @@
     interfaces.wlp2s0.useDHCP = true;
   };
 
-  time.timeZone = "America/Argentina/Buenos_Aires";
+  time = {
+    timeZone = "America/Argentina/Buenos_Aires";
+    hardwareClockInLocalTime = true;
+  };
 
   environment.systemPackages = with pkgs; [
     wget vim

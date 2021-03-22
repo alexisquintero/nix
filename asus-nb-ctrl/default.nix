@@ -14,7 +14,7 @@ let
     src = builtins.fetchGit {
       url = "https://gitlab.com/asus-linux/asus-nb-ctrl";
       ref = "main";
-      rev = "bc46fa2b1eb05701125adf8674819cc82e02c413";
+      rev = "96ceef1bdbdef0341588cd4b60202e912948f064";
     };
 
     makeFlags = [
@@ -22,7 +22,7 @@ let
       "prefix="
     ];
 
-    cargoSha256 = "sha256:1658shdq1p7p6gjpvik0w339516w18nnlf0f3bmnymgkksarfxf3";
+    cargoSha256 = "sha256:1301bh1mfnryv6c7ccl03gldq657wb96q6s19b7ryx4aij2vvy31";
 
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
     buildInputs = with nixpkgs; [ dbus udev ];
