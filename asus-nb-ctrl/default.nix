@@ -55,21 +55,54 @@ in {
   };
 
   systemd.services = {
-    asusd = {
+    asus-notify = {
+      unitConfig = {
+        Description = "ASUS Notifications";
+        StartLimitInterval = 200;
+        StartLimitBurst = 2;
+      };
       serviceConfig = {
-        ExecStart = "${asus-nb-ctrl}/bin/asusd";
-        Restart = "always";
+        ExecStartPre = "/run/current-system/sw/bin/sleep 2";
+        ExecStart = "${asus-nb-ctrl}/bin/asus-notify";
+        Restart = "on-failure";
+        RestartSec = 1;
+        Type = "simple";
       };
       wantedBy = [ "multi-user.target" ];
     };
 
-    asus-notify = {
-      serviceConfig = {
-        ExecStart = "${asus-nb-ctrl}/bin/asus-notify";
+    asusd-alt = {
+      unitConfig = {
+        Description = "ASUS Notebook Control";
+        # After = [ "basic.target" "syslog.target" ];
+        After = [ "basic.target" ];
       };
-      partOf = [ "asusd.service" ];
+      serviceConfig = {
+        ExecStart = "${asus-nb-ctrl}/bin/asusd";
+        Restart = "on-failure";
+        Type = "dbus";
+        BusName = "org.asuslinux.Daemon";
+      };
       wantedBy = [ "multi-user.target" ];
     };
+
+    asusd = {
+      unitConfig = {
+        Description = "ASUS Notebook Control";
+        StartLimitInterval = 200;
+        StartLimitBurst = 2;
+        Before = [ "display-manager.service" ];
+      };
+      serviceConfig = {
+        ExecStart = "${asus-nb-ctrl}/bin/asusd";
+        Restart = "always";
+        RestartSec = 1;
+        Type = "dbus";
+        BusName = "org.asuslinux.Daemon";
+      };
+      wantedBy = [ "multi-user.target" ];
+    };
+
   };
 
 }
