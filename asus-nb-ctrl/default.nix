@@ -27,6 +27,11 @@ let
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
     buildInputs = with nixpkgs; [ dbus udev ];
 
+    # TODO: Fix systemctl call
+    patchPhase = ''
+      sed -i '1,2d' data/asusd.rules
+    '';
+
     configurePhase = null;
     buildPhase = null;
     checkPhase = null;
@@ -43,64 +48,78 @@ in {
 
   environment.systemPackages = [ asus-nb-ctrl ];
 
-  services.actkbd = {
-    enable = true;
-    bindings = [
-      {
-        keys = [ 203 ];
-        events = [ "key" ];
-        command = "${asus-nb-ctrl}/bin/asusctl profile -n";
-      }
-    ];
+  services = {
+
+    dbus.packages = [ asus-nb-ctrl ];
+    udev.packages = [ asus-nb-ctrl ];
+
+    actkbd = {
+      enable = true;
+      bindings = [
+        {
+          keys = [ 203 ];
+          events = [ "key" ];
+          command = "${asus-nb-ctrl}/bin/asusctl profile -n";
+        }
+      ];
+    };
   };
 
-  systemd.services = {
-    asus-notify = {
-      unitConfig = {
-        Description = "ASUS Notifications";
-        StartLimitInterval = 200;
-        StartLimitBurst = 2;
+  # TODO: Use service files
+
+  systemd = {
+    user.services = {
+
+      asus-notify = {
+        unitConfig = {
+          Description = "ASUS Notifications";
+          StartLimitInterval = 200;
+          StartLimitBurst = 2;
+        };
+        serviceConfig = {
+          ExecStartPre = "/run/current-system/sw/bin/sleep 2";
+          ExecStart = "${asus-nb-ctrl}/bin/asus-notify";
+          Restart = "on-failure";
+          RestartSec = 1;
+          Type = "simple";
+        };
+        wantedBy = [ "default.target" ];
       };
-      serviceConfig = {
-        ExecStartPre = "/run/current-system/sw/bin/sleep 2";
-        ExecStart = "${asus-nb-ctrl}/bin/asus-notify";
-        Restart = "on-failure";
-        RestartSec = 1;
-        Type = "simple";
-      };
-      wantedBy = [ "multi-user.target" ];
     };
 
-    asusd-alt = {
-      unitConfig = {
-        Description = "ASUS Notebook Control";
-        # After = [ "basic.target" "syslog.target" ];
-        After = [ "basic.target" ];
-      };
-      serviceConfig = {
-        ExecStart = "${asus-nb-ctrl}/bin/asusd";
-        Restart = "on-failure";
-        Type = "dbus";
-        BusName = "org.asuslinux.Daemon";
-      };
-      wantedBy = [ "multi-user.target" ];
-    };
+    services = {
 
-    asusd = {
-      unitConfig = {
-        Description = "ASUS Notebook Control";
-        StartLimitInterval = 200;
-        StartLimitBurst = 2;
-        Before = [ "display-manager.service" ];
+      asusd-alt = {
+        unitConfig = {
+          Description = "ASUS Notebook Control";
+          # After = [ "basic.target" "syslog.target" ];
+          After = [ "basic.target" ];
+        };
+        serviceConfig = {
+          ExecStart = "${asus-nb-ctrl}/bin/asusd";
+          Restart = "on-failure";
+          Type = "dbus";
+          BusName = "org.asuslinux.Daemon";
+        };
+        wantedBy = [ "multi-user.target" ];
       };
-      serviceConfig = {
-        ExecStart = "${asus-nb-ctrl}/bin/asusd";
-        Restart = "always";
-        RestartSec = 1;
-        Type = "dbus";
-        BusName = "org.asuslinux.Daemon";
+
+      asusd = {
+        unitConfig = {
+          Description = "ASUS Notebook Control";
+          StartLimitInterval = 200;
+          StartLimitBurst = 2;
+          Before = [ "display-manager.service" ];
+        };
+        serviceConfig = {
+          ExecStart = "${asus-nb-ctrl}/bin/asusd";
+          Restart = "always";
+          RestartSec = 1;
+          Type = "dbus";
+          BusName = "org.asuslinux.Daemon";
+        };
       };
-      wantedBy = [ "multi-user.target" ];
+
     };
 
   };
