@@ -57,6 +57,8 @@ in
       ../asus-nb-ctrl/default.nix
     ];
 
+  nixpkgs.config.allowUnfree = true; # nvidia driver
+
   # Use the systemd-boot EFI boot loader.
   boot = {
     kernelPackages = kernelPackages;

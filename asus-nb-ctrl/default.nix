@@ -14,7 +14,7 @@ let
     src = builtins.fetchGit {
       url = "https://gitlab.com/asus-linux/asus-nb-ctrl";
       ref = "main";
-      rev = "96ceef1bdbdef0341588cd4b60202e912948f064";
+      rev = "4eeacea83248a47873c6f1de3d19afa7cf0cccc0";
     };
 
     makeFlags = [
@@ -22,14 +22,14 @@ let
       "prefix="
     ];
 
-    cargoSha256 = "sha256:1301bh1mfnryv6c7ccl03gldq657wb96q6s19b7ryx4aij2vvy31";
+    cargoSha256 = "sha256:0j41bqdgnhy9qr08mjpqd41vmcb50yzbwapjnwaiqac37dk599dj";
 
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
     buildInputs = with nixpkgs; [ dbus udev ];
 
-    # TODO: Fix systemctl call
+    # TODO: fix
     patchPhase = ''
-      sed -i '1,2d' data/asusd.rules
+      sed -i 's,systemctl,/run/current-system/systemd/bin/systemctl,' data/asusd.rules
     '';
 
     configurePhase = null;
@@ -52,6 +52,7 @@ in {
 
     dbus.packages = [ asus-nb-ctrl ];
     udev.packages = [ asus-nb-ctrl ];
+    xserver.modules = [ asus-nb-ctrl ];
 
     actkbd = {
       enable = true;
@@ -65,7 +66,8 @@ in {
     };
   };
 
-  # TODO: Use service files
+  # TODO: fix
+  # systemd.packages = [ asus-nb-ctrl ];
 
   systemd = {
     user.services = {
