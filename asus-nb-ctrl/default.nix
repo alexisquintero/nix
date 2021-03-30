@@ -29,7 +29,9 @@ let
 
     # TODO: fix
     patchPhase = ''
-      sed -i 's,systemctl,/run/current-system/systemd/bin/systemctl,' data/asusd.rules
+      substituteInPlace data/asus-notify.service --replace /usr/bin/sleep ${nixpkgs.coreutils}/bin/sleep --replace /usr/bin/asus-notify $out/bin/asus-notify
+      substituteInPlace data/asusd.rules --replace systemctl /run/current-system/systemd/bin/systemctl
+      substituteInPlace data/asusd.service --replace /usr/bin/asusd $out/bin/asusd
     '';
 
     configurePhase = null;
@@ -66,7 +68,7 @@ in {
     };
   };
 
-  # TODO: fix
+  # TODO: Fix
   # systemd.packages = [ asus-nb-ctrl ];
 
   systemd = {
