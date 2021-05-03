@@ -6,5 +6,6 @@ pkgs.mkShell {
     sbt
     coursier
     openjdk
+    metals
   ]);
 }

@@ -22,12 +22,27 @@ let
     dependencies = [];
   };
 
+  nvim-metals = buildVimPlugin {
+    name = "nvim-metals";
+    src = builtins.fetchGit {
+      url = "https://github.com/scalameta/nvim-metals";
+      ref = "main";
+    };
+  };
+
+  nvim-lspconfig = buildVimPlugin {
+    name = "nvim-lspconfig";
+    src = builtins.fetchGit {
+      url = "https://github.com/neovim/nvim-lspconfig";
+      ref = "master";
+    };
+  };
+
   plugins = with pkgs.vimPlugins; [
     vim-gitgutter
     vim-scala
     vim-fugitive
     vim-cool
-    coc-nvim
     vim-sexp
     vim-unimpaired
     vim-commentary
@@ -42,15 +57,14 @@ let
     vim-substrata
     # nord-vim
 
-    coc-metals
-    coc-json
+    nvim-lspconfig
+    nvim-metals
   ];
 
   settings = builtins.readFile ./.vim/settings.vim;
   mappings = builtins.readFile ./.vim/mappings.vim;
   extra = "colorscheme substrata";
 
-  coc-settings =         builtins.readFile ./.vim/pluginsettings/coc.vim;
   fzf-settings =         builtins.readFile ./.vim/pluginsettings/fzf.vim;
   gitgutter-settings =   builtins.readFile ./.vim/pluginsettings/gitgutter.vim;
   netrw-settings =       builtins.readFile ./.vim/pluginsettings/netrw.vim;
@@ -60,10 +74,11 @@ let
   vim-cool-settings =    builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
   vim-scala-settings =   builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
   vim-printer-settings = builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
+  lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
+  metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
   # nord-vim-settings =    builtins.readFile ./.vim/pluginsettings/nord.vim;
 
   pluginSettings =
-    coc-settings +
     fzf-settings +
     gitgutter-settings +
     netrw-settings +
@@ -72,20 +87,20 @@ let
     targets-settings +
     vim-cool-settings +
     vim-scala-settings +
-    vim-printer-settings;
+    vim-printer-settings +
+    lsp-config-settings +
+    metals-settings;
 
 in
 {
+
   programs.neovim = {
+    package = pkgs.neovim-nightly;
     enable = true;
     plugins = plugins;
     extraConfig = settings + mappings + pluginSettings + extra;
     vimAlias = true;
     vimdiffAlias = true;
-    withNodeJs = true;
   };
 
-  xdg.configFile = {
-    "nvim/coc-settings.json".source = ./.vim/coc-settings.json;
-  };
 }
