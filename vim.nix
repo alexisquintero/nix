@@ -38,6 +38,14 @@ let
     };
   };
 
+  nvim-compe = buildVimPlugin {
+    name = "nvim-compe";
+    src = builtins.fetchGit {
+      url = "https://github.com/hrsh7th/nvim-compe";
+      ref = "master";
+    };
+  };
+
   plugins = with pkgs.vimPlugins; [
     vim-gitgutter
     vim-scala
@@ -55,10 +63,11 @@ let
     targets-vim
 
     vim-substrata
-    # nord-vim
 
     nvim-lspconfig
     nvim-metals
+    nvim-compe
+    nvim-treesitter
   ];
 
   settings = builtins.readFile ./.vim/settings.vim;
@@ -76,7 +85,8 @@ let
   vim-printer-settings = builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
   lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
   metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
-  # nord-vim-settings =    builtins.readFile ./.vim/pluginsettings/nord.vim;
+  compe-settings =       builtins.readFile ./.vim/pluginsettings/compe.vim;
+  treesitter-settings =  builtins.readFile ./.vim/pluginsettings/treesitter.vim;
 
   pluginSettings =
     fzf-settings +
@@ -89,7 +99,9 @@ let
     vim-scala-settings +
     vim-printer-settings +
     lsp-config-settings +
-    metals-settings;
+    metals-settings +
+    compe-settings +
+    treesitter-settings;
 
 in
 {
