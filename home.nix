@@ -62,7 +62,6 @@ in
     '';
 
     packages = (with pkgs; [
-      dmenu
       dejavu_fonts
       keepass
       haskellPackages.xmobar
