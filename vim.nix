@@ -61,13 +61,11 @@ let
     vim-printer
     fzf-vim
     targets-vim
-
     vim-substrata
-
     nvim-lspconfig
     nvim-metals
     nvim-compe
-    nvim-treesitter
+    # nvim-treesitter
   ];
 
   settings = builtins.readFile ./.vim/settings.vim;
@@ -86,7 +84,7 @@ let
   lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
   metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
   compe-settings =       builtins.readFile ./.vim/pluginsettings/compe.vim;
-  treesitter-settings =  builtins.readFile ./.vim/pluginsettings/treesitter.vim;
+  # treesitter-settings =  builtins.readFile ./.vim/pluginsettings/treesitter.vim;
 
   pluginSettings =
     fzf-settings +
@@ -100,8 +98,8 @@ let
     vim-printer-settings +
     lsp-config-settings +
     metals-settings +
-    compe-settings +
-    treesitter-settings;
+    compe-settings;
+    # treesitter-settings;
 
 in
 {
