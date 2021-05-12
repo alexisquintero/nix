@@ -12,9 +12,9 @@ let
     name = "ASUS-NB-Ctrl";
 
     src = builtins.fetchGit {
-      url = "https://gitlab.com/asus-linux/asus-nb-ctrl";
+      url = "https://gitlab.com/asus-linux/asusctl";
       ref = "main";
-      rev = "4eeacea83248a47873c6f1de3d19afa7cf0cccc0";
+      rev = "cf2b459e487333e45501a2a9df64ab644cfe1193";
     };
 
     makeFlags = [
@@ -22,7 +22,7 @@ let
       "prefix="
     ];
 
-    cargoSha256 = "sha256:0j41bqdgnhy9qr08mjpqd41vmcb50yzbwapjnwaiqac37dk599dj";
+    cargoSha256 = "sha256:1md3izr7i1j91kqi68jqv6s459sinxljdc2pcczqmiq7m09y5mdc";
 
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
     buildInputs = with nixpkgs; [ dbus udev ];
@@ -41,14 +41,20 @@ let
 
     meta = with nixpkgs.stdenv.lib; {
       description = "asusd is a utility for Linux to control many aspects of various ASUS laptops but can also be used with non-asus laptops with reduced features.";
-      homepage = "https://gitlab.com/asus-linux/asus-nb-ctrl";
+      homepage = "https://gitlab.com/asus-linux/asusctl";
       platforms = platforms.linux;
     };
   };
 
 in {
 
-  environment.systemPackages = [ asus-nb-ctrl ];
+  environment = {
+    systemPackages = [ asus-nb-ctrl ];
+    # Fix, directory not symlinked or not at that path
+    etc = {
+      asusd.source = "${asus-nb-ctrl}/etc/asusd";
+    };
+  };
 
   services = {
 

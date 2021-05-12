@@ -54,7 +54,7 @@ in
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       ./common.nix
-      ../asus-nb-ctrl/default.nix
+      ../asusctl/default.nix
     ];
 
   nixpkgs.config.allowUnfree = true; # nvidia driver
