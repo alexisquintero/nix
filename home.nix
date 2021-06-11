@@ -53,6 +53,8 @@ in
       EDITOR = "vim";
       VISUAL = "vim";
       LESSHISTFILE = "-";
+      FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'";
+      FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND";
     }
     //
     extra-env-vars;
