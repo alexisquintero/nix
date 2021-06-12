@@ -78,6 +78,7 @@ in
       docker-compose
       pulsemixer
       playerctl
+      google-chrome
     ]) ++
     [
       st
@@ -145,7 +146,7 @@ in
 
     gpg.enable = true;
 
-    chromium.enable = true;
+    # chromium.enable = true;
 
     firefox.enable = true;
 
@@ -176,7 +177,7 @@ in
 
     redshift = {
       enable = true;
-      brightness = {
+      settings.brightness = {
         day = "0.7";
         night = "0.5";
       };

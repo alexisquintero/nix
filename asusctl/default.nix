@@ -14,7 +14,7 @@ let
     src = builtins.fetchGit {
       url = "https://gitlab.com/asus-linux/asusctl";
       ref = "main";
-      rev = "cf2b459e487333e45501a2a9df64ab644cfe1193";
+      rev = "ac880a0363f9fa58c101d17e4d366f544b573dc5";
     };
 
     makeFlags = [
@@ -22,7 +22,7 @@ let
       "prefix="
     ];
 
-    cargoSha256 = "sha256:1md3izr7i1j91kqi68jqv6s459sinxljdc2pcczqmiq7m09y5mdc";
+    cargoSha256 = "sha256:0p85jwlspl04nsv9dn4vq5ylzn101ch7r1l2h9fd9c3djyk0qis1";
 
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
     buildInputs = with nixpkgs; [ dbus udev ];

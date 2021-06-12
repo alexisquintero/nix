@@ -54,7 +54,7 @@ in
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       ./common.nix
-      ../asusctl/default.nix
+      # ../asusctl/default.nix
     ];
 
   nixpkgs.config.allowUnfree = true; # nvidia driver
@@ -119,10 +119,17 @@ in
       enable = true;
       libinput = {
         enable = true;
-        disableWhileTyping = true;
+        touchpad.disableWhileTyping = true;
       };
     };
 
+  };
+
+  boot.initrd.luks.devices = {
+    crypted = {
+      device = "/dev/disk/by-uuid/b59aa862-7216-4682-862e-7b112c10df30";
+      preLVM = true;
+    };
   };
 
   programs = {

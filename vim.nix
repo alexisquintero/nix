@@ -1,6 +1,18 @@
 { pkgs, ...}:
 
 let
+  fzf-settings =         builtins.readFile ./.vim/pluginsettings/fzf.vim;
+  gitgutter-settings =   builtins.readFile ./.vim/pluginsettings/gitgutter.vim;
+  netrw-settings =       builtins.readFile ./.vim/pluginsettings/netrw.vim;
+  sandwich-settings =    builtins.readFile ./.vim/pluginsettings/sandwich.vim;
+  sexp-settings =        builtins.readFile ./.vim/pluginsettings/sexp.vim;
+  targets-settings =     builtins.readFile ./.vim/pluginsettings/targets.vim;
+  vim-cool-settings =    builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
+  vim-scala-settings =   builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
+  vim-printer-settings = builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
+  lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
+  metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
+  compe-settings =       builtins.readFile ./.vim/pluginsettings/compe.vim;
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
@@ -47,59 +59,63 @@ let
   };
 
   plugins = with pkgs.vimPlugins; [
-    vim-gitgutter
-    vim-scala
+    {
+      plugin = vim-gitgutter;
+      config = gitgutter-settings;
+    }
+    {
+      plugin = vim-scala;
+      config = vim-scala-settings;
+    }
     vim-fugitive
-    vim-cool
-    vim-sexp
+    {
+      plugin = vim-cool;
+      config = vim-cool-settings;
+    }
+    {
+      plugin = vim-sexp;
+      config = sexp-settings;
+    }
     vim-unimpaired
     vim-commentary
-    vim-sandwich
+    {
+      plugin = vim-sandwich;
+      config = sandwich-settings;
+    }
     vim-fireplace
     vim-rhubarb
     vim-nix
-    vim-printer
-    fzf-vim
-    targets-vim
+    {
+      plugin = vim-printer;
+      config = vim-printer-settings;
+    }
+    {
+      plugin = fzf-vim;
+      config = fzf-settings;
+    }
+    {
+      plugin = targets-vim;
+      config = targets-settings;
+    }
     vim-substrata
-    nvim-lspconfig
-    nvim-metals
-    nvim-compe
-    # nvim-treesitter
+    {
+      plugin = nvim-lspconfig;
+      config = lsp-config-settings;
+    }
+    {
+      plugin = nvim-metals;
+      config = metals-settings;
+    }
+    {
+      plugin = nvim-compe;
+      config = compe-settings;
+    }
   ];
 
   settings = builtins.readFile ./.vim/settings.vim;
   mappings = builtins.readFile ./.vim/mappings.vim;
+  pluginSettings = netrw-settings;
   extra = "colorscheme substrata";
-
-  fzf-settings =         builtins.readFile ./.vim/pluginsettings/fzf.vim;
-  gitgutter-settings =   builtins.readFile ./.vim/pluginsettings/gitgutter.vim;
-  netrw-settings =       builtins.readFile ./.vim/pluginsettings/netrw.vim;
-  sandwich-settings =    builtins.readFile ./.vim/pluginsettings/sandwich.vim;
-  sexp-settings =        builtins.readFile ./.vim/pluginsettings/sexp.vim;
-  targets-settings =     builtins.readFile ./.vim/pluginsettings/targets.vim;
-  vim-cool-settings =    builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
-  vim-scala-settings =   builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
-  vim-printer-settings = builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
-  lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
-  metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
-  compe-settings =       builtins.readFile ./.vim/pluginsettings/compe.vim;
-  # treesitter-settings =  builtins.readFile ./.vim/pluginsettings/treesitter.vim;
-
-  pluginSettings =
-    fzf-settings +
-    gitgutter-settings +
-    netrw-settings +
-    sandwich-settings +
-    sexp-settings +
-    targets-settings +
-    vim-cool-settings +
-    vim-scala-settings +
-    vim-printer-settings +
-    lsp-config-settings +
-    metals-settings +
-    compe-settings;
-    # treesitter-settings;
 
 in
 {
