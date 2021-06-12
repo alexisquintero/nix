@@ -48,13 +48,15 @@ in
         DISPLAY = "\$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0";
       };
       extra-env-vars = if is-wsl then wsl-env-vars else {};
+      editor = "vim";
+      fzf-command = "rg --files --hidden -g '!.git/'";
     in
     {
-      EDITOR = "vim";
-      VISUAL = "vim";
+      EDITOR = editor;
+      VISUAL = editor;
       LESSHISTFILE = "-";
-      FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/'";
-      FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND";
+      FZF_DEFAULT_COMMAND = fzf-command;
+      FZF_CTRL_T_COMMAND = fzf-command;
     }
     //
     extra-env-vars;
