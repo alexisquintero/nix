@@ -27,9 +27,13 @@ let
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
     buildInputs = with nixpkgs; [ dbus udev ];
 
+    doCheck = false;
+
     # TODO: fix
     patchPhase = ''
       substituteInPlace data/asus-notify.service --replace /usr/bin/sleep ${nixpkgs.coreutils}/bin/sleep --replace /usr/bin/asus-notify $out/bin/asus-notify
+      substituteInPlace data/asusd-alt.service --replace /usr/bin/asusd $out/bin/asusd
+      substituteInPlace data/asusd-user.service --replace /usr/bin/asusd-user $out/bin/asusd-user --replace /usr/bin/sleep ${nixpkgs.coreutils}/bin/sleep
       substituteInPlace data/asusd.rules --replace systemctl /run/current-system/systemd/bin/systemctl
       substituteInPlace data/asusd.service --replace /usr/bin/asusd $out/bin/asusd
     '';

@@ -3,7 +3,7 @@
 let
   nvidia = false;
   kernelPackages = pkgs.linuxPackages_latest;
-  kernel = kernelPackages.kernel;
+#  kernel = kernelPackages.kernel;
 
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -22,30 +22,30 @@ let
     [ -z "$state" ] && xinput --enable "$device" || xinput --disable "$device"
   '';
 
-  buildAsusDkms = name: src: pkgs.stdenv.mkDerivation {
-    inherit name src;
-    nativeBuildInputs = [
-      kernel.moduleBuildDependencies
-    ];
-    buildPhase = ''
-      make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd) modules
-    '';
-    installPhase = ''
-      make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd) INSTALL_MOD_PATH=$out modules_install
-    '';
-  };
-
-  hid_asus_rog = buildAsusDkms "hid-asus-rog" (builtins.fetchGit {
-    url = "https://gitlab.com/asus-linux/hid-asus-rog.git";
-    ref = "main";
-    rev = "a5257001ddbcae300044b7e972aa971acc26c12d";
-  });
-
-  asus_rog_nb_wmi = buildAsusDkms "asus-rog-nb-wmi" (builtins.fetchGit {
-    url = "https://gitlab.com/asus-linux/asus-rog-nb-wmi.git";
-    ref = "main";
-    rev = "a5a606153304792e729a6b5bd9fe115778fe7e25";
-  });
+#  buildAsusDkms = name: src: pkgs.stdenv.mkDerivation {
+#    inherit name src;
+#    nativeBuildInputs = [
+#      kernel.moduleBuildDependencies
+#    ];
+#    buildPhase = ''
+#      make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd) modules
+#    '';
+#    installPhase = ''
+#      make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd) INSTALL_MOD_PATH=$out modules_install
+#    '';
+#  };
+#
+#  hid_asus_rog = buildAsusDkms "hid-asus-rog" (builtins.fetchGit {
+#    url = "https://gitlab.com/asus-linux/hid-asus-rog.git";
+#    ref = "main";
+#    rev = "84334ced386409a1c1811f783e947db18418fdf3";
+#  });
+#
+#  asus_rog_nb_wmi = buildAsusDkms "asus-rog-nb-wmi" (builtins.fetchGit {
+#    url = "https://gitlab.com/asus-linux/asus-rog-nb-wmi.git";
+#    ref = "main";
+#    rev = "a5a606153304792e729a6b5bd9fe115778fe7e25";
+#  });
 
 in
 
@@ -54,7 +54,7 @@ in
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       ./common.nix
-      # ../asusctl/default.nix
+      ../asusctl/default.nix
     ];
 
   nixpkgs.config.allowUnfree = true; # nvidia driver
@@ -62,9 +62,12 @@ in
   # Use the systemd-boot EFI boot loader.
   boot = {
     kernelPackages = kernelPackages;
-    blacklistedKernelModules = [ "nouveau" "hid-asus" ];
-    extraModulePackages = [ hid_asus_rog asus_rog_nb_wmi ];
-    kernelModules = [ "hid-asus-rog" "asus-rog-nb-wmi" ];
+    blacklistedKernelModules = [ "nouveau" ];
+#    blacklistedKernelModules = [ "nouveau" "hid-asus" ];
+#    extraModulePackages = [ hid_asus_rog asus_rog_nb_wmi ];
+#    extraModulePackages = [ hid_asus_rog ];
+#    kernelModules = [ "hid-asus-rog" "asus-rog-nb-wmi" ];
+#    kernelModules = [ "hid-asus-rog" ];
   };
 
   networking.hostName = "nixos-g14";
