@@ -1,5 +1,7 @@
 { ... }:
 
+# TODO: fix 'The directory /etc/asusd/ is missing'
+
 let
   moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
   nixpkgs = import <nixpkgs> { overlays = [ moz_overlay ]; };
@@ -8,8 +10,8 @@ let
     cargo = rustLatest;
     rustc = rustLatest;
   };
-  asus-nb-ctrl = rustPlatform.buildRustPackage rec {
-    name = "ASUS-NB-Ctrl";
+  asusctl = rustPlatform.buildRustPackage rec {
+    name = "asusctl";
 
     src = builtins.fetchGit {
       url = "https://gitlab.com/asus-linux/asusctl";
@@ -22,14 +24,13 @@ let
       "prefix="
     ];
 
-    cargoSha256 = "sha256:0p85jwlspl04nsv9dn4vq5ylzn101ch7r1l2h9fd9c3djyk0qis1";
+    cargoSha256 = "sha256:0wz04dp8x9vnr8fbidc7d3xjyix4qrpqwyi1m8dld3jimqkpznhn";
 
     nativeBuildInputs = with nixpkgs; [ pkg-config ];
     buildInputs = with nixpkgs; [ dbus udev ];
 
     doCheck = false;
 
-    # TODO: fix
     patchPhase = ''
       substituteInPlace data/asus-notify.service --replace /usr/bin/sleep ${nixpkgs.coreutils}/bin/sleep --replace /usr/bin/asus-notify $out/bin/asus-notify
       substituteInPlace data/asusd-alt.service --replace /usr/bin/asusd $out/bin/asusd
@@ -39,11 +40,15 @@ let
     '';
 
     configurePhase = null;
-    buildPhase = null;
+    buildPhase = ''
+      make DESTDIR=${placeholder "out"} prefix=""
+    '';
     checkPhase = null;
-    installPhase = null;
+    installPhase = ''
+      make install DESTDIR=${placeholder "out"} prefix=""
+    '';
 
-    meta = with nixpkgs.stdenv.lib; {
+    meta = with nixpkgs.lib; {
       description = "asusd is a utility for Linux to control many aspects of various ASUS laptops but can also be used with non-asus laptops with reduced features.";
       homepage = "https://gitlab.com/asus-linux/asusctl";
       platforms = platforms.linux;
@@ -53,18 +58,17 @@ let
 in {
 
   environment = {
-    systemPackages = [ asus-nb-ctrl ];
-    # Fix, directory not symlinked or not at that path
+    systemPackages = [ asusctl ];
     etc = {
-      asusd.source = "${asus-nb-ctrl}/etc/asusd";
+      asusd.source = "${asusctl}/etc/asusd";
     };
   };
 
   services = {
 
-    dbus.packages = [ asus-nb-ctrl ];
-    udev.packages = [ asus-nb-ctrl ];
-    xserver.modules = [ asus-nb-ctrl ];
+    dbus.packages = [ asusctl ];
+    udev.packages = [ asusctl ];
+    xserver.modules = [ asusctl ];
 
     actkbd = {
       enable = true;
@@ -72,70 +76,12 @@ in {
         {
           keys = [ 203 ];
           events = [ "key" ];
-          command = "${asus-nb-ctrl}/bin/asusctl profile -n";
+          command = "${asusctl}/bin/asusctl profile -n";
         }
       ];
     };
   };
 
-  # TODO: Fix
-  # systemd.packages = [ asus-nb-ctrl ];
-
-  systemd = {
-    user.services = {
-
-      asus-notify = {
-        unitConfig = {
-          Description = "ASUS Notifications";
-          StartLimitInterval = 200;
-          StartLimitBurst = 2;
-        };
-        serviceConfig = {
-          ExecStartPre = "/run/current-system/sw/bin/sleep 2";
-          ExecStart = "${asus-nb-ctrl}/bin/asus-notify";
-          Restart = "on-failure";
-          RestartSec = 1;
-          Type = "simple";
-        };
-        wantedBy = [ "default.target" ];
-      };
-    };
-
-    services = {
-
-      asusd-alt = {
-        unitConfig = {
-          Description = "ASUS Notebook Control";
-          # After = [ "basic.target" "syslog.target" ];
-          After = [ "basic.target" ];
-        };
-        serviceConfig = {
-          ExecStart = "${asus-nb-ctrl}/bin/asusd";
-          Restart = "on-failure";
-          Type = "dbus";
-          BusName = "org.asuslinux.Daemon";
-        };
-        wantedBy = [ "multi-user.target" ];
-      };
-
-      asusd = {
-        unitConfig = {
-          Description = "ASUS Notebook Control";
-          StartLimitInterval = 200;
-          StartLimitBurst = 2;
-          Before = [ "display-manager.service" ];
-        };
-        serviceConfig = {
-          ExecStart = "${asus-nb-ctrl}/bin/asusd";
-          Restart = "always";
-          RestartSec = 1;
-          Type = "dbus";
-          BusName = "org.asuslinux.Daemon";
-        };
-      };
-
-    };
-
-  };
+  systemd.packages = [ asusctl ];
 
 }
