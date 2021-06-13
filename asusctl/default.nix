@@ -1,7 +1,5 @@
 { ... }:
 
-# TODO: fix 'The directory /etc/asusd/ is missing'
-
 let
   moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
   nixpkgs = import <nixpkgs> { overlays = [ moz_overlay ]; };
@@ -59,10 +57,13 @@ in {
 
   environment = {
     systemPackages = [ asusctl ];
-    etc = {
-      asusd.source = "${asusctl}/etc/asusd";
+    etc."asusd/asusd-ledmodes.toml" = {
+      source = "${asusctl}/etc/asusd/asusd-ledmodes.toml";
+      mode = "0644";
     };
   };
+
+  systemd.packages = [ asusctl ];
 
   services = {
 
@@ -81,7 +82,5 @@ in {
       ];
     };
   };
-
-  systemd.packages = [ asusctl ];
 
 }
