@@ -118,7 +118,8 @@ in
     };
 
     xserver = {
-      videoDrivers = [ (if nvidia then "nvidia" else "amdgpu") ];
+      # videoDrivers = [ "amdgpu" "nvidia" ];
+      videoDrivers = [ "amdgpu" ];
       enable = true;
       libinput = {
         enable = true;
