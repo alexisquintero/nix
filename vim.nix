@@ -42,21 +42,21 @@ let
     };
   };
 
-  nvim-lspconfig = buildVimPlugin {
-    name = "nvim-lspconfig";
-    src = builtins.fetchGit {
-      url = "https://github.com/neovim/nvim-lspconfig";
-      ref = "master";
-    };
-  };
+  # nvim-lspconfig = buildVimPlugin {
+  #   name = "nvim-lspconfig";
+  #   src = builtins.fetchGit {
+  #     url = "https://github.com/neovim/nvim-lspconfig";
+  #     ref = "master";
+  #   };
+  # };
 
-  nvim-compe = buildVimPlugin {
-    name = "nvim-compe";
-    src = builtins.fetchGit {
-      url = "https://github.com/hrsh7th/nvim-compe";
-      ref = "master";
-    };
-  };
+  # nvim-compe = buildVimPlugin {
+  #   name = "nvim-compe";
+  #   src = builtins.fetchGit {
+  #     url = "https://github.com/hrsh7th/nvim-compe";
+  #     ref = "master";
+  #   };
+  # };
 
   plugins = with pkgs.vimPlugins; [
     {
