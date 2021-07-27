@@ -49,14 +49,11 @@ in
       };
       extra-env-vars = if is-wsl then wsl-env-vars else {};
       editor = "vim";
-      fzf-command = "rg --files --hidden -g '!.git/'";
     in
     {
       EDITOR = editor;
       VISUAL = editor;
       LESSHISTFILE = "-";
-      FZF_DEFAULT_COMMAND = fzf-command;
-      FZF_CTRL_T_COMMAND = fzf-command;
     }
     //
     extra-env-vars;
@@ -130,7 +127,7 @@ in
     fzf = {
       enable = true;
       enableBashIntegration = true;
-      defaultCommand = "rg";
+      defaultCommand = "rg --files --hidden -g '!.git/'";
     };
 
     tmux = {

@@ -1,9 +1,9 @@
 { ... }:
 
 let
-  moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
-  nixpkgs = import <nixpkgs> { overlays = [ moz_overlay ]; };
-  rustLatest = nixpkgs.latest.rustChannels.stable.rust;
+  rust_overlay = import (builtins.fetchTarball https://github.com/oxalica/rust-overlay/archive/master.tar.gz);
+  nixpkgs = import <nixpkgs> { overlays = [ rust_overlay ]; };
+  rustLatest = nixpkgs.rust-bin.stable.latest.default;
   rustPlatform = nixpkgs.makeRustPlatform {
     cargo = rustLatest;
     rustc = rustLatest;
@@ -63,7 +63,29 @@ in {
     };
   };
 
-  systemd.packages = [ asusctl ];
+  systemd = {
+    packages = [ asusctl ];
+
+    user.services = {
+
+      asus-notify = {
+        unitConfig = {
+          Description = "ASUS Notifications";
+          StartLimitInterval = 200;
+          StartLimitBurst = 2;
+        };
+        serviceConfig = {
+          ExecStartPre = "${nixpkgs.coreutils}/bin/sleep 2";
+          ExecStart = "${asusctl}/bin/asus-notify";
+          Restart = "on-failure";
+          RestartSec = 1;
+          Type = "simple";
+        };
+        wantedBy = [ "default.target" ];
+      };
+    };
+
+  };
 
   services = {
 
