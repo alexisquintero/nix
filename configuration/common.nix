@@ -28,6 +28,8 @@
     wget vim
   ];
 
+  environment.etc.hosts.mode = "0644";
+
   sound = {
     enable = true;
   };
