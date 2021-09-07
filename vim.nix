@@ -1,18 +1,18 @@
 { pkgs, ...}:
 
 let
+  cmp-settings =         builtins.readFile ./.vim/pluginsettings/cmp.vim;
   fzf-settings =         builtins.readFile ./.vim/pluginsettings/fzf.vim;
   gitgutter-settings =   builtins.readFile ./.vim/pluginsettings/gitgutter.vim;
+  lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
+  metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
   netrw-settings =       builtins.readFile ./.vim/pluginsettings/netrw.vim;
   sandwich-settings =    builtins.readFile ./.vim/pluginsettings/sandwich.vim;
   sexp-settings =        builtins.readFile ./.vim/pluginsettings/sexp.vim;
   targets-settings =     builtins.readFile ./.vim/pluginsettings/targets.vim;
   vim-cool-settings =    builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
-  vim-scala-settings =   builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
   vim-printer-settings = builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
-  lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
-  metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
-  compe-settings =       builtins.readFile ./.vim/pluginsettings/compe.vim;
+  vim-scala-settings =   builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
@@ -42,21 +42,13 @@ let
     };
   };
 
-  # nvim-lspconfig = buildVimPlugin {
-  #   name = "nvim-lspconfig";
-  #   src = builtins.fetchGit {
-  #     url = "https://github.com/neovim/nvim-lspconfig";
-  #     ref = "master";
-  #   };
-  # };
-
-  # nvim-compe = buildVimPlugin {
-  #   name = "nvim-compe";
-  #   src = builtins.fetchGit {
-  #     url = "https://github.com/hrsh7th/nvim-compe";
-  #     ref = "master";
-  #   };
-  # };
+  lsp-signature = buildVimPlugin {
+    name = "lsp-signature";
+    src = builtins.fetchGit {
+      url = "https://github.com/ray-x/lsp_signature.nvim";
+      ref = "master";
+    };
+  };
 
   plugins = with pkgs.vimPlugins; [
     {
@@ -107,9 +99,12 @@ let
       config = metals-settings;
     }
     {
-      plugin = nvim-compe;
-      config = compe-settings;
+      plugin = nvim-cmp;
+      config = cmp-settings;
     }
+    cmp-buffer
+    cmp-nvim-lsp
+    lsp-signature
   ];
 
   settings = builtins.readFile ./.vim/settings.vim;
@@ -121,7 +116,6 @@ in
 {
 
   programs.neovim = {
-    package = pkgs.neovim-nightly;
     enable = true;
     plugins = plugins;
     extraConfig = settings + mappings + pluginSettings + extra;
