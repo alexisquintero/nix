@@ -16,13 +16,12 @@ let
 
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
-  vim-substrata = buildVimPlugin {
-    name = "vim-substrata";
+  substrata.nvim = buildVimPlugin {
+    name = "substrata.nvim";
     src = builtins.fetchGit {
-      url = "https://github.com/arzg/vim-substrata";
-      ref = "master";
+      url = "https://github.com/kvrohit/substrata.nvim";
+      ref = "main";
     };
-    dependencies = [];
   };
 
   vim-printer = buildVimPlugin {
@@ -31,7 +30,6 @@ let
       url = "https://github.com/meain/vim-printer";
       ref = "master";
     };
-    dependencies = [];
   };
 
   nvim-metals = buildVimPlugin {
@@ -89,7 +87,7 @@ let
       plugin = targets-vim;
       config = targets-settings;
     }
-    vim-substrata
+    substrata.nvim
     {
       plugin = nvim-lspconfig;
       config = lsp-config-settings;
@@ -110,7 +108,15 @@ let
   settings = builtins.readFile ./.vim/settings.vim;
   mappings = builtins.readFile ./.vim/mappings.vim;
   pluginSettings = netrw-settings;
-  extra = "colorscheme substrata";
+  extra = ''
+    let g:loaded_python_provider = 0
+    let g:loaded_python3_provider = 0
+    let g:loaded_ruby_provider = 0
+    let g:loaded_perl_provider = 0
+    let g:loaded_node_provider = 0
+
+    colorscheme substrata
+  '';
 
 in
 {
