@@ -2,8 +2,6 @@
 
 let
   nvidia = false;
-  kernelPackages = pkgs.linuxPackages_latest;
-#  kernel = kernelPackages.kernel;
 
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -36,7 +34,7 @@ in
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    kernelPackages = kernelPackages;
+    kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = [ "nouveau" ];
   };
 
@@ -108,6 +106,8 @@ in
 
   programs = {
     light.enable = true;
+    adb.enable = true;
+    droidcam.enable = true;
   };
 
   # This value determines the NixOS release from which the default
