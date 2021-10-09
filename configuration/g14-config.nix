@@ -25,19 +25,12 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
       ./common.nix
       ../asusctl/default.nix
     ];
 
   nixpkgs.config.allowUnfree = true; # nvidia driver
-
-  nix = {
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-   };
 
   # Use the systemd-boot EFI boot loader.
   boot = {

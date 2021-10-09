@@ -103,6 +103,7 @@ let
     cmp-buffer
     cmp-nvim-lsp
     lsp-signature
+    plenary-nvim
   ];
 
   settings = builtins.readFile ./.vim/settings.vim;
