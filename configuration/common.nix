@@ -24,6 +24,7 @@
     networkmanager.enable = true;
     useDHCP = false;
     interfaces.wlp2s0.useDHCP = true;
+    firewall.enable = true;
   };
 
   time = {
@@ -50,7 +51,10 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.xserver.desktopManager.xterm.enable = true;
+  services = {
+    xserver.desktopManager.xterm.enable = true;
+    thermald.enable = true;
+  };
 
   users.users.alexis = {
     isNormalUser = true;
