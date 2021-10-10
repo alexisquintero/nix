@@ -6,7 +6,7 @@ let
     conf = builtins.readFile ./dotfiles/st/config.h;
   };
 
-  git-compl-path = "/nix/var/nix/profiles/per-user/${config.home.username}/profile/share/bash-completion/completions/git";
+  git-compl-path = "/etc/profiles/per-user/${config.home.username}/share/bash-completion/completions/git";
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 

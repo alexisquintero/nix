@@ -1,19 +1,6 @@
-{ pkgs, ...}:
+{ config, pkgs, ... }:
 
 let
-  cmp-settings =         builtins.readFile ./.vim/pluginsettings/cmp.vim;
-  fzf-settings =         builtins.readFile ./.vim/pluginsettings/fzf.vim;
-  gitgutter-settings =   builtins.readFile ./.vim/pluginsettings/gitgutter.vim;
-  lsp-config-settings  = builtins.readFile ./.vim/pluginsettings/lsp-config.vim;
-  metals-settings =      builtins.readFile ./.vim/pluginsettings/metals.vim;
-  netrw-settings =       builtins.readFile ./.vim/pluginsettings/netrw.vim;
-  sandwich-settings =    builtins.readFile ./.vim/pluginsettings/sandwich.vim;
-  sexp-settings =        builtins.readFile ./.vim/pluginsettings/sexp.vim;
-  targets-settings =     builtins.readFile ./.vim/pluginsettings/targets.vim;
-  vim-cool-settings =    builtins.readFile ./.vim/pluginsettings/vim-cool.vim;
-  vim-printer-settings = builtins.readFile ./.vim/pluginsettings/vim-printer.vim;
-  vim-scala-settings =   builtins.readFile ./.vim/pluginsettings/vim-scala.vim;
-
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
 
   substrata.nvim = buildVimPlugin {
@@ -49,83 +36,45 @@ let
   };
 
   plugins = with pkgs.vimPlugins; [
-    {
-      plugin = vim-gitgutter;
-      config = gitgutter-settings;
-    }
-    {
-      plugin = vim-scala;
-      config = vim-scala-settings;
-    }
-    vim-fugitive
-    {
-      plugin = vim-cool;
-      config = vim-cool-settings;
-    }
-    {
-      plugin = vim-sexp;
-      config = sexp-settings;
-    }
-    vim-unimpaired
-    vim-commentary
-    {
-      plugin = vim-sandwich;
-      config = sandwich-settings;
-    }
-    vim-fireplace
-    vim-rhubarb
-    vim-nix
-    {
-      plugin = vim-printer;
-      config = vim-printer-settings;
-    }
-    {
-      plugin = fzf-vim;
-      config = fzf-settings;
-    }
-    {
-      plugin = targets-vim;
-      config = targets-settings;
-    }
-    substrata.nvim
-    {
-      plugin = nvim-lspconfig;
-      config = lsp-config-settings;
-    }
-    {
-      plugin = nvim-metals;
-      config = metals-settings;
-    }
-    {
-      plugin = nvim-cmp;
-      config = cmp-settings;
-    }
     cmp-buffer
     cmp-nvim-lsp
+    fzf-vim
     lsp-signature
+    nvim-cmp
+    nvim-lspconfig
+    nvim-metals
     plenary-nvim
+    substrata.nvim
+    targets-vim
+    vim-commentary
+    vim-cool
+    vim-fireplace
+    vim-fugitive
+    vim-gitgutter
+    vim-nix
+    vim-printer
+    vim-rhubarb
+    vim-sandwich
+    vim-scala
+    vim-sexp
+    vim-unimpaired
   ];
-
-  settings = builtins.readFile ./.vim/settings.vim;
-  mappings = builtins.readFile ./.vim/mappings.vim;
-  pluginSettings = netrw-settings;
-  extra = ''
-    let g:loaded_python_provider = 0
-    let g:loaded_python3_provider = 0
-    let g:loaded_ruby_provider = 0
-    let g:loaded_perl_provider = 0
-    let g:loaded_node_provider = 0
-
-    colorscheme substrata
-  '';
 
 in
 {
 
+  xdg.configFile."nvim2" = {
+    recursive = true;
+    source = ./vim;
+  };
+
   programs.neovim = {
     enable = true;
     plugins = plugins;
-    extraConfig = settings + mappings + pluginSettings + extra;
+    extraConfig = ''
+      set runtimepath^=${config.xdg.configHome}/nvim-git
+      let g:ignore_plug=1
+    '';
     vimAlias = true;
     vimdiffAlias = true;
   };
