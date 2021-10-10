@@ -1,8 +1,0 @@
-[submodule "dotfiles"]
-	path = dotfiles
-	; url = git@github.com:alexisquintero/dotfiles.git
-	url = https://github.com/alexisquintero/dotfiles.git
-[submodule ".vim"]
-	path = .vim
-	; url = git@github.com:alexisquintero/.vim.git
-	url = https://github.com/alexisquintero/.vim.git
