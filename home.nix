@@ -58,6 +58,7 @@ in
 
     packages = (with pkgs; [
       dejavu_fonts
+      ipafont
       keepass
       haskellPackages.xmobar
       rnix-lsp
@@ -74,6 +75,11 @@ in
       st
       create-shell
     ];
+  };
+
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [ fcitx5-mozc ];
   };
 
   xdg = {
