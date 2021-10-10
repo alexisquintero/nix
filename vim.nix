@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vim-config, ... }:
 
 let
   buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
@@ -60,20 +60,23 @@ let
     vim-unimpaired
   ];
 
+  config-path = "${config.xdg.configHome}/nvim-git";
+
 in
 {
 
-  xdg.configFile."nvim2" = {
+  xdg.configFile."nvim-git" = {
     recursive = true;
-    source = ./vim;
+    source = "${vim-config}";
   };
 
   programs.neovim = {
     enable = true;
     plugins = plugins;
     extraConfig = ''
-      set runtimepath^=${config.xdg.configHome}/nvim-git
       let g:ignore_plug=1
+      set runtimepath^=${config-path}
+      source ${config-path}/init.vim
     '';
     vimAlias = true;
     vimdiffAlias = true;

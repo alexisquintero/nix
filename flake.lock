@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1630948920,
+        "narHash": "sha256-dmw7S3mNfObIwrN7WebFEKY3q8OuGshZwe+RkPRDtgo=",
+        "owner": "alexisquintero",
+        "repo": "dotfiles",
+        "rev": "3a8409eabf92a56f240c9e8d9f93975d1377b30d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alexisquintero",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -50,8 +66,26 @@
     },
     "root": {
       "inputs": {
+        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "vim-config": "vim-config"
+      }
+    },
+    "vim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1633827132,
+        "narHash": "sha256-BFm5y6twhswA/GcEyWqafT9ChOPiRPLsJ9eauFgAaGM=",
+        "owner": "alexisquintero",
+        "repo": ".vim",
+        "rev": "72c40d68a748ad55a3b228ecb14f1f4dd62e5237",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alexisquintero",
+        "repo": ".vim",
+        "type": "github"
       }
     }
   },

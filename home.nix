@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, dotfiles, vim-config, ... }:
 
 let
 
   st = pkgs.st.override {
-    conf = builtins.readFile ./dotfiles/st/config.h;
+    conf = builtins.readFile "${dotfiles}/st/config.h";
   };
 
   git-compl-path = "/etc/profiles/per-user/${config.home.username}/share/bash-completion/completions/git";
@@ -79,10 +79,10 @@ in
 
   xdg = {
     enable = true;
-    configFile."dunst/dunstrc".source = ./dotfiles/.config/dunst/dunstrc;
-    configFile."i3/i3status".source = ./dotfiles/.config/i3/i3status;
-    configFile."xmobar/xmobarrc".source = ./dotfiles/.config/xmobar/xmobarrc;
-    configFile."git/config".source = ./dotfiles/.config/git/config;
+    configFile."dunst/dunstrc".source = "${dotfiles}/.config/dunst/dunstrc";
+    configFile."i3/i3status".source = "${dotfiles}/.config/i3/i3status";
+    configFile."xmobar/xmobarrc".source = "${dotfiles}/.config/xmobar/xmobarrc";
+    configFile."git/config".source = "${dotfiles}/.config/git/config";
     configFile."git/git-prompt.sh".source = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh";
     };
@@ -112,7 +112,7 @@ in
       historyFile = "${config.xdg.configHome}/bash/bash_history";
       initExtra =
         "[ -f ${git-compl-path} ] && source ${git-compl-path}\n" +
-        builtins.readFile ./dotfiles/.bashrc;
+        builtins.readFile "${dotfiles}/.bashrc";
       profileExtra = lib.mkIf is-wsl ''
         . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh
       '';
@@ -127,12 +127,12 @@ in
     tmux = {
       enable = true;
       secureSocket = false;
-      extraConfig = builtins.readFile ./dotfiles/.tmux.conf;
+      extraConfig = builtins.readFile "${dotfiles}/.tmux.conf";
     };
 
     readline = {
       enable = true;
-      extraConfig = builtins.readFile ./dotfiles/.config/readline/inputrc;
+      extraConfig = builtins.readFile "${dotfiles}/.config/readline/inputrc";
     };
 
     gpg.enable = true;
@@ -186,12 +186,12 @@ in
       wmi3 = {
         # enable = true;
         config = null;
-        extraConfig = builtins.readFile ./dotfiles/.config/i3/config;
+        extraConfig = builtins.readFile "${dotfiles}/.config/i3/config";
       };
 
       wmxmonad = {
         enable = true;
-        config = ./dotfiles/.xmonad/xmonad.hs;
+        config = "${dotfiles}/.xmonad/xmonad.hs";
         extraPackages = haskellPackages: (with haskellPackages; [
           xmonad-contrib
           xmonad-extras
