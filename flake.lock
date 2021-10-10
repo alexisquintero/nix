@@ -3,11 +3,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1630948920,
-        "narHash": "sha256-dmw7S3mNfObIwrN7WebFEKY3q8OuGshZwe+RkPRDtgo=",
+        "lastModified": 1633872809,
+        "narHash": "sha256-BT0FUXEMJwv3DBF6yq7VvJgtfNPr0XMomEJ8f+/cWCw=",
         "owner": "alexisquintero",
         "repo": "dotfiles",
-        "rev": "3a8409eabf92a56f240c9e8d9f93975d1377b30d",
+        "rev": "ad7ba16ce9bf235e9c16b450863a5082edf98144",
         "type": "github"
       },
       "original": {
@@ -36,11 +36,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1633825321,
-        "narHash": "sha256-gUVMoprk3+mTPsgF6tO23ryLjMEdFGuHYv7BgheSPf0=",
+        "lastModified": 1633867062,
+        "narHash": "sha256-Pp62zi7t2cgqEcJjsJ+HgBSIdZE6mN7m7Ud073IFC8o=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "58a18d7056a8ad3728eb99252ccb2837c1444503",
+        "rev": "28b259bbb4d464bd5378fc21116ecdf71b50435e",
         "type": "github"
       },
       "original": {
@@ -50,11 +50,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1633706237,
-        "narHash": "sha256-xNHCuo9g6r5ehf84YdJi39JJR2QCfeWic8xRc7WmcIY=",
+        "lastModified": 1633791597,
+        "narHash": "sha256-HzpxqTEnqsjkKWfW87kSI3WVizYjUMQeUjSIm3b5I0Y=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "18d4025a8ee2f656d897505ccd0ba61a5b89bbea",
+        "rev": "9bf75dd50b7b6d3ce6aaf6563db95f41438b9bdb",
         "type": "github"
       },
       "original": {

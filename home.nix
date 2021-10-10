@@ -68,7 +68,6 @@ in
       libnotify
       docker-compose
       pulsemixer
-      playerctl
       google-chrome
     ]) ++
     [
@@ -146,6 +145,8 @@ in
       enableBashIntegration = true;
     };
 
+    ncspot.enable = true;
+
   };
 
   services = {
@@ -177,6 +178,10 @@ in
     };
 
     xsuspender.enable = true;
+
+    playerctld.enable = true;
+
+    volnoti.enable = true;
 
   };
 
