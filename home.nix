@@ -33,6 +33,7 @@ in
     keyboard = {
       layout = "us";
       variant = "altgr-intl";
+      options = [ "ctrl:nocaps" ];
     };
 
     sessionVariables =
@@ -67,7 +68,7 @@ in
       mpv
       xsel
       libnotify
-      docker-compose
+      podman-compose
       pulsemixer
       google-chrome
     ]) ++
@@ -188,6 +189,8 @@ in
     playerctld.enable = true;
 
     volnoti.enable = true;
+
+    poweralertd.enable = true;
 
   };
 

@@ -37,7 +37,10 @@ in
     blacklistedKernelModules = [ "nouveau" ];
   };
 
-  networking.hostName = "nixos-g14";
+  networking = {
+    hostName = "nixos-g14";
+    interfaces.wlp2s0.useDHCP = true;
+  };
 
   environment.systemPackages = [
     nvidia-offload

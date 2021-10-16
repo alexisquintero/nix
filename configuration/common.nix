@@ -23,7 +23,6 @@
   networking = {
     networkmanager.enable = true;
     useDHCP = false;
-    interfaces.wlp2s0.useDHCP = true;
     firewall.enable = true;
   };
 
@@ -63,6 +62,11 @@
     extraGroups = [ "wheel" "docker" "video" "audio" ];
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+  };
 
 }
