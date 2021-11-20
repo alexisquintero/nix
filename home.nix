@@ -68,7 +68,7 @@ in
       mpv
       xsel
       libnotify
-      podman-compose
+      docker-compose
       pulsemixer
       google-chrome
     ]) ++

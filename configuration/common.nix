@@ -62,11 +62,6 @@
     extraGroups = [ "wheel" "docker" "video" "audio" ];
   };
 
-  virtualisation = {
-    podman = {
-      enable = true;
-      dockerCompat = true;
-    };
-  };
+  virtualisation.docker.enable = true;
 
 }
