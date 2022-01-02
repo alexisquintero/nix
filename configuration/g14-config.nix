@@ -1,15 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  nvidia = false;
-
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
 
   toggle-touchpad = pkgs.writeShellScriptBin "toggle-touchpad" ''
     #!${pkgs.bash}/bin/bash
@@ -26,7 +17,6 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./common.nix
-      ../asusctl/default.nix
     ];
 
   nixpkgs.config.allowUnfree = true; # nvidia driver
@@ -43,23 +33,10 @@ in
   };
 
   environment.systemPackages = [
-    nvidia-offload
     toggle-touchpad
   ];
 
   hardware = {
-
-    nvidia = pkgs.lib.mkIf nvidia {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      # powerManagement.finegrained = true;
-      prime = {
-        # amdgpuBusId = "PCI:4:0:0";
-        nvidiaBusId = "PCI:1:0:0";
-        offload.enable = true;
-        # sync.enable = true;  # Do all rendering on the dGPU
-      };
-    };
 
     opengl = {
       enable = true;
@@ -68,17 +45,13 @@ in
 
     bluetooth.enable = true;
 
+    asus.battery.chargeUpto = 60;
+
   };
 
   services = {
 
-    tlp.enable = true;
-
     udev = {
-      extraRules = pkgs.lib.mkIf (!nvidia) ''
-        # Remove nVidia devices, when present.
-        ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{remove}="1"
-      '';
 
       extraHwdb = ''
         evdev:input:b0003v0B05p1866*
@@ -88,7 +61,6 @@ in
     };
 
     xserver = {
-      # videoDrivers = [ "amdgpu" "nvidia" ];
       videoDrivers = [ "amdgpu" ];
       enable = true;
       libinput = {
@@ -96,6 +68,8 @@ in
         touchpad.disableWhileTyping = true;
       };
     };
+
+    auto-cpufreq.enable = true;
 
   };
 
