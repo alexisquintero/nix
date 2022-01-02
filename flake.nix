@@ -21,9 +21,8 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.asus-zephyrus-ga401
-          "${nixos-hardware}/asus/battery.nix"
-          # "${nixos-hardware}/common/gpu/nvidia.disable.nix"
           ./configuration/g14-config.nix
+          "${nixos-hardware}/asus/battery.nix"
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
