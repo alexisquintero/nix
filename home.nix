@@ -92,6 +92,9 @@ in
     configFile."git/git-prompt.sh".source = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh";
     };
+    configFile."fcitx5/config".source = "${dotfiles}/.config/fcitx5/config";
+    configFile."fcitx5/profile".source = "${dotfiles}/.config/fcitx5/profile";
+    configFile."fcitx5/conf/xcb.conf".source = "${dotfiles}/.config/fcitx5/conf/xcb.conf";
   };
 
   imports = [
