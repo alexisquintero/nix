@@ -195,6 +195,8 @@ in
 
     poweralertd.enable = true;
 
+    cbatticon.enable = true;
+
   };
 
   xsession =
