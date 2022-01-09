@@ -19,27 +19,10 @@ let
     };
   };
 
-  nvim-metals = buildVimPlugin {
-    name = "nvim-metals";
-    src = builtins.fetchGit {
-      url = "https://github.com/scalameta/nvim-metals";
-      ref = "main";
-    };
-  };
-
-  lsp-signature = buildVimPlugin {
-    name = "lsp-signature";
-    src = builtins.fetchGit {
-      url = "https://github.com/ray-x/lsp_signature.nvim";
-      ref = "master";
-    };
-  };
-
   plugins = with pkgs.vimPlugins; [
     cmp-buffer
     cmp-nvim-lsp
     fzf-vim
-    lsp-signature
     nvim-cmp
     nvim-lspconfig
     nvim-metals
