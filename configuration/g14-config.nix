@@ -69,7 +69,7 @@ in
       };
     };
 
-    auto-cpufreq.enable = true;
+    tlp.enable = true;
 
   };
 

@@ -213,7 +213,6 @@ in
         config = "${dotfiles}/.xmonad/xmonad.hs";
         extraPackages = haskellPackages: (with haskellPackages; [
           xmonad-contrib
-          xmonad-extras
           xmonad
         ]);
       };
