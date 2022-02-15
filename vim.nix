@@ -19,14 +19,26 @@ let
     };
   };
 
+  cmp-nvim-lsp-signature-help = buildVimPlugin {
+    name = "cmp-nvim-lsp-signature-help";
+    src = builtins.fetchGit {
+      url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help";
+      ref = "main";
+    };
+  };
+
   plugins = with pkgs.vimPlugins; [
     cmp-buffer
     cmp-nvim-lsp
+    cmp-nvim-lsp-signature-help
+    fidget-nvim
     fzf-vim
     nvim-cmp
     nvim-lspconfig
     nvim-metals
+    (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
     plenary-nvim
+    registers-nvim
     substrata.nvim
     targets-vim
     vim-commentary
