@@ -28,15 +28,18 @@ let
   };
 
   plugins = with pkgs.vimPlugins; [
+    (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
     cmp-buffer
     cmp-nvim-lsp
     cmp-nvim-lsp-signature-help
+    cmp_luasnip
+    comment-nvim
     fidget-nvim
     fzf-vim
+    luasnip
     nvim-cmp
     nvim-lspconfig
     nvim-metals
-    (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
     plenary-nvim
     registers-nvim
     substrata.nvim
