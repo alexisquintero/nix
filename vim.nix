@@ -41,10 +41,8 @@ let
     nvim-lspconfig
     nvim-metals
     plenary-nvim
-    registers-nvim
     substrata.nvim
     targets-vim
-    vim-commentary
     vim-cool
     vim-fireplace
     vim-fugitive
