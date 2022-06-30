@@ -45,8 +45,6 @@ in
 
     bluetooth.enable = true;
 
-    asus.battery.chargeUpto = 60;
-
   };
 
   services = {

@@ -3,7 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     dotfiles = {
       url = "github:alexisquintero/dotfiles";
@@ -15,23 +18,40 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, ... }: {
-  nixosConfigurations = {
-      nixos-g14 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      nixosConfigurations = {
+        nixos-g14 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            nixos-hardware.nixosModules.asus-zephyrus-ga401
+            ./configuration/g14-config.nix
+            nixos-hardware.nixosModules.asus-battery
+            {
+              hardware.asus.battery.chargeUpto = 60;
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.alexis = import ./home.nix;
+              home-manager.extraSpecialArgs = { inherit dotfiles vim-config; };
+            }
+          ];
+        };
+      };
+
+      homeConfigurations.alexis = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
         modules = [
-          nixos-hardware.nixosModules.asus-zephyrus-ga401
-          ./configuration/g14-config.nix
-          "${nixos-hardware}/asus/battery.nix"
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.alexis = import ./home.nix;
-            home-manager.extraSpecialArgs = { inherit dotfiles vim-config nixos-hardware; };
-          }
+          ./home.nix
         ];
+        extraSpecialArgs = { inherit dotfiles vim-config; };
       };
     };
-  };
 }
