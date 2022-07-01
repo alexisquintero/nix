@@ -1,4 +1,4 @@
-{ config, pkgs, lib, dotfiles, vim-config, ... }:
+{ config, pkgs, lib, dotfiles, vim-config, generic-linux ? false, ... }:
 
 let
 
@@ -20,7 +20,7 @@ let
 in
 {
 
-  targets.genericLinux.enable = is-wsl;
+  targets.genericLinux.enable = generic-linux;
 
   fonts.fontconfig.enable = true;
 

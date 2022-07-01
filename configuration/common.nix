@@ -7,7 +7,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-   };
+  };
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -17,7 +17,9 @@
 
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "powersave";
+    cpuFreqGovernor = "ondemand";
+
+    powertop.enable = true;
   };
 
   networking = {
@@ -31,26 +33,38 @@
     hardwareClockInLocalTime = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    wget vim
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      wget
+      vim
+    ];
 
-  environment.etc.hosts.mode = "0644";
+    etc.hosts.mode = "0644";
+
+  };
+
 
   sound = {
     enable = true;
   };
 
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-    extraConfig = "load-module module-switch-on-connect";
+  hardware = {
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+      extraConfig = "load-module module-switch-on-connect";
+    };
+
+    nvidia.powerManagement.finegrained = true;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
   services = {
-    xserver.desktopManager.xterm.enable = true;
+    xserver = {
+      desktopManager.xterm.enable = true;
+      enable = true;
+    };
     thermald.enable = true;
   };
 

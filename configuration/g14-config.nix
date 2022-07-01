@@ -21,7 +21,6 @@ in
 
   nixpkgs.config.allowUnfree = true; # nvidia driver
 
-  # Use the systemd-boot EFI boot loader.
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = [ "nouveau" ];
@@ -59,15 +58,11 @@ in
     };
 
     xserver = {
-      videoDrivers = [ "amdgpu" ];
-      enable = true;
       libinput = {
         enable = true;
         touchpad.disableWhileTyping = true;
       };
     };
-
-    tlp.enable = true;
 
   };
 

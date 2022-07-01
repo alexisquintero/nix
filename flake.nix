@@ -26,7 +26,8 @@
     {
       nixosConfigurations = {
         nixos-g14 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit system;
+
           modules = [
             nixos-hardware.nixosModules.asus-zephyrus-ga401
             ./configuration/g14-config.nix
@@ -39,7 +40,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alexis = import ./home.nix;
-              home-manager.extraSpecialArgs = { inherit dotfiles vim-config; };
+              home-manager.extraSpecialArgs = { inherit dotfiles vim-config; generic-linux = false; };
             }
           ];
         };
@@ -51,7 +52,7 @@
         modules = [
           ./home.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config; };
+        extraSpecialArgs = { inherit dotfiles vim-config; generic-linux = true; };
       };
     };
 }
