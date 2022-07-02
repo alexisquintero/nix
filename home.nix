@@ -37,21 +37,21 @@ in
     };
 
     sessionVariables =
-    let
-      wsl-env-vars = {
-        LIBGL_ALWAYS_INDIRECT = "1";
-        DISPLAY = "\$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0";
-      };
-      extra-env-vars = if is-wsl then wsl-env-vars else {};
-      editor = "vim";
-    in
-    {
-      EDITOR = editor;
-      VISUAL = editor;
-      LESSHISTFILE = "-";
-    }
-    //
-    extra-env-vars;
+      let
+        wsl-env-vars = {
+          LIBGL_ALWAYS_INDIRECT = "1";
+          DISPLAY = "\$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0";
+        };
+        extra-env-vars = if is-wsl then wsl-env-vars else { };
+        editor = "vim";
+      in
+      {
+        EDITOR = editor;
+        VISUAL = editor;
+        LESSHISTFILE = "-";
+      }
+      //
+      extra-env-vars;
 
     file.".haskeline".text = ''
       editMode: Vi
@@ -61,7 +61,6 @@ in
       dejavu_fonts
       ipafont
       keepass
-      haskellPackages.xmobar
       rnix-lsp
       ripgrep
       scrot
@@ -85,9 +84,6 @@ in
 
   xdg = {
     enable = true;
-    configFile."dunst/dunstrc".source = "${dotfiles}/.config/dunst/dunstrc";
-    configFile."i3/i3status".source = "${dotfiles}/.config/i3/i3status";
-    configFile."xmobar/xmobarrc".source = "${dotfiles}/.config/xmobar/xmobarrc";
     configFile."git/config".source = "${dotfiles}/.config/git/config";
     configFile."git/git-prompt.sh".source = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh";
@@ -157,6 +153,16 @@ in
 
     ncspot.enable = true;
 
+    xmobar = {
+      enable = true;
+      extraConfig = builtins.readFile "${dotfiles}/.config/xmobar/xmobarrc";
+    };
+
+    # i3status = {
+    #   enable = true;
+    #   general = builtins.readFile "${dotfiles}/.config/i3/i3status";
+    # };
+
   };
 
   services = {
@@ -167,12 +173,19 @@ in
       enableSshSupport = true;
     };
 
-    dunst.enable = true;
+    dunst = {
+      enable = true;
+      configFile = "${dotfiles}/.config/dunst/dunstrc";
+    };
 
-    xscreensaver  = {
+    xscreensaver = {
       enable = true;
       settings = {
-        dpmsEnabled = true; dpmsQuickOff = true; dpmsStandby = "0:00:01"; dpmsSuspend = "0:00:01"; dpmsOff = "0:00:01";
+        dpmsEnabled = true;
+        dpmsQuickOff = true;
+        dpmsStandby = "0:00:01";
+        dpmsSuspend = "0:00:01";
+        dpmsOff = "0:00:01";
         mode = "blank";
       };
     };
@@ -210,11 +223,8 @@ in
 
       wmxmonad = {
         enable = true;
+        enableContribAndExtras = true;
         config = "${dotfiles}/.xmonad/xmonad.hs";
-        extraPackages = haskellPackages: (with haskellPackages; [
-          xmonad-contrib
-          xmonad
-        ]);
       };
 
     in
@@ -226,6 +236,6 @@ in
         xmonad = wmxmonad;
       };
 
-  };
+    };
 
 }
