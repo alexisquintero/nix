@@ -70,6 +70,7 @@ in
       docker-compose
       pulsemixer
       google-chrome
+      i3lock
     ]) ++
     [
       st
@@ -178,16 +179,10 @@ in
       configFile = "${dotfiles}/.config/dunst/dunstrc";
     };
 
-    xscreensaver = {
+    screen-locker = {
       enable = true;
-      settings = {
-        dpmsEnabled = true;
-        dpmsQuickOff = true;
-        dpmsStandby = "0:00:01";
-        dpmsSuspend = "0:00:01";
-        dpmsOff = "0:00:01";
-        mode = "blank";
-      };
+      inactiveInterval = 5;
+      lockCmd = "${pkgs.i3lock}/bin/i3lock -c 000000 ;${pkgs.xorg.xset}/bin/xset dpms force off";
     };
 
     redshift = {

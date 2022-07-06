@@ -52,8 +52,6 @@
       package = pkgs.pulseaudioFull;
       extraConfig = "load-module module-switch-on-connect";
     };
-
-    nvidia.powerManagement.finegrained = true;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";

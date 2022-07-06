@@ -44,6 +44,7 @@ in
 
     bluetooth.enable = true;
 
+    nvidia.powerManagement.finegrained = true;
   };
 
   services = {
