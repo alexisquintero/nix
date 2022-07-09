@@ -66,6 +66,8 @@ in
 
     power-profiles-daemon.enable = true;
 
+    asusd.enable = true;
+
   };
 
   boot.initrd.luks.devices = {
