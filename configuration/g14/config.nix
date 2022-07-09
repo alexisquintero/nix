@@ -16,7 +16,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./common.nix
+      ../common.nix
     ];
 
   nixpkgs.config.allowUnfree = true; # nvidia driver
@@ -63,6 +63,8 @@ in
         touchpad.disableWhileTyping = true;
       };
     };
+
+    power-profiles-daemon.enable = true;
 
   };
 

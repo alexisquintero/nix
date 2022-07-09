@@ -34,7 +34,7 @@
 
           modules = [
             nixos-hardware.nixosModules.asus-zephyrus-ga401
-            ./configuration/g14-config.nix
+            ./configuration/g14/config.nix
             nixos-hardware.nixosModules.asus-battery
             {
               hardware.asus.battery.chargeUpto = 60;
