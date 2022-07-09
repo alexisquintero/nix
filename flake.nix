@@ -16,9 +16,13 @@
       url = "github:alexisquintero/.vim";
       flake = false;
     };
+    git-prompt = {
+      url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, ... }:
+  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -40,7 +44,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alexis = import ./home.nix;
-              home-manager.extraSpecialArgs = { inherit dotfiles vim-config; generic-linux = false; };
+              home-manager.extraSpecialArgs = { inherit dotfiles vim-config git-prompt; generic-linux = false; };
             }
           ];
         };

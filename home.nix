@@ -1,4 +1,4 @@
-{ config, pkgs, lib, dotfiles, vim-config, generic-linux ? false, ... }:
+{ config, pkgs, lib, dotfiles, vim-config, git-prompt, generic-linux ? false, ... }:
 
 let
 
@@ -86,9 +86,7 @@ in
   xdg = {
     enable = true;
     configFile."git/config".source = "${dotfiles}/.config/git/config";
-    configFile."git/git-prompt.sh".source = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh";
-    };
+    configFile."git/git-prompt.sh".source = "${git-prompt}";
     configFile."fcitx5/config".source = "${dotfiles}/.config/fcitx5/config";
     configFile."fcitx5/profile".source = "${dotfiles}/.config/fcitx5/profile";
     configFile."fcitx5/conf/xcb.conf".source = "${dotfiles}/.config/fcitx5/conf/xcb.conf";

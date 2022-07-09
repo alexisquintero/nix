@@ -22,7 +22,6 @@ in
   nixpkgs.config.allowUnfree = true; # nvidia driver
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = [ "nouveau" ];
   };
 

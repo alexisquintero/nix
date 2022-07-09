@@ -1,23 +1,6 @@
 { config, pkgs, vim-config, ... }:
 
 let
-  buildVimPlugin = pkgs.vimUtils.buildVimPluginFrom2Nix;
-
-  substrata.nvim = buildVimPlugin {
-    name = "substrata.nvim";
-    src = builtins.fetchGit {
-      url = "https://github.com/kvrohit/substrata.nvim";
-      ref = "main";
-    };
-  };
-
-  vim-printer = buildVimPlugin {
-    name = "vim-printer";
-    src = builtins.fetchGit {
-      url = "https://github.com/meain/vim-printer";
-      ref = "master";
-    };
-  };
 
   plugins = with pkgs.vimPlugins; [
     (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
@@ -33,7 +16,7 @@ let
     nvim-lspconfig
     nvim-metals
     plenary-nvim
-    substrata.nvim
+    substrata-nvim
     targets-vim
     vim-cool
     vim-fireplace
