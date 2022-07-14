@@ -71,7 +71,17 @@
         modules = [
           ./home.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; generic-linux = true; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; generic-linux = true; user = "alexis"; };
+      };
+
+
+      homeConfigurations.alexisquintero = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          ./home.nix
+        ];
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; generic-linux = true; user = "alexis.quintero"; };
       };
     };
 }
