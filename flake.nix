@@ -71,7 +71,7 @@
         modules = [
           ./home.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config; generic-linux = true; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; generic-linux = true; };
       };
     };
 }
