@@ -1,4 +1,14 @@
-{ config, pkgs, lib, dotfiles, vim-config, git-prompt, generic-linux ? false, user ? "alexis", ... }:
+{ config
+, pkgs
+, lib
+, dotfiles
+, vim-config
+, git-prompt
+, generic-linux ? false
+, user ? "alexis"
+, homedir ? "alexis"
+, ...
+}:
 
 let
 
@@ -27,7 +37,7 @@ in
   home = {
 
     username = user;
-    homeDirectory = "/home/${user}";
+    homeDirectory = "/home/${homedir}";
     stateVersion = "21.03";
 
     keyboard = {
