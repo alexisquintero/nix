@@ -58,7 +58,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.alexis = import ./home.nix;
+              home-manager.users.alexis = import ./home/home-alexis.nix;
               home-manager.extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
             }
           ];
@@ -69,7 +69,7 @@
         inherit pkgs;
 
         modules = [
-          ./home.nix
+          ./home/home-alexis.nix
           {
             targets.genericLinux.enable = true;
           }
@@ -82,14 +82,7 @@
         inherit pkgs;
 
         modules = [
-          ./home.nix
-          {
-            targets.genericLinux.enable = true;
-            home = {
-              username = "PAIDY-SECURITY-\alexis.quintero";
-              homeDirectory = "/home/alexis.quintero";
-            };
-          }
+          ./home/home-alexisquintero.nix
         ];
         extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
       };

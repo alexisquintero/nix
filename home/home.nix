@@ -22,8 +22,6 @@ in
   fonts.fontconfig.enable = true;
 
   home = {
-    username = "alexis";
-    homeDirectory = "/home/alexis";
     stateVersion = "21.03";
 
     keyboard = {
@@ -89,7 +87,7 @@ in
   };
 
   imports = [
-    ./vim.nix
+    ../programs/vim.nix
   ];
 
   programs = {
