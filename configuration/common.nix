@@ -17,7 +17,6 @@
 
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "ondemand";
   };
 
   networking = {
@@ -40,7 +39,6 @@
     etc.hosts.mode = "0644";
 
   };
-
 
   sound = {
     enable = true;

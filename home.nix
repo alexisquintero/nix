@@ -1,14 +1,4 @@
-{ config
-, pkgs
-, lib
-, dotfiles
-, vim-config
-, git-prompt
-, generic-linux ? false
-, user ? "alexis"
-, homedir ? "alexis"
-, ...
-}:
+{ config, pkgs, lib, dotfiles, vim-config, git-prompt, ... }:
 
 let
 
@@ -29,15 +19,11 @@ let
 
 in
 {
-
-  targets.genericLinux.enable = generic-linux;
-
   fonts.fontconfig.enable = true;
 
   home = {
-
-    username = user;
-    homeDirectory = "/home/${homedir}";
+    username = "alexis";
+    homeDirectory = "/home/alexis";
     stateVersion = "21.03";
 
     keyboard = {

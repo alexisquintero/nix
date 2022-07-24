@@ -59,7 +59,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alexis = import ./home.nix;
-              home-manager.extraSpecialArgs = { inherit dotfiles vim-config git-prompt; generic-linux = false; };
+              home-manager.extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
             }
           ];
         };
@@ -70,13 +70,11 @@
 
         modules = [
           ./home.nix
+          {
+            targets.genericLinux.enable = true;
+          }
         ];
-        extraSpecialArgs = {
-          inherit dotfiles vim-config git-prompt;
-          generic-linux = true;
-          user = "alexis";
-          homedir = "alexis";
-        };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
       };
 
 
@@ -85,12 +83,15 @@
 
         modules = [
           ./home.nix
+          {
+            targets.genericLinux.enable = true;
+            home = {
+              username = "PAIDY-SECURITY-\alexis.quintero";
+              homeDirectory = "/home/alexis.quintero";
+            };
+          }
         ];
-        extraSpecialArgs = {
-          inherit dotfiles vim-config git-prompt; generic-linux = true;
-          user = "PAIDY-SECURITY-\alexis.quintero";
-          homedir = "alexis.quintero";
-        };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
       };
     };
 }
