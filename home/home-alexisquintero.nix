@@ -3,7 +3,7 @@
 {
   targets.genericLinux.enable = true;
   home = {
-    username = "PAIDY-SECURITY-\alexis.quintero";
+    username = "alexis.quintero";
     homeDirectory = "/home/alexis.quintero";
   };
 
