@@ -83,6 +83,9 @@
 
         modules = [
           ./home/home-alexisquintero.nix
+          {
+            targets.genericLinux.enable = true;
+          }
         ];
         extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
       };
