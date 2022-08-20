@@ -64,7 +64,6 @@ in
       docker-compose
       pulsemixer
       google-chrome
-      i3lock
     ]) ++
     [
       st
@@ -145,17 +144,6 @@ in
     };
 
     ncspot.enable = true;
-
-    xmobar = {
-      enable = true;
-      extraConfig = builtins.readFile "${dotfiles}/.config/xmobar/xmobarrc";
-    };
-
-    # i3status = {
-    #   enable = true;
-    #   general = builtins.readFile "${dotfiles}/.config/i3/i3status";
-    # };
-
   };
 
   services = {
@@ -171,20 +159,14 @@ in
       configFile = "${dotfiles}/.config/dunst/dunstrc";
     };
 
-    screen-locker = {
-      enable = true;
-      inactiveInterval = 5;
-      lockCmd = "${pkgs.i3lock}/bin/i3lock -c 000000 ;${pkgs.xorg.xset}/bin/xset dpms force off";
-    };
-
     redshift = {
       enable = true;
       settings.brightness = {
         day = "0.7";
         night = "0.5";
       };
-      latitude = "-32";
-      longitude = "-60";
+      latitude = "36";
+      longitude = "140";
     };
 
     xsuspender.enable = true;
@@ -198,31 +180,4 @@ in
     cbatticon.enable = true;
 
   };
-
-  xsession =
-    let
-
-      wmi3 = {
-        # enable = true;
-        config = null;
-        extraConfig = builtins.readFile "${dotfiles}/.config/i3/config";
-      };
-
-      wmxmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-        config = "${dotfiles}/.xmonad/xmonad.hs";
-      };
-
-    in
-    {
-
-      enable = true;
-      windowManager = {
-        # i3 = wmi3;
-        xmonad = wmxmonad;
-      };
-
-    };
-
 }

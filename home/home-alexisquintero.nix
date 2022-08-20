@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   targets.genericLinux.enable = true;
@@ -9,5 +9,8 @@
 
   imports = [
     ./home.nix
+    ../programs/i3.nix
   ];
+
+  xsession.windowManager.i3.enable = true;
 }
