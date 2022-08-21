@@ -83,6 +83,7 @@ in
     configFile."fcitx5/config".source = "${dotfiles}/.config/fcitx5/config";
     configFile."fcitx5/profile".source = "${dotfiles}/.config/fcitx5/profile";
     configFile."fcitx5/conf/xcb.conf".source = "${dotfiles}/.config/fcitx5/conf/xcb.conf";
+    configFile."i3/i3status".source = "${dotfiles}/.config/i3/i3status";
   };
 
   imports = [

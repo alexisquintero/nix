@@ -10,7 +10,6 @@
   programs = {
     i3status = {
       enable = true;
-      general = builtins.readFile "${dotfiles}/.config/i3/i3status";
     };
   };
 
