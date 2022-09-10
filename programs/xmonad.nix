@@ -1,12 +1,6 @@
 { pkgs, dotfiles, ... }:
 
 {
-  home = {
-    packages = (with pkgs; [
-      i3lock
-    ]);
-  };
-
   programs = {
     xmobar = {
       enable = true;

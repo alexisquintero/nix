@@ -55,7 +55,7 @@
     "git-prompt": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-OHfMWcZgGz6SWEj3BbuBLTVIlQvKf2lBLLi3+gTWyi8=",
+        "narHash": "sha256-4UKbdTzowQqxNW9Cmj184al6WBsSEHbl3ZjVuqzwAUQ=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh"
       },

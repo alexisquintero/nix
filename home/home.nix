@@ -7,6 +7,9 @@ let
   };
 
   git-compl-path = "/etc/profiles/per-user/${config.home.username}/share/bash-completion/completions/git";
+  git-generic-compl-path = "/home/${config.home.username}/.nix-profile/share/bash-completion/completions/git";
+  git-compl-fn = path: "[ -f ${path} ] && source ${path}\n";
+  source-git-compl = git-compl-fn (if config.targets.genericLinux.enable then git-generic-compl-path else git-compl-path);
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 
@@ -88,28 +91,20 @@ in
 
   imports = [
     ../programs/vim.nix
+    ../programs/git.nix
+    ../programs/kitty.nix
+    ../services/screen-locker.nix
   ];
 
   programs = {
 
     home-manager.enable = true;
 
-    git = {
-      enable = true;
-      ignores = [
-        "*.bloop"
-        "*.metals"
-        "*.metals.sbt"
-        "*metals.sbt"
-        "*.mill-version"
-      ];
-    };
-
     bash = {
       enable = true;
       historyFile = "${config.xdg.configHome}/bash/bash_history";
       initExtra =
-        "[ -f ${git-compl-path} ] && source ${git-compl-path}\n" +
+        source-git-compl +
         builtins.readFile "${dotfiles}/.bashrc";
       profileExtra = lib.mkIf is-wsl ''
         . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh

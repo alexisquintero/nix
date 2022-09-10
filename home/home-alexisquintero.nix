@@ -10,7 +10,10 @@
   imports = [
     ./home.nix
     ../programs/i3.nix
+    ../other/4k.nix
   ];
 
-  xsession.windowManager.i3.enable = true;
+  programs = {
+    git.userEmail = "alexis.quintero@paidy.com";
+  };
 }

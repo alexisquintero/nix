@@ -1,18 +1,6 @@
 { pkgs, dotfiles, ... }:
 
 {
-  home = {
-    packages = (with pkgs; [
-      i3lock
-    ]);
-  };
-
-  programs = {
-    i3status = {
-      enable = true;
-    };
-  };
-
   xsession = {
     enable = true;
     windowManager = {
