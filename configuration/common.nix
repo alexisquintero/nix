@@ -26,7 +26,7 @@
   };
 
   time = {
-    timeZone = "America/Argentina/Buenos_Aires";
+    timeZone = "Asia/Tokyo";
     hardwareClockInLocalTime = true;
   };
 
