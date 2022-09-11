@@ -69,7 +69,7 @@ in
       google-chrome
     ]) ++
     [
-      st
+      # st
       create-shell
     ];
   };
