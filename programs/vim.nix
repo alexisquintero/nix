@@ -10,7 +10,6 @@ let
     cmp_luasnip
     comment-nvim
     fidget-nvim
-    fzf-vim
     luasnip
     nvim-cmp
     nvim-lspconfig
@@ -18,6 +17,8 @@ let
     plenary-nvim
     substrata-nvim
     targets-vim
+    telescope-nvim
+    telescope-fzf-native-nvim
     vim-cool
     vim-fireplace
     vim-fugitive

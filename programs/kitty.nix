@@ -17,8 +17,6 @@
       background = "#08141E";
     };
     keybindings = {
-      "alt+k" = "scroll_line_up";
-      "alt+j" = "scroll_line_down";
       "alt+b" = "scroll_page_up";
       "alt+f" = "scroll_page_down";
       "alt+/" = "show_scrollback";
