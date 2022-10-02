@@ -1,4 +1,4 @@
-{ pkgs, dotfiles, ... }:
+{ ... }:
 
 {
   home = {
