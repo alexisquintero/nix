@@ -14,6 +14,6 @@
   ];
 
   programs = {
-    git.userEmail = mkForce "alexis.quintero@paidy.com";
+    git.userEmail = "alexis.quintero@paidy.com";
   };
 }
