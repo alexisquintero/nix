@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {} }: # TODO: jdk as parameter
 
 let
   openjdk = pkgs.openjdk; # latest
