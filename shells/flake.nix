@@ -15,7 +15,7 @@
             clojure = import ./clojure-shell.nix;
             haskell = import ./haskell-shell.nix;
             python = import ./python-shell.nix;
-          }
+          };
         }
       );
 }
