@@ -10,11 +10,11 @@
         let pkgs = nixpkgs.legacyPackages.${system}; in
         {
           devShells = {
-            scala = import ./scala-shell.nix;
-            terraform = import ./terraform-shell.nix;
-            clojure = import ./clojure-shell.nix;
-            haskell = import ./haskell-shell.nix;
-            python = import ./python-shell.nix;
+            scala = import ./scala-shell.nix { inherit pkgs; };
+            terraform = import ./terraform-shell.nix { inherit pkgs; };
+            clojure = import ./clojure-shell.nix { inherit pkgs; };
+            haskell = import ./haskell-shell.nix { inherit pkgs; };
+            python = import ./python-shell.nix { inherit pkgs; };
           };
         }
       );
