@@ -1,10 +1,7 @@
-{ pkgs ? import <nixpkgs> {} }: # TODO: jdk as parameter
+{ pkgs ? import <nixpkgs> {}, version ? "" }:
 
 let
-  openjdk = pkgs.openjdk; # latest
-  jdk8 = pkgs.jdk8;
-  jdk11 = pkgs.jdk11;
-  jdk = openjdk;
+  jdk = pkgs."jdk${version}";
 in
 pkgs.mkShell {
   nativeBuildInputs = (with pkgs; [

@@ -7,15 +7,16 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem
       (system:
-        let pkgs = nixpkgs.legacyPackages.${system}; in
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
         {
-          devShells = {
-            scala = import ./scala-shell.nix { inherit pkgs; };
-            terraform = import ./terraform-shell.nix { inherit pkgs; };
-            clojure = import ./clojure-shell.nix { inherit pkgs; };
-            haskell = import ./haskell-shell.nix { inherit pkgs; };
-            python = import ./python-shell.nix { inherit pkgs; };
-          };
+          devShells =
+            builtins.foldl' (acc: ver: acc // { "scala${ver}" = import ./scala-shell.nix { inherit pkgs; ver = ver; }; })
+              { } [ "8" "11" ]
+            //
+            builtins.foldl' (acc: env: acc // { ${env} = import ./${env}-shell.nix { inherit pkgs; }; })
+              { } [ "scala" "terraform" "clojure" "haskell" "python" ];
         }
       );
 }
