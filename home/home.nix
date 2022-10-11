@@ -2,9 +2,9 @@
 
 let
 
-  st = pkgs.st.override {
-    conf = builtins.readFile "${dotfiles}/st/config.h";
-  };
+  # st = pkgs.st.override {
+  #   conf = builtins.readFile "${dotfiles}/st/config.h";
+  # };
 
   git-compl-path = "/etc/profiles/per-user/${config.home.username}/share/bash-completion/completions/git";
   git-generic-compl-path = "/home/${config.home.username}/.nix-profile/share/bash-completion/completions/git";
@@ -13,11 +13,11 @@ let
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 
-  create-shell = pkgs.writeShellScriptBin "create-shell" ''
+  dev-shell = pkgs.writeShellScriptBin "dev-shell" ''
     #!${pkgs.bash}/bin/bash
-    # Takes an argument, the language, and creates a shell.nix file
+    # Takes an argument, the language, and calls nix develop
 
-    cp ${config.xdg.configHome}/nixpkgs/shells/"$1"-shell.nix ./shell.nix
+    nix develop github:alexisquintero/config.nix/?dir=shells#"$1"
   '';
 
 in
@@ -70,7 +70,7 @@ in
     ]) ++
     [
       # st
-      create-shell
+      dev-shell
     ];
   };
 
