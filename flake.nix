@@ -45,7 +45,7 @@
           inherit system;
 
           modules = [
-            ({ config, pkgs, ... }: { nixpkgs.overlays = [ asusctl-pkgs.overlays.default ]; })
+            ({ ... }: { nixpkgs.overlays = [ asusctl-pkgs.overlays.default ]; })
             asusctl-pkgs.nixosModules.asusd
             asusctl-pkgs.nixosModules.supergfxd
             nixos-hardware.nixosModules.asus-zephyrus-ga401

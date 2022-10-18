@@ -1,4 +1,4 @@
-{ config, pkgs, lib, dotfiles, vim-config, git-prompt, ... }:
+{ config, pkgs, lib, dotfiles, git-prompt, ... }:
 
 let
 
