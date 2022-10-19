@@ -12,7 +12,7 @@
         in
         {
           devShells =
-            builtins.foldl' (acc: ver: acc // { "scala${ver}" = import ./scala-shell.nix { inherit pkgs; ver = ver; }; })
+            builtins.foldl' (acc: ver: acc // { "scala${ver}" = import ./scala-shell.nix { inherit pkgs; version = ver; }; })
               { } [ "8" "11" ]
             //
             builtins.foldl' (acc: env: acc // { ${env} = import ./${env}-shell.nix { inherit pkgs; }; })
