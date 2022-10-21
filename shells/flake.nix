@@ -5,7 +5,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem
+    flake-utils.lib.eachSystem (builtins.filter (x: x != flake-utils.lib.system.i686-linux) flake-utils.lib.defaultSystems)
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
