@@ -1,4 +1,4 @@
-name: update-shells-flake-lock
+name: update-flake-lock
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
@@ -18,8 +18,7 @@ jobs:
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v14
         with:
-          pr-title: "Update shells flake.lock"
-          path-to-flake-dir: 'shells/'
+          pr-title: "Update flake.lock"
           pr-labels: |
             dependencies
             automated
