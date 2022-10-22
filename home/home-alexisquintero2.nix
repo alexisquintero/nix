@@ -16,6 +16,7 @@
     ./home.nix
     ../programs/xmonad.nix
     ../other/4k.nix
+    ../programs/kitty.nix
   ];
 
 }
