@@ -12,11 +12,5 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - id: Test shells
+      - name: Test shells
         run: cd shells/ && nix flake check
-      # - name: Test shells
-      #   uses: LouisBrunner/checks-action@v1.5.0
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-
-  
