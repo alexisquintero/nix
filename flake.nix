@@ -86,5 +86,14 @@
         ];
         extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
       };
+
+      homeConfigurations.alexisquintero2 = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          ./home/home-alexisquintero2.nix
+        ];
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
+      };
     };
 }

@@ -1,6 +1,10 @@
 { dotfiles, ... }:
 
 {
+  programs = {
+    i3status.enable = true;
+  };
+
   xsession = {
     enable = true;
     windowManager = {

@@ -3,19 +3,20 @@
 {
   targets.genericLinux.enable = true;
 
+  programs = {
+    git.userEmail = "alexis.quintero@paidy.com";
+  };
+
   home = {
     username = "alexis.quintero";
     homeDirectory = "/home/alexis.quintero";
   };
 
-  programs = {
-    git.userEmail = "alexis.quintero@paidy.com";
-  };
-
   imports = [
     ./home.nix
-    ../programs/i3.nix
+    ../programs/xmonad.nix
     ../other/4k.nix
   ];
 
 }
+
