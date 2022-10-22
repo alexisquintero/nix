@@ -16,7 +16,7 @@
               { } [ "8" "11" ]
             //
             builtins.foldl' (acc: env: acc // { ${env} = import ./${env}-shell.nix { inherit pkgs; }; })
-              { } [ "scala" "terraform" "clojure" "haskell" "python" "bash" ];
+              { } [ "scala" "terraform" "clojure" "haskell" "python" "bash" "cmake" "docker" "typescript" ];
         }
       );
 }
