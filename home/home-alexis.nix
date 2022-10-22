@@ -14,5 +14,4 @@
     ./home.nix
     ../programs/xmonad.nix
   ];
-
 }

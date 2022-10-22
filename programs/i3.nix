@@ -1,6 +1,11 @@
 { dotfiles, ... }:
 
 {
+  xdg = {
+    enable = true;
+    configFile."i3status/config".source = "${dotfiles}/.config/i3/i3status";
+  };
+
   programs = {
     i3status.enable = true;
   };
