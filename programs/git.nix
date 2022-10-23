@@ -1,11 +1,6 @@
 { dotfiles, ... }:
 
 {
-  xdg = {
-    enable = true;
-    configFile."git/config".source = "${dotfiles}/.config/git/config";
-  };
-
   programs.git = {
     enable = true;
     userName = "Alexis Quintero";
