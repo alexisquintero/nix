@@ -1,9 +1,13 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   home = {
     username = "alexis";
     homeDirectory = "/home/alexis";
+
+    packages = (with pkgs; [
+      i3lock
+    ]);
   };
 
   programs = {
