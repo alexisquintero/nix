@@ -1,14 +1,14 @@
 { pkgs ? import <nixpkgs> {}, version ? "" }:
 
 let
-  jdkpkg = pkgs."jdk${version}";
+  jdkv = pkgs."jdk${version}";
 in
 pkgs.mkShell {
   nativeBuildInputs = (with pkgs; [
-    (scala.override { jre = jdkpkg; })
-    (sbt.override { jre = jdkpkg; } )
+    (scala.override { jre = jdkv; })
+    (sbt.override { jre = jdkv; } )
     coursier
-    jdkpkg
+    jdkv
     metals
   ]);
 }
