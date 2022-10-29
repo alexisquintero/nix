@@ -13,10 +13,13 @@
         {
           devShells =
             builtins.foldl' (acc: ver: acc // { "scala${ver}" = import ./scala-shell.nix { inherit pkgs; version = ver; }; })
-              { } [ "8" "11" ]
+              { } [ "" "8" "11" ]
+            //
+            builtins.foldl' (acc: ver: acc // { "terraform${ver}" = import ./terraform-shell.nix { inherit pkgs; version = ver; }; })
+              { } [ "" "0.12.31" "0.13.7" "0.14.11" ]
             //
             builtins.foldl' (acc: env: acc // { ${env} = import ./${env}-shell.nix { inherit pkgs; }; })
-              { } [ "scala" "terraform" "clojure" "haskell" "python" "bash" "cmake" "docker" "typescript" ];
+              { } [ "terraform" "clojure" "haskell" "python" "bash" "cmake" "docker" "typescript" ];
         }
       );
 }
