@@ -22,7 +22,11 @@
   networking = {
     networkmanager.enable = true;
     useDHCP = false;
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedUDPPorts = [ 8000 ];
+      allowedTCPPorts = [ 8000 ];
+    };
   };
 
   time = {
