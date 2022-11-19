@@ -17,6 +17,10 @@
     git.userEmail = "alexis.quintero@paidy.com";
   };
 
+  services = {
+    picom.enable = true;
+  };
+
   imports = [
     ./home.nix
     ../programs/i3.nix
