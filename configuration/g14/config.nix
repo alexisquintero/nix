@@ -67,6 +67,14 @@ in
     power-profiles-daemon.enable = true;
 
     asusd.enable = true;
+    supergfxd = {
+      enable = true;
+      # settings = {
+      #   gfx_managed = true;
+      #   gfx_mode = "Integrated";
+      #   gfx_vfio_enable = false;
+      # };
+    };
 
   };
 

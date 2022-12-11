@@ -58,7 +58,7 @@ in
       dejavu_fonts
       ipafont
       keepass
-      rnix-lsp
+      nil
       ripgrep
       scrot
       mpv

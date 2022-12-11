@@ -26,15 +26,9 @@
       flake = false;
     };
 
-    asusctl-pkgs = {
-      url = "github:Cogitri/cogitri-pkgs";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, asusctl-pkgs, ... }:
+  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -45,9 +39,6 @@
           inherit system;
 
           modules = [
-            ({ ... }: { nixpkgs.overlays = [ asusctl-pkgs.overlays.default ]; })
-            asusctl-pkgs.nixosModules.asusd
-            asusctl-pkgs.nixosModules.supergfxd
             nixos-hardware.nixosModules.asus-zephyrus-ga401
             ./configuration/g14/config.nix
             nixos-hardware.nixosModules.asus-battery

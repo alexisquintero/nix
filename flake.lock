@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "asusctl-pkgs": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1652680058,
-        "narHash": "sha256-kWyGuOaIftxVy+219+NUVhmN0g97J57VVyN0psGLDEg=",
-        "owner": "Cogitri",
-        "repo": "cogitri-pkgs",
-        "rev": "fe5bee5f996386fef39ba565fe376a4ee1131be6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Cogitri",
-        "repo": "cogitri-pkgs",
-        "type": "github"
-      }
-    },
     "dotfiles": {
       "flake": false,
       "locked": {
@@ -34,21 +13,6 @@
       "original": {
         "owner": "alexisquintero",
         "repo": "dotfiles",
-        "type": "github"
-      }
-    },
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1648297722,
-        "narHash": "sha256-W+qlPsiZd8F3XkzXOzAoR+mpFqzm3ekQkJNa+PIh1BQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "0f8662f1319ad6abf89b3380dd2722369fc51ade",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -118,7 +82,6 @@
     },
     "root": {
       "inputs": {
-        "asusctl-pkgs": "asusctl-pkgs",
         "dotfiles": "dotfiles",
         "git-prompt": "git-prompt",
         "home-manager": "home-manager",
