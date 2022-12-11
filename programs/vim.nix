@@ -10,15 +10,17 @@ let
     cmp_luasnip
     comment-nvim
     fidget-nvim
+    haskell-tools-nvim
     luasnip
     nvim-cmp
     nvim-lspconfig
     nvim-metals
     plenary-nvim
+    rust-tools-nvim
     substrata-nvim
     targets-vim
-    telescope-nvim
     telescope-fzf-native-nvim
+    telescope-nvim
     vim-cool
     vim-fireplace
     vim-fugitive
