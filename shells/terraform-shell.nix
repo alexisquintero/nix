@@ -26,5 +26,6 @@ pkgs.mkShell {
   nativeBuildInputs = (with pkgs; [
     terraformv
     terraform-ls
+    saml2aws
   ]);
 }
