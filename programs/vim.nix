@@ -3,7 +3,7 @@
 let
 
   plugins = with pkgs.vimPlugins; [
-    (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+    nvim-treesitter.withAllGrammars
     cmp-buffer
     cmp-nvim-lsp
     cmp-nvim-lsp-signature-help
