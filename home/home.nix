@@ -58,8 +58,6 @@ in
       dejavu_fonts
       ipafont
       keepass
-      nil
-      ripgrep
       scrot
       mpv
       xsel
