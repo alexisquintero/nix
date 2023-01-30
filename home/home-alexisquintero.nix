@@ -13,10 +13,6 @@
     ]);
   };
 
-  programs = {
-    git.userEmail = "alexis.quintero@paidy.com";
-  };
-
   services = {
     picom.enable = true;
   };

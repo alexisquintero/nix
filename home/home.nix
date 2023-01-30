@@ -90,6 +90,7 @@ in
     ../programs/git.nix
     ../programs/kitty.nix
     ../services/screen-locker.nix
+    ../private.nix
   ];
 
   programs = {
