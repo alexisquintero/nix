@@ -6,6 +6,6 @@ pkgs.mkShell {
     leiningen
     clojure-lsp
     openjdk
-    python # fireplace
+    python3 # fireplace
   ]);
 }
