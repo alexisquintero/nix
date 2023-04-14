@@ -25,7 +25,7 @@ in
   fonts.fontconfig.enable = true;
 
   home = {
-    stateVersion = "21.03";
+    stateVersion = "23.05";
 
     keyboard = {
       layout = "us";
