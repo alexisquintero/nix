@@ -39,7 +39,7 @@
           inherit system;
 
           modules = [
-            nixos-hardware.nixosModules.asus-zephyrus-ga401
+            # nixos-hardware.nixosModules.asus-zephyrus-ga401
             ./configuration/g14/config.nix
             nixos-hardware.nixosModules.asus-battery
             {
