@@ -1,4 +1,4 @@
-{ config, pkgs, vim-config, ... }:
+{  pkgs, vim-config, ... }:
 
 let
 
@@ -8,7 +8,9 @@ let
     cmp-nvim-lsp-signature-help
     cmp_luasnip
     comment-nvim
+    diffview-nvim
     fidget-nvim
+    flash-nvim
     gitsigns-nvim
     haskell-tools-nvim
     luasnip
@@ -16,6 +18,7 @@ let
     nvim-lspconfig
     nvim-metals
     nvim-treesitter.withAllGrammars
+    plantuml-syntax
     plenary-nvim
     rust-tools-nvim
     substrata-nvim
@@ -47,7 +50,7 @@ in
     enable = true;
     plugins = plugins;
     extraPackages = with pkgs; [
-      nil
+      nixd
       ripgrep
     ];
     vimAlias = true;

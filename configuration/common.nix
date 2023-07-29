@@ -60,7 +60,7 @@
 
   services = {
     xserver = {
-      desktopManager.xterm.enable = true;
+      # desktopManager.xterm.enable = true;
       enable = true;
     };
     thermald.enable = true;
