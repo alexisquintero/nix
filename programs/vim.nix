@@ -17,6 +17,7 @@ let
     nvim-cmp
     nvim-lspconfig
     nvim-metals
+    nvim-treesitter-textobjects
     nvim-treesitter.withAllGrammars
     plantuml-syntax
     plenary-nvim
