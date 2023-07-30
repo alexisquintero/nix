@@ -65,6 +65,7 @@ in
       docker-compose
       pulsemixer
       google-chrome
+      obsidian
     ]) ++
     [
       # st
