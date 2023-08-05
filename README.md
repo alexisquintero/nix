@@ -2,20 +2,31 @@
 
 ## Nixos
 
-TODO
+1. Format
+1. Partition
+1. Luks encryption
+1. Install regular NIXOS // TODO
+1. Clone repo to ~./config/nix
+1. Switch to this repo/flake
 
 ## Home-Manager
 
-0. Clone repo to ~/.config/nix
-0. Create `private.nix`
+1. Clone repo to ~/.config/nix
+1. Create `private.nix`
 
-```nix
-{ ... }:
-
-{
-  programs.git.userEmail = "user@email";
-}
-
-```
-0. Export var to allow unfree packages <!-- TODO -->
-0. Home-Manager switch incantation <!-- TODO -->
+    ````nix
+    { ... }:
+    
+    {
+      programs.git.userEmail = "user@email";
+    } 
+    ```
+1. Export var to allow unfree packages  
+       ```sh
+       export NIXPKGS_ALLOW_UNFREE=1
+       ```
+1. `nix shell -p home-manager`  
+    1. 
+        ```sh
+        home-manager switch --flake .#{output} --extra-experimental-features "nix-command flakes"
+        ```
