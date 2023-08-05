@@ -52,7 +52,7 @@ in
     plugins = plugins;
     extraPackages = with pkgs; [
       nixd
-      ripgrep
+      ltex-ls
     ];
     vimAlias = true;
     vimdiffAlias = true;

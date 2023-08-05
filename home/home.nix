@@ -66,6 +66,7 @@ in
       pulsemixer
       google-chrome
       obsidian
+      ripgrep
     ]) ++
     [
       # st
