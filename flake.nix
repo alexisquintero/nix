@@ -37,7 +37,7 @@
     let
       system = "x86_64-linux";
       pkgs-with-overlays = import nixpkgs {
-        overlays = [ nixgl.oerlay ];
+        overlays = [ nixgl.overlay ];
       };
       pkgs = pkgs-with-overlays.legacyPackages.${system};
     in
