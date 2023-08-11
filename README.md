@@ -20,13 +20,8 @@
     {
       programs.git.userEmail = "user@email";
     } 
-    ```
-1. Export var to allow unfree packages  
-       ```sh
-       export NIXPKGS_ALLOW_UNFREE=1
-       ```
 1. `nix shell -p home-manager`  
     1. 
         ```sh
-        home-manager switch --flake .#{output} --extra-experimental-features "nix-command flakes"
+        NIXPKGS_ALLOW_UNFREE=1 home-manager switch --flake .#{output} --extra-experimental-features "nix-command flakes"
         ```
