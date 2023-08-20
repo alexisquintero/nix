@@ -36,10 +36,7 @@
   outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, nixgl, ... }:
     let
       system = "x86_64-linux";
-      pkgs-with-overlays = import nixpkgs {
-        overlays = [ nixgl.overlay ];
-      };
-      pkgs = pkgs-with-overlays.legacyPackages.${system};
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
       nixosConfigurations = {
@@ -72,9 +69,9 @@
           {
             targets.genericLinux.enable = true;
           }
-          # ./nixgl/pkgs.nix
+          ./nixgl/pkgs.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl; };
       };
 
 
@@ -83,9 +80,9 @@
 
         modules = [
           ./home/home-alexisquintero.nix
-          # ./nixgl/pkgs.nix
+          ./nixgl/pkgs.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl; };
       };
     };
 }
