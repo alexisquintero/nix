@@ -6,7 +6,7 @@ let
   '');
 in
 {
-  overlays = [
+  nixpkgs.overlays = [
     nixgl.overlay
     (final: prev: {
       google-chrome = (glWrap prev.google-chrome "google-chrome");
