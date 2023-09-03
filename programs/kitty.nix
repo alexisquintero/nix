@@ -3,6 +3,7 @@
 {
   programs.kitty = {
     enable = true;
+    shellIntegration.mode = "no-cursor";
     settings = {
       font_family = "DejaVu Sans Mono Book";
       bold_font = "DejaVu Sans Mono Bold";
@@ -15,6 +16,8 @@
       copy_on_select = "no";
       foreground = "#F8FA90";
       background = "#08141E";
+      enable_audio_bell = "no";
+      scrollback_pager = "less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER";
     };
     keybindings = {
       "alt+b" = "scroll_page_up";
