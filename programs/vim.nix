@@ -52,7 +52,6 @@ in
     plugins = plugins;
     extraPackages = with pkgs; [
       nixd
-      ltex-ls
     ];
     vimAlias = true;
     vimdiffAlias = true;
