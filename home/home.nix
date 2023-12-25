@@ -65,11 +65,9 @@ in
       docker-compose
       pulsemixer
       google-chrome
-      obsidian
       ripgrep
     ]) ++
     [
-      # st
       dev-shell
     ];
   };
