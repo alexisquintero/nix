@@ -66,6 +66,7 @@ in
       pulsemixer
       google-chrome
       ripgrep
+      bluetuith
     ]) ++
     [
       dev-shell
