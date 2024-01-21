@@ -139,7 +139,7 @@ in
 
     ncspot.enable = true;
 
-    rtx.enable = true;
+    mise.enable = true;
   };
 
   services = {
