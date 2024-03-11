@@ -33,6 +33,7 @@ in
       options = [ "ctrl:nocaps" ];
     };
 
+    # TODO: add `NIX_PATH = "local=${pkgs}";` (needs to be `nixpkgs` from the input)
     sessionVariables =
       let
         wsl-env-vars = {
@@ -45,8 +46,7 @@ in
       {
         EDITOR = editor;
         VISUAL = editor;
-        LESSHISTFILE = "-";
-        NIX_PATH = "local=${pkgs}";
+        LESSHISTFILE = "-";        
       }
       //
       extra-env-vars;
