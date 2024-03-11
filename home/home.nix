@@ -46,6 +46,7 @@ in
         EDITOR = editor;
         VISUAL = editor;
         LESSHISTFILE = "-";
+        NIX_PATH = "local=${pkgs}";
       }
       //
       extra-env-vars;
