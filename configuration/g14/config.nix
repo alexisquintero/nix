@@ -57,11 +57,9 @@ in
       '';
     };
 
-    xserver = {
-      libinput = {
-        enable = true;
-        touchpad.disableWhileTyping = true;
-      };
+    libinput = {
+      enable = true;
+      touchpad.disableWhileTyping = true;
     };
 
     power-profiles-daemon.enable = true;
