@@ -10,6 +10,9 @@ let
   git-generic-compl-path = "/home/${config.home.username}/.nix-profile/share/bash-completion/completions/git";
   git-compl-fn = path: "[ -f ${path} ] && source ${path}\n";
   source-git-compl = git-compl-fn (if config.targets.genericLinux.enable then git-generic-compl-path else git-compl-path);
+  kitty-ssh-alias = ''
+    [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+  ''; # https://wiki.archlinux.org/title/Kitty
 
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 
@@ -46,7 +49,7 @@ in
       {
         EDITOR = editor;
         VISUAL = editor;
-        LESSHISTFILE = "-";        
+        LESSHISTFILE = "-";
       }
       //
       extra-env-vars;
@@ -104,6 +107,7 @@ in
       historyFile = "${config.xdg.configHome}/bash/bash_history";
       initExtra =
         source-git-compl +
+        kitty-ssh-alias +
         builtins.readFile "${dotfiles}/.bashrc";
       profileExtra = lib.mkIf is-wsl ''
         . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh
