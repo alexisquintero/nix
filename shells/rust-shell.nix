@@ -5,6 +5,7 @@ pkgs.mkShell {
     rustc
     rust-analyzer
     cargo
+    rustfmt
   ]);
 }
 
