@@ -174,7 +174,7 @@ in
 
     playerctld.enable = true;
 
-    volnoti.enable = true;
+    # volnoti.enable = true;
 
     poweralertd.enable = true;
 
