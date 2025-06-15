@@ -180,5 +180,29 @@ in
 
     cbatticon.enable = true;
 
+    # XF86Audio{Raise,Lower}Volume
+    #   pulsemixer --change-volume {+,-}5
+    # 
+    # XF86AudioMute
+    #   pulsemixer --toggle-mute
+    # 
+    # XF86Audio{Play,Prev,Next}
+    #   playerctl {play-pause,previous,next}
+    # 
+    # XF86TouchpadToggle
+    #   toggle-touchpad
+    # 
+    # XF86MonBrightness{Up,Down}
+    #   light -{A,U} 10
+    # 
+    # XF86KbdBrightness{Up,Down}
+    #   light -s sysfs/leds/asus::kbd_backlight -{A,U} 50
+    # 
+    # sxhkd = {
+    #   enable = true;
+    #   keybindings = {
+    #     "super + a" = "notify-send asd";
+    #   };
+    # };
   };
 }
