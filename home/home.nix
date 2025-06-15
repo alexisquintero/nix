@@ -174,35 +174,26 @@ in
 
     playerctld.enable = true;
 
-    # volnoti.enable = true;
-
     poweralertd.enable = true;
 
     cbatticon.enable = true;
 
-    # XF86Audio{Raise,Lower}Volume
-    #   pulsemixer --change-volume {+,-}5
-    # 
-    # XF86AudioMute
-    #   pulsemixer --toggle-mute
-    # 
-    # XF86Audio{Play,Prev,Next}
-    #   playerctl {play-pause,previous,next}
-    # 
-    # XF86TouchpadToggle
-    #   toggle-touchpad
-    # 
-    # XF86MonBrightness{Up,Down}
-    #   light -{A,U} 10
-    # 
-    # XF86KbdBrightness{Up,Down}
-    #   light -s sysfs/leds/asus::kbd_backlight -{A,U} 50
-    # 
-    # sxhkd = {
-    #   enable = true;
-    #   keybindings = {
-    #     "super + a" = "notify-send asd";
-    #   };
-    # };
+
+    sxhkd = {
+      enable = true;
+      keybindings = { # TODO: reference pkgs
+        "XF86Audio{Raise,Lower}Volume" = "pulsemixer --change-volume {+,-}5";
+        "XF86AudioMute" = "pulsemixer --toggle-mute";
+        "XF86Audio{Play,Prev,Next}" = "playerctl {play-pause,previous,next}";
+        "XF86TouchpadToggle" = "toggle-touchpad";
+        "XF86MonBrightness{Up,Down}" = "light -{A,U} 10";
+        "XF86KbdBrightness{Up,Down}" = "light -s sysfs/leds/asus::kbd_backlight -{A,U} 50"; # TODO: make laptop especific
+        "print" = "scrot";
+        "Control_L" = "sleep 0.2; scrot -s"; # TODO: make work with either control
+        "Super_L + f" = "firefox";
+        "Super_L + c" = "google-chrome-stable";
+        "Super_L + y" = "i3lock -c 000000 ;xset dpms force off";
+      };
+    };
   };
 }
