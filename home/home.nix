@@ -188,8 +188,8 @@ in
         "XF86TouchpadToggle" = "toggle-touchpad";
         "XF86MonBrightness{Up,Down}" = "light -{A,U} 10";
         "XF86KbdBrightness{Up,Down}" = "light -s sysfs/leds/asus::kbd_backlight -{A,U} 50"; # TODO: make laptop especific
-        "print" = "scrot";
-        "Control_L" = "sleep 0.2; scrot -s"; # TODO: make work with either control
+        "Print" = "scrot";
+        "Control_L + Print" = "sleep 0.2; scrot -s";
         "Super_L + f" = "firefox";
         "Super_L + c" = "google-chrome-stable";
         "Super_L + y" = "i3lock -c 000000 ;xset dpms force off";
