@@ -190,9 +190,9 @@ in
         "XF86KbdBrightness{Up,Down}" = "light -s sysfs/leds/asus::kbd_backlight -{A,U} 50"; # TODO: make laptop especific
         "Print" = "scrot";
         "Control_L + Print" = "sleep 0.2; scrot -s";
-        "Super_L + f" = "firefox";
-        "Super_L + c" = "google-chrome-stable";
-        "Super_L + y" = "i3lock -c 000000 ;xset dpms force off";
+        "super + {f,c,y}" = "firefox";
+        "super + c" = "google-chrome-stable";
+        "super + y" = "i3lock -c 000000 ;xset dpms force off";
       };
     };
   };
