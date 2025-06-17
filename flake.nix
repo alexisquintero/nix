@@ -55,7 +55,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alexis = import ./home/home-alexis.nix;
-              home-manager.extraSpecialArgs = { inherit dotfiles vim-config git-prompt; };
+              home-manager.extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
             }
           ];
         };
@@ -71,7 +71,7 @@
           }
           ./nixgl/pkgs.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl nixpkgs; };
       };
 
 
@@ -82,7 +82,7 @@
           ./home/home-alexisquintero.nix
           ./nixgl/pkgs.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl nixpkgs; };
       };
     };
 }

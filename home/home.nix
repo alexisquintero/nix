@@ -1,4 +1,4 @@
-{ config, pkgs, lib, dotfiles, git-prompt, ... }:
+{ config, pkgs, lib, dotfiles, git-prompt, nixpkgs, ... }:
 
 let
 
@@ -26,6 +26,8 @@ let
 in
 {
   fonts.fontconfig.enable = true;
+
+  nix.registry.local.flake = nixpkgs;
 
   home = {
     stateVersion = "23.05";
