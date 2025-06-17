@@ -62,7 +62,6 @@ in
       dejavu_fonts
       ipafont
       keepass
-      scrot
       mpv
       xsel
       libnotify
@@ -178,6 +177,7 @@ in
 
     cbatticon.enable = true;
 
+    flameshot.enable = true;
 
     sxhkd = {
       enable = true;
@@ -188,10 +188,9 @@ in
         "XF86TouchpadToggle" = "toggle-touchpad";
         "XF86MonBrightness{Up,Down}" = "light -{A,U} 10";
         "XF86KbdBrightness{Up,Down}" = "light -s sysfs/leds/asus::kbd_backlight -{A,U} 50"; # TODO: make laptop especific
-        "Print" = "scrot";
-        "Control_L + Print" = "sleep 0.2; scrot -s";
-        "super + {f,c,y}" = "firefox";
-        "super + c" = "google-chrome-stable";
+        "Print" = "flameshot screen";
+        "Control_L + Print" = "flameshot gui";
+        "super + {f,c}" = "{firefox,google-chrome-stable}";
         "super + y" = "i3lock -c 000000 ;xset dpms force off";
       };
     };
