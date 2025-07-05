@@ -12,6 +12,7 @@
       nixd
       cmake
       gcc
+      lua-language-server
     ];
     vimAlias = true;
     vimdiffAlias = true;
