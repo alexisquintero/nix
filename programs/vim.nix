@@ -11,6 +11,7 @@
     extraPackages = with pkgs; [
       nixd
       cmake
+      gcc
     ];
     vimAlias = true;
     vimdiffAlias = true;
