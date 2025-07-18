@@ -14,4 +14,13 @@
     ./home.nix
     ../programs/xmonad.nix
   ];
+
+  services = {
+    sxhkd = {
+      enable = true;
+      keybindings = {
+        "XF86KbdBrightness{Up,Down}" = "light -s sysfs/leds/asus::kbd_backlight -{A,U} 50";
+      };
+    };
+  };
 }

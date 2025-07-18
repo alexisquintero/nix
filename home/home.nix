@@ -185,12 +185,11 @@ in
     sxhkd = {
       enable = true;
       keybindings = {
-        "XF86Audio{Raise,Lower}Volume" = "${pkgs.pulsemixer} --change-volume {+,-}5";
+        "XF86Audio{Raise,Lower}Volume" = "${lib.getExe pkgs.pulsemixer} --change-volume {+,-}5";
         "XF86AudioMute" = "${pkgs.pulsemixer} --toggle-mute";
         "XF86Audio{Play,Prev,Next}" = "${lib.getExe config.services.playerctld.package} {play-pause,previous,next}";
         "XF86TouchpadToggle" = "toggle-touchpad";
         "XF86MonBrightness{Up,Down}" = "light -{A,U} 10";
-        "XF86KbdBrightness{Up,Down}" = "light -s sysfs/leds/asus::kbd_backlight -{A,U} 50"; # TODO: make laptop especific
         "Print" = "${lib.getExe config.services.flameshot.package} screen";
         "Control_L + Print" = "${lib.getExe config.services.flameshot.package} gui";
         "super + {f,c}" = "{firefox,google-chrome-stable}";
