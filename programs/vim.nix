@@ -13,6 +13,8 @@
       cmake
       gcc
       lua-language-server
+      imagemagick
+      curl
     ];
     vimAlias = true;
     vimdiffAlias = true;
