@@ -76,6 +76,8 @@ in
     [
       dev-shell
     ];
+
+    sessionPath = [ "$HOME/.local/bin" ];
   };
 
   i18n.inputMethod = {
