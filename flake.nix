@@ -11,11 +11,6 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    nixgl = {
-      url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     dotfiles = {
       url = "github:alexisquintero/dotfiles";
       flake = false;
@@ -33,7 +28,7 @@
 
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, nixgl, ... }:
+  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -69,9 +64,9 @@
           {
             targets.genericLinux.enable = true;
           }
-          ./nixgl/pkgs.nix
+          ./genericLinux/generic.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl nixpkgs; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
       };
 
 
@@ -80,9 +75,9 @@
 
         modules = [
           ./home/home-alexisquintero.nix
-          ./nixgl/pkgs.nix
+          ./genericLinux/generic.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixgl nixpkgs; };
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
       };
     };
 }
