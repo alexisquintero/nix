@@ -23,6 +23,7 @@
       "alt+b" = "scroll_page_up";
       "alt+f" = "scroll_page_down";
       "alt+/" = "show_scrollback";
+      "ctrl+shift+n" = "new_os_window_with_cwd";
     };
   };
 }
