@@ -23,8 +23,6 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedUDPPorts = [ 8000 ];
-      allowedTCPPorts = [ 8000 ];
     };
   };
 
