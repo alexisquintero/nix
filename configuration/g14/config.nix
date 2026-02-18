@@ -85,8 +85,6 @@ in
 
   programs = {
     light.enable = true;
-    adb.enable = true;
-    droidcam.enable = true;
   };
 
   # This value determines the NixOS release from which the default
