@@ -2,7 +2,7 @@
 
 pkgs.mkShell {
   nativeBuildInputs = (with pkgs; [
-    nodePackages.dockerfile-language-server-nodejs
+    dockerfile-language-server
   ]);
 }
 
