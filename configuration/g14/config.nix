@@ -84,7 +84,7 @@ in
   };
 
   programs = {
-    light.enable = true;
+    # light.enable = true; # TODO: brightnessctl
   };
 
   # This value determines the NixOS release from which the default
