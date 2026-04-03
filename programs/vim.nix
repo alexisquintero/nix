@@ -15,6 +15,7 @@
       lua-language-server
       imagemagick
       curl
+      tree-sitter
     ];
     vimAlias = true;
     vimdiffAlias = true;
