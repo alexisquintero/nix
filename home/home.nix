@@ -72,6 +72,7 @@ in
       google-chrome
       ripgrep
       bluetuith
+      brightnessctl
     ]) ++
     [
       dev-shell
@@ -191,7 +192,7 @@ in
         "XF86AudioMute" = "${lib.getExe pkgs.pulsemixer} --toggle-mute";
         "XF86Audio{Play,Prev,Next}" = "${lib.getExe config.services.playerctld.package} {play-pause,previous,next}";
         "XF86TouchpadToggle" = "toggle-touchpad";
-        "XF86MonBrightness{Up,Down}" = "light -{A,U} 10";
+        "XF86MonBrightness{Up,Down}" = "brightnessctl set 10%{+,-}";
         "Print" = "${lib.getExe config.services.flameshot.package} screen";
         "Control_L + Print" = "${lib.getExe config.services.flameshot.package} gui";
         "super + {f,c}" = "{firefox,google-chrome-stable}";

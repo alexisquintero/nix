@@ -19,7 +19,7 @@
     sxhkd = {
       enable = true;
       keybindings = {
-        "XF86KbdBrightness{Up,Down}" = "light -s sysfs/leds/asus::kbd_backlight -{A,U} 50";
+        "XF86KbdBrightness{Up,Down}" = "brightnessctl -d asus::kbd_backlight 50%{+,-}";
       };
     };
   };
