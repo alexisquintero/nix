@@ -18,7 +18,8 @@
   };
 
   imports = [
-    ./home.nix
+    ./shared.nix
+    ./linux.nix
     ../programs/i3.nix
     ../other/4k.nix
   ];
