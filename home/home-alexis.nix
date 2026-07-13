@@ -11,7 +11,8 @@
   };
 
   imports = [
-    ./home.nix
+    ./shared.nix
+    ./linux.nix
     ../programs/xmonad.nix
   ];
 
