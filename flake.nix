@@ -32,6 +32,8 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      darwinSystem = "aarch64-darwin";
+      darwinPkgs = nixpkgs.legacyPackages.${darwinSystem};
     in
     {
       nixosConfigurations = {
@@ -76,6 +78,15 @@
         modules = [
           ./home/home-alexisquintero.nix
           ./genericLinux/generic.nix
+        ];
+        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
+      };
+
+      homeConfigurations.alequintero = home-manager.lib.homeManagerConfiguration {
+        pkgs = darwinPkgs;
+
+        modules = [
+          ./home/home-alequintero-macos.nix
         ];
         extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
       };
