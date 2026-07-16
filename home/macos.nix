@@ -7,6 +7,9 @@
     # Left Option acts as Alt inside Kitty (enables Alt+C for fzf, bash Alt-editing);
     # right Option still types special characters. Kitty-only; no effect on Linux.
     macos_option_as_alt = "left";
+    # Quit a Kitty instance when its last window closes (via Ctrl+C/Ctrl+D), so
+    # drained instances don't linger as Cmd+Tab ghosts.
+    macos_quit_when_last_window_closed = "yes";
   };
 
   # Store git HTTPS credentials in the macOS Keychain (auth once, reused silently).
