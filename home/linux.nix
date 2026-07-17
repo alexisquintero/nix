@@ -19,7 +19,6 @@ in
     };
 
     packages = with pkgs; [
-      dejavu_fonts
       ipafont
       keepass
       mpv

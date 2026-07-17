@@ -36,6 +36,7 @@ in
       docker-compose
       ripgrep
       dev-shell
+      dejavu_fonts
     ];
 
     sessionPath = [ "$HOME/.local/bin" ];
