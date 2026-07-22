@@ -103,6 +103,14 @@
       HideDesktop = true;                        # hide desktop icons when clicking wallpaper
     };
 
+    # ---------------- System-level domains (/Library/Preferences) --------------
+    CustomSystemPreferences = {
+      # Displays: "Automatically adjust brightness" = OFF (ambient light sensor).
+      "com.apple.iokit.AmbientLightSensor" = {
+        "Automatic Display Enabled" = 0;
+      };
+    };
+
     # ---------------- Options without dedicated typed attributes ---------------
     # These live under CustomUserPreferences so they can be written verbatim.
     CustomUserPreferences = {
@@ -122,6 +130,14 @@
       };
     };
   };
+
+  # ---------------- Battery: display dimming ---------------------------------
+  # System Settings > Battery > Options > "Slightly dim the display on battery"
+  # = OFF. This is a power-management setting with no system.defaults option;
+  # under nix-darwin it would be an activation script:
+  #   system.activationScripts.postActivation.text = ''
+  #     /usr/bin/pmset -b lessbright 0
+  #   '';
 
   # ---------------- Keyboard modifier remap (Caps Lock / Control) -------------
   # The live system has a HID modifier remapping under
