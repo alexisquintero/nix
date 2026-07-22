@@ -2,16 +2,16 @@
 --
 -- hs.spaces.gotoSpace is unreliable and doesn't move keyboard focus. Instead we
 -- track which *desktop number* is active and replay the native macOS
--- "switch to desktop N" shortcut (Control+N), which switches AND focuses
--- correctly -- the same mechanism used by the Option+N mappings.
+-- "switch to desktop N" shortcut (Option+N), which switches AND focuses
+-- correctly. (macOS has no native "previous desktop" command, so this stays.)
 
 local spaces = require("hs.spaces")
 local eventtap = require("hs.eventtap")
 
 local M = {}
 
--- Keys that macOS "Switch to Desktop N" is bound to, indexed by desktop number.
--- Desktops 1-9 -> digits, 10 -> "0", 11 -> "-", 12 -> "=".
+-- Keys that macOS "Switch to Desktop N" is bound to (Option+key), indexed by
+-- desktop number. Desktops 1-9 -> digits, 10 -> "0", 11 -> "-", 12 -> "=".
 local desktopKey = {
   [1] = "1", [2] = "2", [3] = "3", [4] = "4", [5] = "5",
   [6] = "6", [7] = "7", [8] = "8", [9] = "9", [10] = "0",
@@ -51,8 +51,8 @@ function M.start()
     end
     local key = desktopKey[target]
     if key then
-      -- Native "Switch to Desktop N" = Control + key. Switches and focuses.
-      eventtap.keyStroke({ "ctrl" }, key, 0)
+      -- Native "Switch to Desktop N" = Option + key. Switches and focuses.
+      eventtap.keyStroke({ "alt" }, key, 0)
     else
       hs.alert.show("No shortcut for desktop " .. tostring(target))
     end

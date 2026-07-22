@@ -8,7 +8,6 @@
 require("hs.ipc")
 
 require("modules.desktop_toggle").start()
-require("modules.desktop_nav").start()
 require("modules.globalprotect_banish").start()
 
 hs.alert.show("Hammerspoon config loaded")

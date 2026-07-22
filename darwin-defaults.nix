@@ -128,6 +128,29 @@
         # Scroll wheel scaling reduced slightly.
         "com.apple.scrollwheel.scaling" = 0.75;
       };
+
+      # Mission Control keyboard shortcuts (System Settings > Keyboard >
+      # Keyboard Shortcuts > Mission Control). parameters = [ char keyCode
+      # modifierFlags ]; option flag = 524288. Desktop switching is native
+      # Option+<key>, which frees all Ctrl+<number> combos for apps like neovim.
+      "com.apple.symbolichotkeys".AppleSymbolicHotKeys = {
+        # Switch to Desktop N -> Option+<key>
+        "118" = { enabled = 1; value = { type = "standard"; parameters = [ 49 18 524288 ]; }; };  # Opt+1  -> Desktop 1
+        "119" = { enabled = 1; value = { type = "standard"; parameters = [ 50 19 524288 ]; }; };  # Opt+2  -> Desktop 2
+        "120" = { enabled = 1; value = { type = "standard"; parameters = [ 51 20 524288 ]; }; };  # Opt+3  -> Desktop 3
+        "121" = { enabled = 1; value = { type = "standard"; parameters = [ 52 21 524288 ]; }; };  # Opt+4  -> Desktop 4
+        "122" = { enabled = 1; value = { type = "standard"; parameters = [ 53 23 524288 ]; }; };  # Opt+5  -> Desktop 5
+        "123" = { enabled = 1; value = { type = "standard"; parameters = [ 54 22 524288 ]; }; };  # Opt+6  -> Desktop 6
+        "124" = { enabled = 1; value = { type = "standard"; parameters = [ 55 26 524288 ]; }; };  # Opt+7  -> Desktop 7
+        "125" = { enabled = 1; value = { type = "standard"; parameters = [ 56 28 524288 ]; }; };  # Opt+8  -> Desktop 8
+        "126" = { enabled = 1; value = { type = "standard"; parameters = [ 57 25 524288 ]; }; };  # Opt+9  -> Desktop 9
+        "127" = { enabled = 1; value = { type = "standard"; parameters = [ 48 29 524288 ]; }; };  # Opt+0  -> Desktop 10
+        "128" = { enabled = 1; value = { type = "standard"; parameters = [ 45 27 524288 ]; }; };  # Opt+-  -> Desktop 11
+        "129" = { enabled = 1; value = { type = "standard"; parameters = [ 61 24 524288 ]; }; };  # Opt+=  -> Desktop 12
+        # Move one space left / right
+        "79" = { enabled = 1; value = { type = "standard"; parameters = [ 112 35 524288 ]; }; };  # Opt+p  -> move space left
+        "81" = { enabled = 1; value = { type = "standard"; parameters = [ 110 45 524288 ]; }; };  # Opt+n  -> move space right
+      };
     };
   };
 
