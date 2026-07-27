@@ -51,9 +51,15 @@ in
   programs = {
     firefox.enable = true;
 
-    bash.profileExtra = lib.mkIf is-wsl ''
-      . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh
-    '';
+    bash = {
+      shellAliases = {
+        ls = "ls --color=auto";
+        o = "xdg-open";
+      };
+      profileExtra = lib.mkIf is-wsl ''
+        . ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh
+      '';
+    };
   };
 
   services = {

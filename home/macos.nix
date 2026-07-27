@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.kitty.settings = {
@@ -29,6 +29,8 @@
   programs.bash.shellAliases = {
     brewsync = "brew bundle --global";
     brewclean = "brew bundle --global cleanup";
+    ls = "${pkgs.coreutils}/bin/ls --color=auto";
+    o = "open";
   };
 
   home.sessionVariables = {
