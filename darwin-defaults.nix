@@ -147,9 +147,10 @@
         "127" = { enabled = 1; value = { type = "standard"; parameters = [ 48 29 524288 ]; }; };  # Opt+0  -> Desktop 10
         "128" = { enabled = 1; value = { type = "standard"; parameters = [ 45 27 524288 ]; }; };  # Opt+-  -> Desktop 11
         "129" = { enabled = 1; value = { type = "standard"; parameters = [ 61 24 524288 ]; }; };  # Opt+=  -> Desktop 12
-        # Move one space left / right
-        "79" = { enabled = 1; value = { type = "standard"; parameters = [ 112 35 524288 ]; }; };  # Opt+p  -> move space left
-        "81" = { enabled = 1; value = { type = "standard"; parameters = [ 110 45 524288 ]; }; };  # Opt+n  -> move space right
+        # Opt+p / Opt+n move-space shortcuts are disabled: Hammerspoon
+        # (desktop_nav.lua) rebinds them to "go to prev/next non-empty desktop".
+        "79" = { enabled = 0; value = { type = "standard"; parameters = [ 112 35 524288 ]; }; };  # Opt+p  -> move space left
+        "81" = { enabled = 0; value = { type = "standard"; parameters = [ 110 45 524288 ]; }; };  # Opt+n  -> move space right
       };
     };
   };
