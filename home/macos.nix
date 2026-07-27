@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   programs.kitty.settings = {
-    shell = "${pkgs.bash}/bin/bash";
     hide_window_decorations = "titlebar-only";
     # Left Option acts as Alt inside Kitty (enables Alt+C for fzf, bash Alt-editing);
     # right Option still types special characters.
@@ -24,6 +23,8 @@
   };
 
   home.file.".Brewfile".source = ../Brewfile;
+
+  home.file.".hushlogin".text = "";
 
   programs.bash.shellAliases = {
     brewsync = "brew bundle --global";

@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   system.defaults = {
@@ -161,6 +161,10 @@
   #   system.activationScripts.postActivation.text = ''
   #     /usr/bin/pmset -b lessbright 0
   #   '';
+
+  # ---------------- Default login shell: nix bash (not zsh) ------------------
+  users.users.alequintero.shell = pkgs.bashInteractive;
+  environment.shells = [ pkgs.bashInteractive ];
 
   # ---------------- Keyboard modifier remap (Caps Lock / Control) -------------
   # The live system has a HID modifier remapping under
