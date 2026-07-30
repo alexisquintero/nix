@@ -22,7 +22,6 @@ in
       ipafont
       keepass
       mpv
-      xsel
       libnotify
       pulsemixer
       google-chrome

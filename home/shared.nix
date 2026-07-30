@@ -84,6 +84,7 @@ in
     ../programs/vim.nix
     ../programs/git.nix
     ../programs/kitty.nix
+    ../programs/tmux.nix
   ];
 
   programs = {
@@ -114,12 +115,6 @@ in
       enable = true;
       enableBashIntegration = true;
       defaultCommand = "rg --files --hidden -g '!.git/'";
-    };
-
-    tmux = {
-      enable = true;
-      secureSocket = false;
-      extraConfig = builtins.readFile "${dotfiles}/.tmux.conf";
     };
 
     readline = {
