@@ -61,8 +61,6 @@ in
     gpg.enable = true;
 
     dircolors.enable = true;
-
-    mise.enable = true;
   };
 
   services.gpg-agent = {
