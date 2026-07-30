@@ -16,14 +16,14 @@
       flake = false;
     };
 
-    vim-config = {
+    nvim = {
       url = "github:alexisquintero/nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, ... }:
+  outputs = { nixpkgs, home-manager, dotfiles, nvim, nixos-hardware, ... }:
     let
       nixpkgsConfig = import ./config.nix;
       system = "x86_64-linux";
@@ -48,6 +48,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alexis = import ./home/home-alexis.nix;
+              home-manager.sharedModules = [ nvim.homeManagerModules.default ];
               home-manager.extraSpecialArgs = { inherit dotfiles nixpkgs; };
             }
           ];
@@ -61,7 +62,7 @@
           ./home/home-alexis.nix
           { targets.genericLinux.enable = true; }
           ./genericLinux/generic.nix
-          vim-config.homeManagerModules.default
+          nvim.homeManagerModules.default
         ];
         extraSpecialArgs = { inherit dotfiles nixpkgs; };
       };
@@ -73,7 +74,7 @@
         modules = [
           ./home/home-alexisquintero.nix
           ./genericLinux/generic.nix
-          vim-config.homeManagerModules.default
+          nvim.homeManagerModules.default
         ];
         extraSpecialArgs = { inherit dotfiles nixpkgs; };
       };
@@ -83,7 +84,7 @@
 
         modules = [
           ./home/home-alequintero-macos.nix
-          vim-config.homeManagerModules.default
+          nvim.homeManagerModules.default
         ];
         extraSpecialArgs = { inherit dotfiles nixpkgs; };
       };

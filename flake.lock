@@ -83,16 +83,7 @@
         "type": "github"
       }
     },
-    "root": {
-      "inputs": {
-        "dotfiles": "dotfiles",
-        "home-manager": "home-manager",
-        "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
-        "vim-config": "vim-config"
-      }
-    },
-    "vim-config": {
+    "nvim": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -110,6 +101,15 @@
         "owner": "alexisquintero",
         "repo": "nvim",
         "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "dotfiles": "dotfiles",
+        "home-manager": "home-manager",
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs_2",
+        "nvim": "nvim"
       }
     }
   },
