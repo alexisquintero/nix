@@ -84,7 +84,13 @@ in
     playerctld.enable = true;
     poweralertd.enable = true;
     cbatticon.enable = true;
-    flameshot.enable = true;
+    flameshot = {
+      enable = true;
+      settings.General = {
+        useX11LegacyScreenshot = true;
+        captureActiveMonitor   = true;
+      };
+    };
 
     sxhkd = {
       enable = true;
