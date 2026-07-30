@@ -30,10 +30,11 @@
 
   outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, ... }:
     let
+      nixpkgsConfig = import ./config.nix;
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs { inherit system; config = nixpkgsConfig; };
       darwinSystem = "aarch64-darwin";
-      darwinPkgs = nixpkgs.legacyPackages.${darwinSystem};
+      darwinPkgs = import nixpkgs { system = darwinSystem; config = nixpkgsConfig; };
     in
     {
       nixosConfigurations = {
