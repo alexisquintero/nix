@@ -16,6 +16,7 @@
       imagemagick
       curl
       tree-sitter
+      xclip
     ];
     vimAlias = true;
     vimdiffAlias = true;
