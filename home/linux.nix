@@ -48,7 +48,10 @@ in
   ];
 
   programs = {
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
+    };
 
     bash = {
       shellAliases = {
