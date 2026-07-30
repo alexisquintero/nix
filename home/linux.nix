@@ -44,6 +44,7 @@ in
 
   imports = [
     ../services/screen-locker.nix
+    ../services/dunst.nix
     ../private.nix
   ];
 
@@ -65,11 +66,6 @@ in
   };
 
   services = {
-    dunst = {
-      enable = true;
-      configFile = "${dotfiles}/.config/dunst/dunstrc";
-    };
-
     redshift = {
       enable = true;
       settings.brightness = {
