@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}, version ? "" }:
+{ pkgs, version ? "", ... }:
 
 let
   jdkv = pkgs."jdk${version}";
