@@ -93,18 +93,22 @@
       }
     },
     "vim-config": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1785290348,
-        "narHash": "sha256-eybPcFMPXwwfd6pT3CBbVnc3UjhMPvrZvgagq4+msFo=",
+        "lastModified": 1785374509,
+        "narHash": "sha256-C38iu8ojEXRAkKTAAS3z4oGUNpVFj/c7THIODqapdTg=",
         "owner": "alexisquintero",
-        "repo": ".vim",
-        "rev": "041ef9e57c3aad69acc983f2c3e85586fbedced7",
+        "repo": "nvim",
+        "rev": "870679062170b037f6b3afa063a30ac820c206cd",
         "type": "github"
       },
       "original": {
         "owner": "alexisquintero",
-        "repo": ".vim",
+        "repo": "nvim",
         "type": "github"
       }
     }
