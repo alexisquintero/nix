@@ -1,4 +1,4 @@
-{ pkgs, dotfiles, git-prompt, nixpkgs, ... }:
+{ pkgs, dotfiles, nixpkgs, ... }:
 
 let
   dev-shell = pkgs.writeShellScriptBin "dev-shell" ''
@@ -32,10 +32,7 @@ in
     sessionPath = [ "$HOME/.local/bin" ];
   };
 
-  xdg = {
-    enable = true;
-    configFile."git/git-prompt.sh".source = "${git-prompt}";
-  };
+  xdg.enable = true;
 
   imports = [
     ../programs/vim.nix

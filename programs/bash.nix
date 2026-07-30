@@ -1,21 +1,19 @@
 { config, pkgs, ... }:
 
 let
-  git-compl-nixos-path = "/etc/profiles/per-user/${config.home.username}/share/bash-completion/completions/git";
-  git-compl-profile-path = "${config.home.homeDirectory}/.nix-profile/share/bash-completion/completions/git";
-  git-compl-path = if pkgs.stdenv.isDarwin || config.targets.genericLinux.enable
-                   then git-compl-profile-path
-                   else git-compl-nixos-path;
-  source-git-compl = "[ -f ${git-compl-path} ] && source ${git-compl-path}\n";
   kitty-ssh-alias = ''
     [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+  '';
+
+  source-git-completion = ''
+    source ${pkgs.git}/share/git/contrib/completion/git-completion.bash
   '';
 
   bashrc-extra = ''
     set -o vi
     stty -ixon                          # Disable ctrl-s and ctrl-q.
 
-    [ -f "$HOME"/.config/git/git-prompt.sh ] && source "$HOME"/.config/git/git-prompt.sh
+    source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWUNTRACKEDFILES=1
     GIT_PS1_SHOWUPSTREAM="auto"
@@ -61,7 +59,7 @@ in
       grep = "grep --color=auto";
     };
     initExtra =
-      source-git-compl +
+      source-git-completion +
       kitty-ssh-alias +
       bashrc-extra;
   };

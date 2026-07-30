@@ -21,14 +21,9 @@
       flake = false;
     };
 
-    git-prompt = {
-      url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh";
-      flake = false;
-    };
-
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, git-prompt, ... }:
+  outputs = { nixpkgs, home-manager, dotfiles, vim-config, nixos-hardware, ... }:
     let
       nixpkgsConfig = import ./config.nix;
       system = "x86_64-linux";
@@ -53,7 +48,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.alexis = import ./home/home-alexis.nix;
-              home-manager.extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
+              home-manager.extraSpecialArgs = { inherit dotfiles vim-config nixpkgs; };
             }
           ];
         };
@@ -69,7 +64,7 @@
           }
           ./genericLinux/generic.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
+        extraSpecialArgs = { inherit dotfiles vim-config nixpkgs; };
       };
 
 
@@ -80,7 +75,7 @@
           ./home/home-alexisquintero.nix
           ./genericLinux/generic.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
+        extraSpecialArgs = { inherit dotfiles vim-config nixpkgs; };
       };
 
       homeConfigurations.alequintero = home-manager.lib.homeManagerConfiguration {
@@ -89,7 +84,7 @@
         modules = [
           ./home/home-alequintero-macos.nix
         ];
-        extraSpecialArgs = { inherit dotfiles vim-config git-prompt nixpkgs; };
+        extraSpecialArgs = { inherit dotfiles vim-config nixpkgs; };
       };
     };
 }
