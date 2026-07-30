@@ -1,4 +1,4 @@
-{ pkgs, dotfiles, nixpkgs, ... }:
+{ pkgs, nixpkgs, ... }:
 
 let
   dev-shell = pkgs.writeShellScriptBin "dev-shell" ''
@@ -18,10 +18,6 @@ in
       LESSHISTFILE = "-";
     };
 
-    file.".haskeline".text = ''
-      editMode: Vi
-    '';
-
     packages = with pkgs; [
       docker-compose
       ripgrep
@@ -40,6 +36,7 @@ in
     ../programs/kitty.nix
     ../programs/tmux.nix
     ../programs/bash.nix
+    ../programs/readline.nix
   ];
 
   programs = {
@@ -48,11 +45,6 @@ in
     fzf = {
       enable = true;
       defaultCommand = "rg --files --hidden -g '!.git/'";
-    };
-
-    readline = {
-      enable = true;
-      extraConfig = builtins.readFile "${dotfiles}/.config/readline/inputrc";
     };
 
     gpg.enable = true;

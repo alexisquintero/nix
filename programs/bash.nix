@@ -10,7 +10,6 @@ let
   '';
 
   bashrc-extra = ''
-    set -o vi
     stty -ixon                          # Disable ctrl-s and ctrl-q.
 
     source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh

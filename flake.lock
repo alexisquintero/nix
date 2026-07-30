@@ -16,18 +16,6 @@
         "type": "github"
       }
     },
-    "git-prompt": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-kV63N7WFRfPMN1VbBqzEdaskUfkCDb+ZpvggScfuJ3c=",
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -98,7 +86,6 @@
     "root": {
       "inputs": {
         "dotfiles": "dotfiles",
-        "git-prompt": "git-prompt",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
