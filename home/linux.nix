@@ -33,13 +33,24 @@ in
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
-    fcitx5.addons = with pkgs; [ fcitx5-mozc ];
+    # SKK: lowercase = hiragana, Shift+consonant = start kanji region (▽),
+    # Space = convert/cycle candidates, Enter = confirm, Ctrl+g = cancel,
+    # q = toggle katakana, l = switch to ASCII mode
+    fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-skk ];
   };
 
   xdg.configFile = {
-    "fcitx5/config".source = "${dotfiles}/.config/fcitx5/config";
-    "fcitx5/profile".source = "${dotfiles}/.config/fcitx5/profile";
+    "fcitx5/config".source    = "${dotfiles}/.config/fcitx5/config";
+    "fcitx5/profile".source   = "${dotfiles}/.config/fcitx5/profile";
     "fcitx5/conf/xcb.conf".source = "${dotfiles}/.config/fcitx5/conf/xcb.conf";
+    "fcitx5/conf/skk.conf".text = ''
+      [General]
+
+      [DictList]
+      1\Type=file
+      1\File=${pkgs.libskk}/share/skk/SKK-JISYO.L
+      size=1
+    '';
   };
 
   imports = [

@@ -6,3 +6,5 @@ cask "amethyst"
 cask "hammerspoon", args: { appdir: "~/Applications" }
 # Keyboard customiser
 cask "karabiner-elements"
+# SKK Japanese input method for macOS
+cask "aquaskk"
