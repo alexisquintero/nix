@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   services.dunst = {
@@ -23,7 +23,7 @@
         padding            = 6;
         horizontal_padding = 6;
         separator_color    = "frame";
-        browser            = "${pkgs.firefox}/bin/firefox -new-tab";
+        browser            = "${lib.getExe pkgs.firefox} -new-tab";
         frame_width        = 3;
         frame_color        = "#4e495f";
       };
