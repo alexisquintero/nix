@@ -20,7 +20,6 @@
       url = "github:alexisquintero/nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs = { nixpkgs, home-manager, dotfiles, nvim, nixos-hardware, ... }:

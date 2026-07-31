@@ -39,6 +39,7 @@
 
     etc.hosts.mode = "0644";
 
+    pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
   };
 
   hardware = {

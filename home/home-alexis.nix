@@ -13,7 +13,7 @@
   imports = [
     ./shared.nix
     ./linux.nix
-    ../programs/xmonad.nix
+    ../programs/niri.nix
   ];
 
   services = {
