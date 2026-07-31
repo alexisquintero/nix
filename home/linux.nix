@@ -1,4 +1,4 @@
-{ config, pkgs, lib, dotfiles, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
@@ -40,9 +40,6 @@ in
   };
 
   xdg.configFile = {
-    "fcitx5/config".source    = "${dotfiles}/.config/fcitx5/config";
-    "fcitx5/profile".source   = "${dotfiles}/.config/fcitx5/profile";
-    "fcitx5/conf/xcb.conf".source = "${dotfiles}/.config/fcitx5/conf/xcb.conf";
     "fcitx5/conf/skk.conf".text = ''
       [General]
 
