@@ -90,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785468725,
-        "narHash": "sha256-zPS+wo552fhrsae7n93asl2QoyHKC0/UUqsrgDI+ayk=",
+        "lastModified": 1785800498,
+        "narHash": "sha256-Dth7vGKTDffO8CybyT6HBCHM60V6JEtoNEZOZHaN4EE=",
         "owner": "alexisquintero",
         "repo": "nvim",
-        "rev": "53ae7cbdb87f3e8e1e7202576119b7c5c31baa6d",
+        "rev": "d237a57a8d056a62456096344905aa9dcae6dc40",
         "type": "github"
       },
       "original": {
