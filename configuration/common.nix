@@ -39,6 +39,7 @@
 
     etc.hosts.mode = "0644";
 
+    pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
   };
 
   hardware = {
@@ -53,10 +54,17 @@
 
   services = {
     xserver = {
-      desktopManager.xterm.enable = true;
+      # Keep xserver enabled for XWayland and hardware/driver setup
       enable = true;
     };
     thermald.enable = true;
+  };
+
+  programs.niri.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
   };
 
   users.users.alexis = {
