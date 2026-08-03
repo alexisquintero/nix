@@ -5,9 +5,9 @@
     username = "alexis";
     homeDirectory = "/home/alexis";
 
-    packages = (with pkgs; [
-      i3lock
-    ]);
+    packages = with pkgs; [
+      swaylock
+    ];
   };
 
   imports = [
@@ -16,12 +16,6 @@
     ../programs/niri.nix
   ];
 
-  services = {
-    sxhkd = {
-      enable = true;
-      keybindings = {
-        "XF86KbdBrightness{Up,Down}" = "brightnessctl -d asus::kbd_backlight set 50%{+,-}";
-      };
-    };
-  };
+  # sxhkd disabled — X11 only, no swhkd in nixpkgs yet
+  # keyboard brightness: "XF86KbdBrightness{Up,Down}" = "brightnessctl -d asus::kbd_backlight set 50%{+,-}"
 }
