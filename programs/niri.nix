@@ -111,6 +111,26 @@ in
     };
   };
 
+  services.kanshi = {
+    enable = true;
+    # Fill in output names after first boot: `niri msg outputs`
+    profiles = {
+      desk = {
+        outputs = [
+          { criteria = "TODO-4K-name"; scale = 1.5; }
+          { criteria = "TODO-2K-name"; scale = 1.0; }
+        ];
+      };
+      laptop = {
+        outputs = [
+          { criteria = "eDP-1"; scale = 1.5; }
+        ];
+      };
+    };
+  };
+
+  home.packages = [ pkgs.wdisplays ]; # GUI display manager (wlr-based, may or may not work with niri)
+
   programs.waybar = {
     enable = true;
     settings.mainBar = {

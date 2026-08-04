@@ -27,6 +27,7 @@ in
       google-chrome
       bluetuith
       brightnessctl
+      arandr
     ];
   };
 
