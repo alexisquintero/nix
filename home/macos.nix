@@ -26,6 +26,15 @@
 
   home.file.".hushlogin".text = "";
 
+  programs.sketchybar = {
+    enable = true;
+    extraPackages = [ pkgs.jq ];
+    config = {
+      source = ../sketchybar;
+      recursive = true;
+    };
+  };
+
   programs.bash.shellAliases = {
     brewsync = "brew bundle --global";
     brewclean = "brew bundle --global cleanup";
