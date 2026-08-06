@@ -4,7 +4,25 @@ let
   is-wsl = "" != builtins.getEnv "WSL_DISTRO_NAME";
 in
 {
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig = {
+    enable = true;
+    antialiasing     = true;
+    hinting          = "full";
+    subpixelRendering = "rgb";
+    configFile."extra-rendering" = {
+      enable   = true;
+      priority = 10;
+      settings = {
+        match = {
+          "@target" = "font";
+          edit = [
+            { "@mode" = "assign"; "@name" = "lcdfilter"; const = "lcddefault"; }
+            { "@mode" = "assign"; "@name" = "autohint";  bool  = "false"; }
+          ];
+        };
+      };
+    };
+  };
 
   home = {
     keyboard = {
