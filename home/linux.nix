@@ -103,7 +103,6 @@ in
       longitude = "140";
     };
 
-    xsuspender.enable = true;
     playerctld.enable = true;
     poweralertd.enable = true;
     cbatticon.enable = true;
