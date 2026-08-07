@@ -21,6 +21,13 @@
         !sha=$( git -c color.ui=always log --oneline -n 1000 | fzf +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup "$\{sha%% *}"
         '';
       };
+      rebase.autoStash    = true;
+      rebase.autoSquash   = true;
+      push.autoSetupRemote = true;
+      diff.colorMoved     = "default";
+      merge.conflictStyle = "zdiff3";
+      fetch.prune         = true;
+      init.defaultBranch  = "main";
     };
     ignores = [
       "*.bloop"
