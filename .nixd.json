@@ -1,20 +1,9 @@
 {
-  "eval": {
-    "target": {
-      "args": [],
-      "installable": ""
-    },
-    "depth": 0,
-    "workers": 3
-  },
-  "formatting": {
-    "command": "nixpkgs-fmt"
-  },
+  "nixpkgs": { "expr": "import <nixpkgs> { }" },
   "options": {
-    "enable": true,
-    "target": {
-      "args": [],
-      "installable": ""
-    }
+    "nixos":                      { "expr": "(builtins.getFlake (builtins.getEnv \"HOME\" + \"/.config/nix\")).nixosConfigurations.nixos-g14.options" },
+    "home_manager_alexisquintero": { "expr": "(builtins.getFlake (builtins.getEnv \"HOME\" + \"/.config/nix\")).homeConfigurations.alexisquintero.options" },
+    "home_manager_alexis":         { "expr": "(builtins.getFlake (builtins.getEnv \"HOME\" + \"/.config/nix\")).homeConfigurations.alexis.options" },
+    "home_manager_alequintero":    { "expr": "(builtins.getFlake (builtins.getEnv \"HOME\" + \"/.config/nix\")).homeConfigurations.alequintero.options" }
   }
 }
