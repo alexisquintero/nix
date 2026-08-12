@@ -49,6 +49,10 @@ in
     ];
   };
 
+  # autorandr: arrange monitors with arandr, then `autorandr --save <profile-name>` to save
+  # profiles are auto-applied on monitor hotplug via EDID fingerprinting
+  programs.autorandr.enable = true;
+
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
