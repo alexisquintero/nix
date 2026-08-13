@@ -53,6 +53,20 @@ in
   # profiles are auto-applied on monitor hotplug via EDID fingerprinting
   programs.autorandr.enable = true;
 
+  systemd.user.services.autorandr-startup = {
+    Unit = {
+      Description         = "Apply autorandr profile on login";
+      After               = [ "graphical-session.target" ];
+      PartOf              = [ "graphical-session.target" ];
+      ConditionEnvironment = "!WAYLAND_DISPLAY";
+    };
+    Service = {
+      Type      = "oneshot";
+      ExecStart = "${pkgs.autorandr}/bin/autorandr --change";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
