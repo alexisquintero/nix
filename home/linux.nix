@@ -90,6 +90,7 @@ in
   imports = [
     ../services/screen-locker.nix
     ../services/dunst.nix
+    ../services/volume-notify.nix
     ../private.nix
   ];
 
