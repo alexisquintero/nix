@@ -50,6 +50,11 @@ in
     gpg.enable = true;
 
     dircolors.enable = true;
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
   };
 
   services.gpg-agent = {
