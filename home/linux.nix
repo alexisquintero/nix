@@ -123,7 +123,6 @@ in
     };
 
     playerctld.enable = true;
-    poweralertd.enable = true;
     cbatticon.enable = true;
     flameshot = {
       enable = true;
