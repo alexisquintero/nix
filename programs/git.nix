@@ -35,6 +35,7 @@
       "*.metals.sbt"
       "*metals.sbt"
       "*.mill-version"
+      ".direnv"
     ];
   };
 }
