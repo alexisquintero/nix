@@ -33,6 +33,7 @@ in
   imports = [
     ../programs/git.nix
     ../programs/kitty.nix
+    ../programs/sbt.nix
     ../programs/tmux.nix
     ../programs/bash.nix
     ../programs/readline.nix
