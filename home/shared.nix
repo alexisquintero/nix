@@ -31,7 +31,6 @@ in
   xdg.enable = true;
 
   imports = [
-    ../programs/nvim.nix
     ../programs/git.nix
     ../programs/kitty.nix
     ../programs/tmux.nix

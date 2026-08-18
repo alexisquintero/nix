@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.kitty = {
@@ -17,7 +17,7 @@
       foreground = "#F8FA90";
       background = "#08141E";
       enable_audio_bell = "no";
-      scrollback_pager = "less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER";
+      scrollback_pager = "${lib.getExe pkgs.neovim} -c 'set noswapfile' -c 'silent! call cursor(INPUT_LINE_NUMBER,1)' -";
     };
     keybindings = {
       "alt+b" = "scroll_page_up";
