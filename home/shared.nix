@@ -45,6 +45,11 @@ in
     fzf = {
       enable = true;
       defaultCommand = "rg --files --hidden -g '!.git/'";
+      defaultOptions = [ "--layout=reverse" ];
+      changeDirWidget = {
+        command = "fd --type d --search-path ~";
+        options = [ "--scheme=path" ];
+      };
     };
 
     gpg.enable = true;
