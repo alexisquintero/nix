@@ -1,11 +1,5 @@
 { pkgs, nixpkgs, ... }:
 
-let
-  dev-shell = pkgs.writeShellScriptBin "dev-shell" ''
-    #!${pkgs.bash}/bin/bash
-    nix develop github:alexisquintero/config.nix?dir=shells#"$1"
-  '';
-in
 {
   nix.registry.local.flake = nixpkgs;
 
@@ -21,7 +15,6 @@ in
     packages = with pkgs; [
       docker-compose
       ripgrep
-      dev-shell
       dejavu_fonts
     ];
 
@@ -37,6 +30,7 @@ in
     ../programs/tmux.nix
     ../programs/bash.nix
     ../programs/readline.nix
+    ../programs/dev-shell.nix
   ];
 
   programs = {
