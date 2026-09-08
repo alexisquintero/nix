@@ -6,5 +6,7 @@ cask "amethyst"
 cask "hammerspoon", args: { appdir: "~/Applications" }
 # Keyboard customiser
 cask "karabiner-elements"
+# Display management (RGB range, refresh rate, resolutions, etc)
+cask "betterdisplay"
 # SKK Japanese input method for macOS
 cask "aquaskk"

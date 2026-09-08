@@ -1949,6 +1949,39 @@
                 "conditions": [
                   { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
                 ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "0",
+                  "modifiers": { "mandatory": ["left_command"], "optional": ["any"] }
+                },
+                "to": [{ "key_code": "0", "modifiers": ["left_option"] }],
+                "conditions": [
+                  { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "hyphen",
+                  "modifiers": { "mandatory": ["left_command"], "optional": ["any"] }
+                },
+                "to": [{ "key_code": "hyphen", "modifiers": ["left_option"] }],
+                "conditions": [
+                  { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "equal_sign",
+                  "modifiers": { "mandatory": ["left_command"], "optional": ["any"] }
+                },
+                "to": [{ "key_code": "equal_sign", "modifiers": ["left_option"] }],
+                "conditions": [
+                  { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
+                ]
               }
             ]
           },
