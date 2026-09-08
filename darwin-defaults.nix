@@ -180,4 +180,34 @@
   #
   # system.keyboard.enableKeyMapping = true;
   # system.keyboard.userKeyMapping = [ ... ];
+
+  # ---------------- Display: True Tone disabled -------------------------------
+  # System Settings > Displays > [built-in display] > "True Tone" = OFF.
+  # Was causing an inconsistent warm/brownish color tint on the external
+  # MAG274QRF-QD monitor whenever the lid was open (True Tone reads the
+  # ambient light sensor near the camera and warms ALL displays, not just the
+  # built-in one; the sensor is naturally covered in clamshell mode, so colors
+  # looked correct there and shifted warm otherwise). No typed nix-darwin
+  # option or discoverable `defaults` key exists for this (Apple stores it in
+  # a private CoreBrightness/DisplayServices location); toggle manually via
+  # System Settings, or `betterdisplaycli set -trueTone=off`.
+
+  # ---------------- External display: MAG274QRF-QD color/HDR fix -------------
+  # The MSI MAG274QRF-QD (QD-OLED, connected via HDMI through a KVM) gets
+  # negotiated by macOS into a bad default connection mode - 12bit HDR10,
+  # YCbCr 4:2:2, Limited RGB range - which causes oversaturated/washed-out,
+  # hazy colors. There is no typed nix-darwin/System Settings option for
+  # this (BetterDisplay's free tier also has no persistent "protect
+  # connection mode"), so it is fixed at runtime by:
+  #   1. Monitor OSD: Picture Mode set to "sRGB" (was "Adobe RGB").
+  #   2. Hammerspoon (hammerspoon/modules/fix_external_display.lua) watches
+  #      for the display (re)connecting - e.g. after clamshell sleep/wake -
+  #      and reapplies the correct mode via BetterDisplay's CLI:
+  #        BetterDisplay set -namelike=MAG274 \
+  #          -connectionMode=5804858359901850112   # 2560x1440 120Hz 8bit SDR RGB Full
+  #      The numeric mode ID is specific to this display/Mac pairing; if it
+  #      ever needs to be re-derived, list candidates with:
+  #        BetterDisplay get -namelike=MAG274 -connectionModeListAll
+  #      and pick the "RGB Full" (not "YCbCr" / "Limited") entry at the
+  #      desired resolution/refresh rate.
 }
