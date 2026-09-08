@@ -9,6 +9,26 @@
       "complex_modifications": {
         "rules": [
           {
+            "description": "Keyball61: Cmd+Y -> lock screen (must precede kitty Cmd+<letter> rule below)",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "y",
+                  "modifiers": { "mandatory": ["left_command"], "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "shell_command": "open -a ScreenSaverEngine"
+                  }
+                ],
+                "conditions": [
+                  { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
+                ]
+              }
+            ]
+          },
+          {
             "description": "kitty: Cmd+<letter> -> Alt/Option+<letter> (Meta for vim), excludes c/v/x",
             "manipulators": [
               {
