@@ -2020,6 +2020,33 @@
                 ]
               }
             ]
+          },
+          {
+            "description": "Keyball61: Cmd+N/P -> Option+N/P (next/previous non-empty desktop)",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n",
+                  "modifiers": { "mandatory": ["left_command"], "optional": ["any"] }
+                },
+                "to": [{ "key_code": "n", "modifiers": ["left_option"] }],
+                "conditions": [
+                  { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "p",
+                  "modifiers": { "mandatory": ["left_command"], "optional": ["any"] }
+                },
+                "to": [{ "key_code": "p", "modifiers": ["left_option"] }],
+                "conditions": [
+                  { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
+                ]
+              }
+            ]
           }
         ]
       },
