@@ -2000,6 +2000,26 @@
                 ]
               }
             ]
+          },
+          {
+            "description": "Keyball61: Cmd+Enter -> new Kitty window",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "return_or_enter",
+                  "modifiers": { "mandatory": ["left_command"], "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "shell_command": "~/.nix-profile/bin/kitty --single-instance --instance-group=1 -d ~ &"
+                  }
+                ],
+                "conditions": [
+                  { "type": "device_if", "identifiers": [{ "vendor_id": 22871, "product_id": 256 }] }
+                ]
+              }
+            ]
           }
         ]
       },
