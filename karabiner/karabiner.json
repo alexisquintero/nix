@@ -1820,6 +1820,33 @@
                 ]
               }
             ]
+          },
+          {
+            "description": "Keyball61: fn/globe key -> left_control",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "fn"
+                },
+                "to": [
+                  {
+                    "key_code": "left_control"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 22871,
+                        "product_id": 256
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
