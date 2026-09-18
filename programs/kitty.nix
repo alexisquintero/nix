@@ -10,6 +10,10 @@
       italic_font = "DejaVu Sans Mono Oblique";
       bold_italic_font = "DejaVu Sans Mono Bold Oblique";
       font_size = "9";
+      # Thickens glyph edges (similar to ClearType-style sub-pixel AA) to
+      # improve legibility, independent of font_size. Tune this value if it
+      # looks too bold/thin.
+      macos_thicken_font = "0.15";
       adjust_line_height = "1";
       scrollback_lines = "10000";
       mouse_hide_wait = "1.0";

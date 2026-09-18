@@ -1,10 +1,5 @@
 -- Automatically re-applies the correct connection mode (RGB, Full range, SDR)
 -- to the MAG274QRF-QD external monitor whenever it (re)connects.
---
--- Without this, macOS/the KVM negotiates a bad default (HDR10, YCbCr 4:2:2,
--- Limited range) on every clamshell transition or display reconnect, causing
--- washed out/oversaturated colors. BetterDisplay's free tier has no
--- persistent "protect connection mode" option, so we replicate it here.
 
 local M = {}
 
