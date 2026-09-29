@@ -7,6 +7,7 @@
 
     packages = (with pkgs; [
       i3lock
+      rawtherapee
     ]);
   };
 
