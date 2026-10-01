@@ -53,6 +53,10 @@
     HOMEBREW_CASK_OPTS = "--appdir=${config.home.homeDirectory}/Applications";
   };
 
+  # Rancher Desktop's installer can't append to ~/.bashrc on this machine (it's a home-manager
+  # generated symlink into the read-only /nix/store), so its bin dir has to be added here instead.
+  home.sessionPath = [ "$HOME/.rd/bin" ];
+
   imports = [
     ../private-macos.nix
   ];
