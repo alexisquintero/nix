@@ -18,6 +18,9 @@
     font_size = lib.mkForce "11";
   };
 
+  # Skip ~/Library: walking other apps' containers triggers macOS "access data from other apps" prompts.
+  programs.fzf.changeDirWidget.command = lib.mkForce "fd --type d --search-path ~ --exclude Library";
+
   # Store git HTTPS credentials in the macOS Keychain (auth once, reused silently).
   programs.git.settings.credential.helper = "osxkeychain";
 

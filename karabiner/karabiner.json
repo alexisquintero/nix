@@ -738,7 +738,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "~/.nix-profile/bin/kitty --single-instance --instance-group=1 -d ~ &"
+                    "shell_command": "open -n -a \"$HOME/Applications/Home Manager Apps/kitty.app\" --args --single-instance --instance-group=1 -d ~"
                   }
                 ]
               }
@@ -2032,7 +2032,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "~/.nix-profile/bin/kitty --single-instance --instance-group=1 -d ~ &"
+                    "shell_command": "open -n -a \"$HOME/Applications/Home Manager Apps/kitty.app\" --args --single-instance --instance-group=1 -d ~"
                   }
                 ],
                 "conditions": [
