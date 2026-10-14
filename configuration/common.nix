@@ -39,6 +39,7 @@
 
     etc.hosts.mode = "0644";
 
+    pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
   };
 
   hardware = {
@@ -53,11 +54,15 @@
 
   services = {
     xserver = {
-      desktopManager.xterm.enable = true;
+      # Keep xserver enabled for XWayland and hardware/driver setup
       enable = true;
     };
     thermald.enable = true;
   };
+
+  # programs.niri sets up xdg.portal, display-manager session, gnome-keyring,
+  # and systemd units automatically — see nixpkgs nixos/modules/programs/wayland/niri.nix
+  programs.niri.enable = true;
 
   users.users.alexis = {
     isNormalUser = true;

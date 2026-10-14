@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   home = {
@@ -9,21 +9,21 @@
       i3lock
       rawtherapee
       art
+      swaylock
     ]);
   };
 
   imports = [
     ./shared.nix
     ./linux.nix
-    ../programs/xmonad.nix
+    ../programs/niri.nix
   ];
 
-  services = {
-    sxhkd = {
-      enable = true;
-      keybindings = {
-        "XF86KbdBrightness{Up,Down}" = "brightnessctl -d asus::kbd_backlight set 50%{+,-}";
-      };
-    };
-  };
+  # linux.nix enables sxhkd (X11-only) for all profiles that import it; niri
+  # handles its own keybinds directly under Wayland, and sxhkd can't connect
+  # to a display here, so disable it for this profile.
+  # swhkd (the Wayland sxhkd equivalent) isn't in nixpkgs yet.
+  services.sxhkd.enable = lib.mkForce false;
+  # keyboard brightness (was an sxhkd binding): "XF86KbdBrightness{Up,Down}" =
+  # "brightnessctl -d asus::kbd_backlight set 50%{+,-}"
 }

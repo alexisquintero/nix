@@ -1,12 +1,13 @@
 { config, pkgs, lib, ... }:
 
-# NOT WIRED UP — to enable niri:
-# 1. Import this file in home-alexisquintero.nix (instead of i3.nix)
-# 2. Disable xsession / i3 in linux.nix
-# 3. Disable sxhkd service, enable swhkd (Wayland replacement, same config syntax)
-# 4. Replace dunst with mako (Wayland notification daemon)
-# 5. Remove useX11LegacyScreenshot from flameshot settings (no longer needed)
-# 6. Wallpaper: add swaybg or swww to spawn-at-startup
+# To enable niri:
+# 1. Import this file in home-alexis.nix (instead of xmonad.nix)
+# 2. Disable xsession / X11 window manager in linux.nix
+# 3. Disable sxhkd service — niri binds handle keys directly (swhkd isn't in nixpkgs yet)
+# 4. Replace dunst with mako (Wayland notification daemon) if desired
+# 5. Remove useX11LegacyScreenshot from flameshot settings (no longer needed; niri has
+#    its own screenshot binds below)
+# 6. Wallpaper: add swaybg or swww to spawn-at-startup if desired
 
 let
   bg     = "#0f2a3f";
@@ -19,12 +20,25 @@ let
     sleep 0.5
     pkill -SIGUSR1 waybar
   '';
+
+  # niri KDL settings use attrsOf (KDL-value): bare scalars/lists for single-arg
+  # nodes, `{}` for flag/leaf nodes, `_props` for named properties, `_children`
+  # for ordered/repeated child nodes. See:
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.niri.settings
+  workspaceBinds = lib.listToAttrs (
+    lib.concatMap (n: [
+      (lib.nameValuePair "Mod+${toString n}"       { focus-workspace = n; })
+      (lib.nameValuePair "Mod+Shift+${toString n}" { move-column-to-workspace = n; })
+    ]) (lib.range 1 9)
+  );
 in
 {
-  programs.niri = {
+  wayland.windowManager.niri = {
     enable = true;
+    package = pkgs.niri;
+
     settings = {
-      prefer-no-csd = true;
+      prefer-no-csd = { };
 
       screenshot-path = "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png";
 
@@ -36,8 +50,8 @@ in
           options = builtins.concatStringsSep "," config.home.keyboard.options;
         };
         touchpad = {
-          tap            = true;
-          natural-scroll = true;
+          tap            = { };
+          natural-scroll = { };
         };
       };
 
@@ -46,68 +60,64 @@ in
         center-focused-column = "never";
         default-column-width.proportion = 0.5;
         focus-ring = {
-          enable         = true;
           width          = 2;
           active-color   = accent;
           inactive-color = bg;
         };
       };
 
-      spawn-at-startup = [
-        { command = [ "${waybar-hidden}/bin/waybar-hidden" ]; }
-        { command = [ (lib.getExe pkgs.fcitx5) "--replace" "-d" ]; }
+      # Two spawn-at-startup nodes can't share one attrset key, so they're
+      # expressed via _children (home-manager's repeated-node mechanism —
+      # same pattern used for repeated `workspace` nodes upstream).
+      _children = [
+        { spawn-at-startup = [ "${waybar-hidden}/bin/waybar-hidden" ]; }
+        { spawn-at-startup = [ (lib.getExe pkgs.fcitx5) "--replace" "-d" ]; }
       ];
 
-      binds = with config.lib.niri.actions;
-        let
-          workspaceBinds = lib.listToAttrs (
-            lib.concatMap (n: [
-              (lib.nameValuePair "Mod+${toString n}"       { action = focus-workspace n; })
-              (lib.nameValuePair "Mod+Shift+${toString n}" { action = move-column-to-workspace n; })
-            ]) (lib.range 1 12)
-          );
-        in
-        workspaceBinds // {
-          # Terminal & apps
-          "Mod+Return".action = spawn (lib.getExe pkgs.kitty);
-          "Mod+F".action      = spawn (lib.getExe pkgs.firefox);
-          "Mod+C".action      = spawn "google-chrome-stable";
+      binds = workspaceBinds // {
+        # Terminal & apps
+        "Mod+Return".spawn = [ (lib.getExe pkgs.kitty) ];
+        "Mod+F".spawn      = [ (lib.getExe pkgs.firefox) ];
+        "Mod+C".spawn      = [ "google-chrome-stable" ];
 
-          # Waybar toggle
-          "Mod+B".action = spawn "pkill" "-SIGUSR1" "waybar";
+        # Waybar toggle
+        "Mod+B".spawn = [ "pkill" "-SIGUSR1" "waybar" ];
 
-          # Window management
-          "Mod+Q".action       = close-window;
-          "Mod+Shift+E".action = quit;
+        # Window management
+        "Mod+Q".close-window       = { };
+        "Mod+Shift+E".quit         = { };
 
-          # Focus (vim-style)
-          "Mod+H".action = focus-column-left;
-          "Mod+L".action = focus-column-right;
-          "Mod+J".action = focus-window-down;
-          "Mod+K".action = focus-window-up;
+        # Focus (vim-style)
+        "Mod+H".focus-column-left  = { };
+        "Mod+L".focus-column-right = { };
+        "Mod+J".focus-window-down  = { };
+        "Mod+K".focus-window-up    = { };
 
-          # Move (vim-style)
-          "Mod+Shift+H".action = move-column-left;
-          "Mod+Shift+L".action = move-column-right;
-          "Mod+Shift+J".action = move-window-down;
-          "Mod+Shift+K".action = move-window-up;
+        # Move (vim-style)
+        "Mod+Shift+H".move-column-left  = { };
+        "Mod+Shift+L".move-column-right = { };
+        "Mod+Shift+J".move-window-down  = { };
+        "Mod+Shift+K".move-window-up    = { };
 
-          # Column width
-          "Mod+Minus".action   = set-column-width "-10%";
-          "Mod+Equal".action   = set-column-width "+10%";
-          "Mod+Shift+F".action = maximize-column;
-          "Mod+Ctrl+F".action  = fullscreen-window;
+        # Column width
+        "Mod+Minus".set-column-width   = "-10%";
+        "Mod+Equal".set-column-width   = "+10%";
+        "Mod+Shift+F".maximize-column  = { };
+        "Mod+Ctrl+F".fullscreen-window = { };
 
-          # Screenshots (niri built-in, Wayland native)
-          "Print".action      = screenshot;
-          "Ctrl+Print".action = screenshot-screen;
-          "Alt+Print".action  = screenshot-window;
+        # Screenshots (niri built-in, Wayland native)
+        "Print".screenshot             = { };
+        "Ctrl+Print".screenshot-screen = { };
+        "Alt+Print".screenshot-window  = { };
 
-          # Screen lock — swaylock replaces i3lock
-          "Mod+Y".action = spawn "${lib.getExe pkgs.swaylock}" "-c" "000000";
+        # Screen lock — swaylock replaces i3lock
+        "Mod+Y".spawn = [ (lib.getExe pkgs.swaylock) "-c" "000000" ];
 
-          # Media keys handled by swhkd — not duplicated here
-        };
+        # Media keys handled directly by niri (no swhkd yet)
+        "XF86AudioRaiseVolume".spawn = [ (lib.getExe pkgs.pulsemixer) "--change-volume" "+5" ];
+        "XF86AudioLowerVolume".spawn = [ (lib.getExe pkgs.pulsemixer) "--change-volume" "-5" ];
+        "XF86AudioMute".spawn        = [ (lib.getExe pkgs.pulsemixer) "--toggle-mute" ];
+      };
     };
   };
 
