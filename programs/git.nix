@@ -16,7 +16,7 @@
         gud = "commit --amend --no-edit";
         r = "rebase";
         d = "diff";
-        dm = "rev-list --left-right --count origin/master...HEAD";
+        dm = ''!git rev-list --left-right --count "$(git symbolic-ref --short refs/remotes/origin/HEAD)"...HEAD'';
         fixup = ''
         !sha=$( git -c color.ui=always log --oneline -n 1000 | fzf +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup "$\{sha%% *}"
         '';
@@ -24,10 +24,15 @@
       rebase.autoStash    = true;
       rebase.autoSquash   = true;
       push.autoSetupRemote = true;
-      diff.colorMoved     = "default";
+      diff.colorMoved     = "plain";
+      diff.algorithm      = "histogram";
       merge.conflictStyle = "zdiff3";
       fetch.prune         = true;
       init.defaultBranch  = "main";
+      rerere.enabled      = true;
+      rerere.autoupdate   = true;
+      core.fsmonitor      = true;
+      core.untrackedCache = true;
     };
     ignores = [
       "*.bloop"
