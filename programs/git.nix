@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
 
+let
+  logFormat = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short";
+in
 {
   programs.git = {
     enable = true;
@@ -10,8 +13,8 @@
         br = "branch";
         s = "status";
         c = "commit";
-        l = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short -30";
-        l2 = "log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s. %b' --date=short";
+        l = "${logFormat} -30";
+        l2 = logFormat;
         f = "fetch";
         gud = "commit --amend --no-edit";
         r = "rebase";
@@ -21,23 +24,35 @@
         !sha=$( git -c color.ui=always log --oneline -n 1000 | ${lib.getExe pkgs.fzf} +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup "$\{sha%% *}"
         '';
       };
-      rebase.autoStash    = true;
-      rebase.autoSquash   = true;
+
+      rebase = {
+        autoStash  = true;
+        autoSquash = true;
+      };
+
+      diff = {
+        colorMoved = "plain";
+        algorithm  = "histogram";
+      };
+
+      rerere = {
+        enabled    = true;
+        autoupdate = true;
+      };
+
+      core = {
+        fsmonitor      = true;
+        untrackedCache = true;
+      };
+
       push.autoSetupRemote = true;
-      diff.colorMoved     = "plain";
-      diff.algorithm      = "histogram";
-      merge.conflictStyle = "zdiff3";
-      fetch.prune         = true;
-      init.defaultBranch  = "main";
-      rerere.enabled      = true;
-      rerere.autoupdate   = true;
-      core.fsmonitor      = true;
-      core.untrackedCache = true;
+      merge.conflictStyle  = "zdiff3";
+      fetch.prune          = true;
+      init.defaultBranch   = "main";
     };
     ignores = [
       "*.bloop"
       "*.metals"
-      "*.metals.sbt"
       "*metals.sbt"
       "*.mill-version"
       ".direnv"
