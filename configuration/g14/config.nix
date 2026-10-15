@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
 
   toggle-touchpad = pkgs.writeShellScriptBin "toggle-touchpad" ''
-    #!${pkgs.bash}/bin/bash
+    #!${lib.getExe pkgs.bash}
 
     device=$(xinput list | grep -oP ".*Touchpad.*id=\K\d+")
     state=$(xinput list-props "$device" | grep "Device Enabled.*1$")

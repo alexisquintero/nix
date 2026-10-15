@@ -48,7 +48,7 @@
   programs.bash.shellAliases = {
     brewsync = "brew bundle --global";
     brewclean = "brew bundle --global cleanup";
-    ls = "${pkgs.coreutils}/bin/ls --color=auto";
+    ls = "${lib.getExe' pkgs.coreutils "ls"} --color=auto";
     o = "open";
   };
 

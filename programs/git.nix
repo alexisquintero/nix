@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.git = {
@@ -18,7 +18,7 @@
         d = "diff";
         dm = ''!git rev-list --left-right --count "$(git symbolic-ref --short refs/remotes/origin/HEAD)"...HEAD'';
         fixup = ''
-        !sha=$( git -c color.ui=always log --oneline -n 1000 | fzf +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup "$\{sha%% *}"
+        !sha=$( git -c color.ui=always log --oneline -n 1000 | ${lib.getExe pkgs.fzf} +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup "$\{sha%% *}"
         '';
       };
       rebase.autoStash    = true;

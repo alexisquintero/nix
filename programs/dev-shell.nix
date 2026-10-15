@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   flakeUrl = "github:alexisquintero/nix?dir=shells";
 
   dev-shell = pkgs.writeShellScriptBin "dev-shell" ''
-    #!${pkgs.bash}/bin/bash
+    #!${lib.getExe pkgs.bash}
     nix develop ${flakeUrl}#"$1"
   '';
 

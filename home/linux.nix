@@ -62,7 +62,7 @@ in
     };
     Service = {
       Type      = "oneshot";
-      ExecStart = "${pkgs.autorandr}/bin/autorandr --change";
+      ExecStart = "${lib.getExe pkgs.autorandr} --change";
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };
