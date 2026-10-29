@@ -56,6 +56,7 @@ in
       v = "nvim";
       g = "git";
       grep = "grep --color=auto";
+      zcn = "cd ~/.config/nix";
     };
     initExtra =
       source-git-completion +
