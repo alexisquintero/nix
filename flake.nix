@@ -21,9 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    multiverse.url = "github:fzakaria/nixpkgs-multiverse";
+
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, nvim, nixos-hardware, ... }:
+  outputs = { nixpkgs, home-manager, dotfiles, nvim, nixos-hardware, multiverse, ... }:
     let
       nixpkgsConfig = import ./config.nix;
       system = "x86_64-linux";
@@ -86,7 +88,7 @@
           ./home/home-alequintero-macos.nix
           nvim.homeManagerModules.default
         ];
-        extraSpecialArgs = { inherit dotfiles nixpkgs; };
+        extraSpecialArgs = { inherit dotfiles nixpkgs multiverse; };
       };
     };
 }

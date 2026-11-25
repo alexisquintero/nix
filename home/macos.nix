@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, multiverse, ... }:
 
 {
+  # opencode newer than 2.2.1 is not in cache.nixos.org for aarch64-darwin (Hydra: "Output limit
+  # exceeded", NixOS/nixpkgs#585600)
+  # Drop this pin once the fix lands in nixos-unstable and `nix path-info --store
+  # https://cache.nixos.org $(nix eval --raw nixpkgs#opencode.outPath)` succeeds.
+  programs.opencode.package =
+    (multiverse.multiverse.${pkgs.stdenv.hostPlatform.system}.fast.version "opencode" "2.2.1").eval;
+
   programs.kitty.settings = {
     hide_window_decorations = "titlebar-only";
     # Left Option acts as Alt inside Kitty (enables Alt+C for fzf, bash Alt-editing);

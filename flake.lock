@@ -36,6 +36,21 @@
         "type": "github"
       }
     },
+    "multiverse": {
+      "locked": {
+        "lastModified": 1795476465,
+        "narHash": "sha256-I8I39X/EKxV3lvVF6X3Z5icH7nqiC0EtHwcbY20DbLg=",
+        "owner": "fzakaria",
+        "repo": "nixpkgs-multiverse",
+        "rev": "08279a869108a671dd9004a6eeef4569f629870e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fzakaria",
+        "repo": "nixpkgs-multiverse",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -107,6 +122,7 @@
       "inputs": {
         "dotfiles": "dotfiles",
         "home-manager": "home-manager",
+        "multiverse": "multiverse",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nvim": "nvim"
